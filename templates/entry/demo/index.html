@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo · <条目名></title>
+<link rel="stylesheet" href="../src/component.css">
+<style>
+  /* 仅演示页排版，不属于组件本身 */
+  html,body{margin:0;height:100%;background:#0b0c10;color:#e9ecf2;
+    font:14px/1.6 system-ui,"Noto Sans SC",sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 24px}
+  h1{font-size:20px;font-weight:600;letter-spacing:.02em}
+  p.hint{color:#8c93a3;font-size:13px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>demo · <条目名></h1>
+    <p class="hint">双击本文件即可打开，零构建、无需本地服务器。断网也应可读。</p>
+
+    <!-- 组件挂载点 -->
+    <div data-demo-root>
+      <!-- TODO: 组件标记 -->
+    </div>
+  </div>
+  <script src="../src/component.js"></script>
+</body>
+</html>

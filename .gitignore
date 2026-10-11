@@ -1,0 +1,10 @@
+# 依赖与产物
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# 取证过程中的临时文件（最终截图应落在 entries/*/shots/）
+/tmp/
+*.log

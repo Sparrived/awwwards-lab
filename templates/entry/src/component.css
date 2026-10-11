@@ -1,0 +1,20 @@
+/* <条目名> · <机制>
+ * 这里只放组件本身，不放演示页排版。
+ * 所有可调参数集中在下面这个 :root 块，方便复用者直接覆盖。
+ */
+:root {
+  /* colors */
+  /* typography */
+  /* spacing */
+  /* motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-base: 600ms;
+}
+
+/* 组件样式
+ * 命名空间用组件名，避免污染复用者的全局样式。
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* 必须提供降级：直接呈现终态，不做动画 */
+}

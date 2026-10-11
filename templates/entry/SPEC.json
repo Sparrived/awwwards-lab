@@ -1,0 +1,44 @@
+{
+  "id": "__ID__",
+  "date": "__DATE__",
+  "category": "__CATEGORY__",
+  "source": {
+    "awwwards_url": "",
+    "live_url": "",
+    "title": "__TITLE__",
+    "author": "",
+    "award_date": "",
+    "tags": []
+  },
+  "summary": "一句话：这是什么。",
+  "extracted_mechanism": "被萃取的单一机制，用机制语言描述（不描述具体品牌）。",
+  "tokens": {
+    "colors": {},
+    "typography": {},
+    "spacing": {},
+    "motion": {
+      "duration": "",
+      "easing": "",
+      "trigger": ""
+    }
+  },
+  "api": "怎么用：CSS class 名 / JS 构造参数 / data 属性。",
+  "entrypoints": [
+    "src/component.css",
+    "src/component.js"
+  ],
+  "files": [
+    "demo/index.html",
+    "src/component.css",
+    "src/component.js"
+  ],
+  "deps": [],
+  "reuse_hints": "什么场景该用它，什么场景别用。",
+  "verification": {
+    "rendered_ok": false,
+    "console_errors": null,
+    "screenshot": "",
+    "checked_at": "",
+    "note": "自检通过后把 rendered_ok 改为 true，否则本条不会进 index.json"
+  }
+}

@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- 静态跳转页。GitHub Pages 必须从仓库根发布（source path = /），
+     否则 gallery/index.html 里 demo 的相对路径 ../entries/... 会越过发布根而 404。
+     真正的画廊由 scripts/build_gallery.py 生成到 gallery/index.html。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=./gallery/">
+<title>Awwwards Lab</title>
+<style>
+  html,body{height:100%;margin:0;background:#090a0e;color:#e9ecf2;
+    font:14px/1.6 -apple-system,"Segoe UI",Inter,"Noto Sans SC",system-ui,sans-serif;
+    display:grid;place-items:center}
+  a{color:#7aa2ff}
+</style>
+</head>
+<body>
+  <p>正在进入画廊… 若未自动跳转，<a href="./gallery/">点这里</a>。</p>
+</body>
+</html>
