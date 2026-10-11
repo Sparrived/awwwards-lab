@@ -19,7 +19,7 @@
 | 缓动曲线 | `cubic-bezier(...)` | `getAnimations()[0].easing` |
 | 触发条件 | scroll / hover / load | 交互实测 |
 
-截图：`shots/hero.png`、`shots/section-1.png`
+截图：`shots/original-site.png`（原站首屏，证据；卡片海报取这张）、`shots/demo.png`（本条目 demo 实拍）
 
 ## 怎么用
 

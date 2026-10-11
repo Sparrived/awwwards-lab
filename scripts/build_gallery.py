@@ -19,7 +19,9 @@ import sys
 
 REQUIRED = ["id", "date", "category", "source", "summary",
             "extracted_mechanism", "tokens", "verification"]
-SHOT_PRIORITY = ("hero", "preview", "main", "cover", "shot")
+SHOT_PRIORITY = ("original-site", "original", "hero", "preview", "main", "cover", "shot", "demo")
+# 截图契约：original-site.png = 原站首屏（证据，用作卡片海报）
+#            demo.png          = 本条目 demo 实拍
 SHOT_EXT = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif")
 
 
@@ -90,7 +92,12 @@ def load_entries(lib: pathlib.Path) -> tuple[list[dict], list[dict]]:
             "awwwards_url": (spec.get("source") or {}).get("awwwards_url", ""),
             "shot": f"../{rel}/shots/{shot}" if shot else None,
             "summary": spec["summary"],
+            "strength": spec.get("strength", ""),
+            "expression": spec.get("expression", ""),
+            "composition": spec.get("composition", ""),
+            "motion_catalog": spec.get("motion_catalog", []) or [],
             "extracted_mechanism": spec["extracted_mechanism"],
+            "dont_copy": spec.get("dont_copy", ""),
             "tokens": spec["tokens"],
             "api": spec.get("api", ""),
             "entrypoints": spec.get("entrypoints", []) or [],

@@ -87,6 +87,8 @@
     .replace(/"/g, '&quot;');
   const isColor = v => /^(#[0-9a-f]{3,8}|rgb|hsl|oklch|lab|color\()/i.test(String(v || '').trim());
   const el = html => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+  // 判断类字段（机制/表达/别照搬…）里可能带 markdown 强调符，渲染前剥掉，不要露出 ** 
+  const txt = s => esc(String(s == null ? '' : s).replace(/\*\*/g, ''));
   const pad = n => String(n).padStart(2, '0');
   const NO_VALUE = v => !v || v === '—';
 
@@ -107,7 +109,7 @@
 
   // ---------- 字段渲染（空值整行不渲染，不留破折号占位） ----------
   const NONE = '<span class="meta__v--none">本条目无此项</span>';
-  const row = (k, v) => '<div class="meta__row"><span class="meta__k">' + k + '</span><p class="meta__v">' + v + '</p></div>';
+  const row = (k, v, cls) => '<div class="meta__row' + (cls ? ' ' + cls : '') + '"><span class="meta__k">' + k + '</span><p class="meta__v">' + v + '</p></div>';
 
   function swatches(tokens) {
     const colors = (tokens && tokens.colors) || {};
@@ -145,21 +147,29 @@
       ? '<img src="' + esc(e.shot) + '" alt="" loading="lazy" onerror="this.remove()">'
       : '<span class="ph">无截图证据</span>';
 
-    // 主干信息固定三行（机制/配色/动效），缺值也占行 → 三张卡基线一致
+    // 主干信息：判断优先（机制 / 视效表达 / 别照搬），缺值也占行 → 三张卡基线一致
+    const mc = e.motion_catalog || [];
     const sw = swatches(e.tokens);
     const mo = motionText(e.tokens);
     const rows = [
-      row('机制', '<span class="meta__v--clamp">' + esc(e.extracted_mechanism) + '</span>'),
-      row('配色', sw ? '<span class="swatches">' + sw + '</span>' : NONE),
-      row('动效', mo ? '<span class="mono">' + esc(mo) + '</span>' : NONE)
+      row('机制', '<span class="meta__v--clamp">' + txt(e.extracted_mechanism) + '</span>'),
+      row('视效表达', e.expression ? '<span class="meta__v--clamp">' + txt(e.expression) + '</span>' : NONE),
+      row('别照搬', e.dont_copy ? txt(e.dont_copy) : NONE, 'meta__row--flag')
     ];
 
+    // 参数与证据折叠：这些是佐证，不是重点
     const more = [];
-    more.push(row('依赖', depsText(e.deps)));
+    if (e.composition) more.push(row('构图', txt(e.composition)));
+    if (mc.length) more.push(row('动效清单', '<span class="mono">' + mc.length + ' 条</span> ' +
+      mc.slice(0, 12).map(m => '<span class="tag" title="' + esc([m.duration, m.easing, m.trigger].filter(Boolean).join(' · ')) + '">' +
+        esc(m.name || '?') + '</span>').join(' ')));
+    more.push(row('配色', sw ? '<span class="swatches">' + sw + '</span>' : NONE));
     const ty = typeText(e.tokens);
     if (ty) more.push(row('排版', '<span class="mono">' + esc(ty) + '</span>'));
-    if (e.reuse_hints) more.push(row('适用', esc(e.reuse_hints)));
-    if (e.repro_notes) more.push(row('复核要点', esc(e.repro_notes)));
+    if (mo) more.push(row('动效参数', '<span class="mono">' + esc(mo) + '</span>'));
+    more.push(row('依赖', depsText(e.deps)));
+    if (e.reuse_hints) more.push(row('适用', txt(e.reuse_hints)));
+    if (e.repro_notes) more.push(row('复核要点', txt(e.repro_notes)));
     if ((e.tags || []).length) {
       more.push(row('原站标签', e.tags.map(t => '<span class="tag">' + esc(t) + '</span>').join(' ')));
     }
@@ -172,14 +182,15 @@
         '</div>' +
         '<div class="plate__head">' +
           '<div class="plate__sub">' +
-            '<span class="label accent">' + esc(e.category || '') + '</span>' +
+            '<span class="label accent">' + esc(e.strength || e.category || '') + '</span>' +
             '<span class="label">' + esc(e.date || '') + '</span>' +
+            '<span class="label">轴 ' + esc(e.category || '') + '</span>' +
             (e.author ? '<span class="label">' + esc(e.author) + '</span>' : '') +
           '</div>' +
           '<h2 class="plate__title">' + esc(e.title || e.id) + '</h2>' +
         '</div>' +
         '<dl class="meta">' + rows.join('') + '</dl>' +
-        (more.length ? '<details class="plate__more"><summary>字段明细 · 复核要点 · 标签<span class="label">' +
+        (more.length ? '<details class="plate__more"><summary>构图 · 动效清单 · 参数与证据<span class="label">' +
                        more.length + '</span></summary><dl class="meta">' + more.join('') + '</dl></details>' : '') +
         '<div class="plate__foot">' +
           '<span class="plate__id" title="条目目录名">' + esc(e.id) + '</span>' +

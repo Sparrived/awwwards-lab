@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo · 巨字分幕装置（giant type scenes）</title>
+<link rel="stylesheet" href="../src/scenes.css">
+</head>
+<body>
+
+<!-- 0 · 说明幕 -->
+<section class="scene s0">
+  <span class="scene__idx">00 / intro</span>
+  <h1 class="scene__title">GIANT TYPE
+AS A DEVICE</h1>
+  <span class="scene__spec">滚动看 5 幕 · 行高比始终压紧，字号逐幕变化</span>
+</section>
+
+<!-- 1 · 两行字块，奶油底 -->
+<section class="scene s1">
+  <span class="scene__idx">01</span>
+  <h2 class="scene__title">PUT YOUR
+COLORS ON</h2>
+  <span class="scene__spec">250px · lh 0.852 · ls -0.02em · 2 行</span>
+</section>
+
+<!-- 2 · 单行满宽，蓝底 -->
+<section class="scene s2">
+  <span class="scene__idx">02</span>
+  <h2 class="scene__title">PARTY PACK</h2>
+  <span class="scene__spec">205px · lh 0.820 · 单行撑满</span>
+</section>
+
+<!-- 3 · 一字母一行，红底 -->
+<section class="scene s3">
+  <span class="scene__idx">03</span>
+  <h2 class="scene__title">C
+O
+L
+O
+R
+S</h2>
+  <span class="scene__spec">250px · lh 0.852 · 一字母一行 → 竖字块</span>
+</section>
+
+<!-- 4 · 行高比压到 0.68，黄底 -->
+<section class="scene s4">
+  <span class="scene__idx">04</span>
+  <h2 class="scene__title">ORIGINALS</h2>
+  <span class="scene__spec">230px · lh 0.680 · 极端压紧（字块几乎叠合）</span>
+</section>
+
+<!-- 5 · 短句堆成四行，橙底 -->
+<section class="scene s5">
+  <span class="scene__idx">05</span>
+  <h2 class="scene__title">STAY
+IN
+THE
+LOOP</h2>
+  <span class="scene__spec">213px · lh 0.833 · 短句堆成 4 行撑满高度</span>
+</section>
+
+<section class="scene s1" style="min-height:auto;padding-block:clamp(40px,8vw,96px)">
+  <p class="scene__spec" style="position:static;opacity:.72;text-align:center;max-width:62ch;font-size:12px;line-height:1.75">
+    参数与画面逐幕对应，全部取自原站实测。清洁室复刻：未复制原站代码、图片、字体或文案；
+    色值取自计算样式，原站商用字体以系统无衬线替代。入场揭示是本 demo 自加的，原站揭示机制未取证 → [未验证]。
+  </p>
+</section>
+
+</body>
+</html>

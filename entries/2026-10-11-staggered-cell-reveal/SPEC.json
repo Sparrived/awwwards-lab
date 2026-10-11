@@ -20,6 +20,36 @@
     ]
   },
   "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。",
+  "strength": "scene-choreography",
+  "expression": "原站真正的看家本领是**整段首屏入场编排**，不是某一个动效——实测同时运行 65 个动画、24 组互不相同的动效，由一套编排把它们串成 3 秒左右的开场：先 30 格图片瓦片逐格揭示（每 3 格叠一次 3D 翻转），再左右门帘合拢又打开，Logo 描线绘制、标语淡入上浮，随后内容才接管。所有循环动效（marquee、旋转、脉冲）都带负延迟或超长时长（marquee 380s/400s/440s、wallSpin 90s），目的是让页面在任何时刻被截屏都是「动着的构图」而不是静止画面。本条只抽取了其中一片（瓦片揭示），其余在 motion_catalog 里备查。",
+  "composition": "实测：入场 overlay 为 5 列 × 6 行共 30 个瓦片（__cell），网格 5 列各 228.34px、gap 8.96px（= clamp(5px,0.7vw,10px) @1280）、宽 1177.59px（= min(92vw,1260px)）、高 520px（= min(46vw,520px)）；页面共 2081 个元素；入场 overlay 播完即从 DOM 卸载，并由 sessionStorage['ownitt_intro_seen'] 门控（首访才播）。",
+  "motion_catalog": [
+    { "name": "IntroAnimation__cellReveal", "duration": "0.9s", "easing": "cubic-bezier(0.65, 0, 0.35, 1)", "delay": "calc(var(--i) * 75ms)", "trigger": "load 一次性（overlay 播完卸载）" },
+    { "name": "IntroAnimation__cellFlip", "duration": "1s", "easing": "cubic-bezier(0.77, 0, 0.175, 1)", "delay": "calc(var(--i) * 75ms)", "trigger": "nth-child(3n)" },
+    { "name": "IntroAnimation__doorLeftSlide / doorRightSlide", "duration": "", "easing": "", "delay": "", "trigger": "load：0%→48% 开幕、52%→100% 闭幕（关键帧实测，时长未取证）" },
+    { "name": "AsteriskHero__stampEnter", "duration": "0.95s", "easing": "cubic-bezier(0.16, 1, 0.3, 1)", "delay": "0.2s", "trigger": "load，fill forwards" },
+    { "name": "AsteriskHero__fragmentRise", "duration": "0.95s", "easing": "cubic-bezier(0.16, 1, 0.3, 1)", "delay": "0.25s / 0.55s", "trigger": "load，逐行错峰" },
+    { "name": "AsteriskHero__fragmentRiseAccent", "duration": "1.05s", "easing": "cubic-bezier(0.16, 1, 0.3, 1)", "delay": "0.88s", "trigger": "load" },
+    { "name": "AsteriskHero__spin", "duration": "22s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "AsteriskHero__rollCities", "duration": "18s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "AsteriskHero__dotTravel", "duration": "2.2s", "easing": "cubic-bezier(0.4, 0, 0.2, 1)", "delay": "0s", "trigger": "无限循环" },
+    { "name": "AsteriskHero__grainShift", "duration": "1.6s", "easing": "steps(8)", "delay": "0s", "trigger": "无限循环" },
+    { "name": "AsteriskHero__kenBurns", "duration": "32s", "easing": "", "delay": "0s", "trigger": "无限循环" },
+    { "name": "KeywordRotator__keywordRotate", "duration": "20s", "easing": "cubic-bezier(0.76, 0, 0.24, 1)", "delay": "0s", "trigger": "无限循环" },
+    { "name": "LocalAnchor__anchorAppear / anchorPunch", "duration": "auto（滚动驱动）", "easing": "cubic-bezier(0.22, 1, 0.36, 1)", "delay": "0s", "trigger": "滚动，fill both" },
+    { "name": "Manifesto__spinAst", "duration": "18s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "Manifesto__marquee", "duration": "34s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "ProjectsWall__wallSpin", "duration": "90s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "ProjectsWall__marquee ×3", "duration": "380s / 400s / 440s", "easing": "linear", "delay": "-200s / -30s / -120s", "trigger": "无限循环，负延迟错相位" },
+    { "name": "Services__numPulse ×5", "duration": "2.2s", "easing": "ease-in-out", "delay": "0s", "trigger": "无限循环" },
+    { "name": "Services__ghostBreath ×5", "duration": "4s", "easing": "ease-in-out", "delay": "0s", "trigger": "无限循环" },
+    { "name": "Services__wordRoll ×5 / __itemsRoll ×5", "duration": "22s / 28s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "ClientLogos__creditsRoll", "duration": "46s", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "SiteFooter__strokeDraw ×7", "duration": "1.7s", "easing": "cubic-bezier(0.77, 0, 0.175, 1)", "delay": "0 / 0.16 / 0.32 / 0.42 / 0.52 / 0.66 / 0.76s", "trigger": "进入视口，逐笔错峰" },
+    { "name": "CookieBanner__bannerReveal / __fadeInUp ×3 / __dotPulse", "duration": "0.75s / 0.5s / 2.4s", "easing": "cubic-bezier(0.16, 1, 0.3, 1) / ease-in-out", "delay": "0.1s / 0.35~0.55s", "trigger": "load" },
+    { "name": "AwwwardsBadge__pillPulse / __starSpin", "duration": "3.5s / 8s", "easing": "ease-in-out / linear", "delay": "0s", "trigger": "无限循环" }
+  ],
+  "dont_copy": "三条：①**首屏被入场 overlay 劫持**——由 sessionStorage 门控、播完即从 DOM 卸载，首次访客要等 2~3 秒才见到内容，重复访客则完全看不到这段设计；对「内容要立刻可用」的站点是反模式。②**超长循环动画过量**：marquee 380/400/440s、wallSpin 90s、spin 22s、kenBurns 32s 同时常驻，在低端设备上持续占用合成器与 GPU，且部分动画在滚动中无法暂停。③**依赖重**：整站建立在 Next.js + GSAP 之上，本条虽以原生等价复刻，但要复现整段编排就不是轻量方案了。",
   "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转（rotateY 0→90→0）做节奏变化。",
   "repro_notes": "原站类名带 CSS modules 前缀 IntroAnimation-module__HH0i_W__（__cell / __cellInner / __grid）；复核时必须先清 sessionStorage（门控键 ownitt_intro_seen），否则 overlay 不挂载、DOM 里查不到 __cell，会被误判为机制不存在。入场 overlay 播完即从 DOM 移除，只能截到入场结束态。自检动效要用 seek 法（pause + currentTime），标签页 hidden 时动画时钟恒为 0 但 playState 仍是 running。",
   "tokens": {
@@ -40,14 +70,16 @@
   "files": [
     "demo/index.html",
     "src/component.css",
-    "src/component.js"
+    "src/component.js",
+    "shots/original-site.png",
+    "shots/demo.png"
   ],
   "deps": [],
   "reuse_hints": "适合：作品集/品牌站首屏入场、图库或栏目卡的批量出现、内容段的节奏型揭示。别用：需要被反复触发的交互反馈（本条是一次性入场）；已内置 prefers-reduced-motion 降级为瞬时呈现。",
   "verification": {
     "rendered_ok": true,
     "console_errors": 0,
-    "screenshot": "shots/hero.png",
+    "screenshot": "shots/demo.png",
     "checked_at": "2026-10-11T10:40:00+08:00",
     "note": "file:// 打开 demo：10 格，sgr-reveal 三格 delay 实测 0/75/150ms；seek 法实测 t=0 → clip-path inset(50%)/opacity 0/translateY(14px)、t=900 → inset(0%)/opacity 1/translateY(0)，与原站 @keyframes cellReveal 逐字一致；sgr-flip 已按原站 @keyframes cellFlip 改为 rotateY 0→90→0；控制台 0 报错、无外部请求。"
   }

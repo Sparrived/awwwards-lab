@@ -1,0 +1,114 @@
+/* ============================================================
+   giant-type-scenes · 巨字分幕装置（clean-room 复刻）
+   机制：不用插图当主视觉，而把「标题」本身放大成图像——
+   字号给到 100~250px、行高比压到 0.68~0.85（字块紧贴），
+   再用强制换行把一句话堆成 2~6 行字块（短词甚至一字母一行），
+   让字块撑满整屏；每段换一个整屏色块当底，形成分幕节奏。
+
+   实测自 ringpopcandy.com（getComputedStyle，非目测）：
+     10 个 .section-title，字号 102 / 120 / 128 / 160 / 250px 按段变化
+     行高比 0.68 ~ 0.852（250/205、250/213、250/170、120/100、102/86、128/107、160/115）
+     字距 -0.02em，字重 400~500，全大写
+     页面总高 11047px，14 个 section，整屏色块宽 1278px（视口 1280）
+   ============================================================ */
+
+:root {
+  /* 色值全部为原站实测（rgb() → hex） */
+  --ground:  #FFF7E9;
+  --ink:     #141723;
+  --blue:    #2364E7;
+  --red:     #E1251B;
+  --yellow:  #FFF200;
+  --orange:  #FC7600;
+  --green:   #0B7302;
+
+  --font: "Helvetica Neue", "HelveticaNeue", Helvetica, "Arial Narrow", Arial,
+          "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+  --track: -0.02em;   /* 实测字距 */
+  --pad:   clamp(20px, 4vw, 56px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 一幕 ---------- */
+.scene {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: var(--pad);
+  overflow: hidden;          /* 字块允许被裁，但不许撑出布局 */
+  background: var(--bg, var(--ground));
+  color: var(--fg, var(--ink));
+}
+
+/* ---------- 字块 ---------- */
+.scene__title {
+  margin: 0;
+  font-weight: var(--fw, 400);
+  font-size: var(--fs);
+  line-height: var(--lh, 0.85);   /* 行高比：字块紧贴的关键 */
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  text-align: center;
+  white-space: pre;               /* 保留换行，不自动折行 */
+  max-width: 100%;
+}
+
+/* 角标：把这一幕的实测参数写在画面上，既是说明也是装饰 */
+.scene__spec {
+  position: absolute;
+  left: var(--pad);
+  bottom: var(--pad);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.scene__idx {
+  position: absolute;
+  right: var(--pad);
+  top: var(--pad);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.55;
+}
+
+/* ---------- 各幕：字号同时对宽度与高度双约束 ----------
+   宽度：按行内字符数反推（字块撑满视口宽）
+   高度：按行数反推（多行字块不许超出视口高，否则会被裁）
+   只用 vw 会在矮窗口里把多行字块裁掉——实测 6 行 × 250px = 1278px > 577px 视口。 */
+.s1 { --bg: var(--ground); --fg: var(--ink);    --fs: clamp(32px, min(16.6vw, 40svh), 250px); --lh: 0.852; }
+.s2 { --bg: var(--blue);   --fg: var(--ground); --fs: clamp(26px, 13.4vw, 205px);             --lh: 0.820; }
+.s3 { --bg: var(--red);    --fg: var(--ground); --fs: clamp(34px, min(22.4vw, 14svh), 250px); --lh: 0.852; }
+.s4 { --bg: var(--yellow); --fg: var(--ink);    --fs: clamp(28px, 15.2vw, 230px);             --lh: 0.680; }
+.s5 { --bg: var(--orange); --fg: var(--ink);    --fs: clamp(28px, min(17.6vw, 21svh), 213px); --lh: 0.833; }
+.s0 { --bg: var(--ground); --fg: var(--ink);    --fs: clamp(24px, min(8.6vw, 40svh), 118px);  --lh: 0.836; --fw: 500; }
+
+/* ---------- 入场揭示（本 demo 自加，原站揭示机制未取证 → [未验证]） ----------
+   用 CSS 滚动驱动动画，浏览器不支持时自动退化为静止呈现，零 JS。 */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scene__title {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 42%;
+    }
+    @keyframes rise {
+      from { transform: translateY(0.32em); opacity: 0; }
+      to   { transform: translateY(0);      opacity: 1; }
+    }
+  }
+}

@@ -11,7 +11,20 @@
     "tags": []
   },
   "summary": "一句话：这是什么。",
-  "extracted_mechanism": "被萃取的单一机制，用机制语言描述（不描述具体品牌）。",
+  "strength": "它真正最出众的维度（枚举：type-as-image / color-as-composition / scene-choreography / motion-recipe / layout-system / component / material-light / webgl-3d / tone-system）。",
+  "expression": "视效表达：它为什么好看、是怎么构造出来的（机制语言，不是参数清单）。",
+  "composition": "构图证据：尺度与分幕（整屏色块/出血区宽高与屏占比、分幕数、页面总高、栅格列数与 gap、同一字号用了多少段）。",
+  "motion_catalog": [
+    {
+      "name": "",
+      "duration": "",
+      "easing": "",
+      "delay": "",
+      "trigger": ""
+    }
+  ],
+  "extracted_mechanism": "被萃取的单一机制，必须是 strength 那一维，不是最容易测量的那个。",
+  "dont_copy": "它并不出众 / 不该照搬的地方（至少一条）。说不出哪里不好 = 没看懂。",
   "tokens": {
     "colors": {},
     "typography": {},

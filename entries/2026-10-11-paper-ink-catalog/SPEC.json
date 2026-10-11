@@ -25,7 +25,17 @@
     ]
   },
   "summary": "暖纸底 + 近墨色 + 细线分隔 + 单一强调色的「纸墨编目」主题：靠极端字号差与收紧字距建立秩序，卡片平面无投影，用暗底当作展品框。",
-  "extracted_mechanism": "paper-ink catalog theme：一块暖纸底（#F4F4F2）承住全部内容、近墨色（#121214）承载全部文字、1px 低对比细线做分隔；唯一强调色（#FF3E3E）只在「需要指向」的地方出现（分类标签/链接悬停/焦点环/选中文字）。秩序来自排印而非装饰：display 与正文形成约 5.4 倍字号差，字距随字号收紧（display -0.035em / h3 -0.02em），卡片一律平面纸 + 细线、无投影无浮起，作品预览放进暗底（#0B0C10）框里形成「展品」层级。",
+  "strength": "tone-system",
+  "expression": "它出众的不是某个零件，而是一整套「克制」的取舍：只用两级明度（纸 #F4F4F2 / 墨 #121214）承载全部内容，用 1px 低对比细线（实测 42 处）替代投影与卡片浮起，把唯一的彩色（#FF3E3E）严格限制在「需要指向」的位置（分类标签、链接悬停、焦点环、选中文字，实测四个属性各 44~47 处），其余对比全靠排印——display 与正文约 5.4 倍字号差，字距随字号收紧（display -0.035em、h3 -0.02em），标签一律 12px 大写字距 0.06em。结果是页面没有任何装饰元素，却没有一处显得空。",
+  "composition": "实测（视口 1280）：外壳 1560px 居中 + clamp(20px,3.4vw,56px) 内边距；12 栏网格 gap 40px（次级 32px / 8px）；区段纵向 padding 160px（部分 128px）；圆角只有两档（卡片 12px、药丸 999px）；细线 1px rgba(18,18,20,0.12) 共 42 处，加重变体 1px rgb(98,98,106) 13 处；字号档位 92.16 / 30.72 / 17 / 14 / 12px，比值约 5.4 : 1.8 : 1。",
+  "motion_catalog": [
+    { "name": "入场揭示（多组）", "duration": "1050ms", "easing": "linear", "delay": "120 / 210 / 300ms（步长 90ms）", "trigger": "load" },
+    { "name": "入场揭示（负延迟组）", "duration": "1050ms", "easing": "linear", "delay": "-400 / -550 / -750ms", "trigger": "load，错相位" },
+    { "name": "循环动效", "duration": "6000ms", "easing": "linear", "delay": "0s", "trigger": "无限循环" },
+    { "name": "次级揭示", "duration": "1100ms", "easing": "linear", "delay": "120 / 210 / 300ms", "trigger": "load" }
+  ],
+  "dont_copy": "三条：①**单一强调色的上限**——全站只有一个彩色，遇到需要多主色区分（多品牌、多状态、数据可视化）的场景不够用，必须自行扩变量。②**次要灰接近对比度下限**——#62626A 放在 12px 小字上约 4.6:1，堪堪过 AA，长文或弱视用户偏吃力；我们保留该实测值以维持与原站一致，但复用时应按场景调深。③**依赖免费字体的现场安装**——原站用 Bricolage Grotesque / Space Grotesk（免费但需联网加载），本主题为离线优先只声明字体名，未安装时回退 system-ui，观感会退化。",
+  "extracted_mechanism": "paper-ink tone system：两级明度（暖纸底 + 近墨字）承载全部内容、1px 低对比细线替代一切投影与浮起、唯一强调色只用于「指向」类元素；层级完全由排印建立——约 5.4 倍的字号差 + 随字号收紧的字距 + 12px 大写字距 0.06em 的标签。",
   "repro_notes": "全部数值取自 https://metic.studio/en 的浏览器计算样式（getComputedStyle / document.getAnimations），非目测。复核要点：①颜色直接读 body 与元素的 backgroundColor/color 出现频次（纸底 rgb(244,244,242) 出现 152 次、墨 rgb(18,18,20) 726 次、次要 rgb(98,98,106) 305 次、强调 rgb(255,62,62) 88 次）；②强调色用途可用「统计所有元素里等于 rgb(255,62,62) 的 color/backgroundColor/borderColor/outlineColor」复核，实测各有 44~47 处；③细线是 1px rgba(18,18,20,0.12)，实测 42 处，另有 1px rgb(98,98,106) 13 处作加重变体；④区段纵向 padding 实测 160px（部分 128px），12 栏网格 gap 40px；⑤动效实测 1050ms linear，错峰 120/210/300ms（步长 90ms）以及 -400/-750/-550ms 的负延迟组。字体：原站 Bricolage Grotesque + Space Grotesk（均为免费字体），本主题为「零外网依赖」只在 font-family 里声明字体名 + 系统回退，不引 CDN；本地装了这两款免费字体即自动生效。",
   "tokens": {
     "colors": {
@@ -69,7 +79,8 @@
   "files": [
     "demo/index.html",
     "src/theme.css",
-    "shots/hero.png",
+    "shots/original-site.png",
+    "shots/demo.png",
     "shots/catalog-in-use.png"
   ],
   "deps": [],
@@ -77,7 +88,7 @@
   "verification": {
     "rendered_ok": true,
     "console_errors": 0,
-    "screenshot": "shots/hero.png",
+    "screenshot": "shots/demo.png",
     "checked_at": "2026-10-11T11:05:00+08:00",
     "note": "file:// 打开 demo 与 gallery/index.html 均实测：控制台 0 报错、0 个外部网络请求；gallery 复用本条 theme.css 渲染出抬头/统计/筛选/展品卡；字体在未安装 Bricolage/Space Grotesk 的环境下按预期回退 system-ui，结构不变；prefers-reduced-motion 降级为瞬时。"
   }

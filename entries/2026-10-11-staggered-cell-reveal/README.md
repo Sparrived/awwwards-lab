@@ -1,9 +1,22 @@
 # 错峰分格揭示 · staggered cell reveal
 
 - 类别：motion
+- 萃取的维度（strength）：`scene-choreography`（分幕与入场编排）
 - 来源：[awwwards](https://www.awwwards.com/sites/ownitt-2) → [原站](https://ownitt.fr/)
 - 作者：（列表页未提供，未取证） ｜ 获奖：Awwwards Nominee（具体日期页未提供）
 - 萃取机制：网格瓦片错峰揭示 —— 每格以 `clip-path` 从中心展开、轻微上移并淡入，逐格延迟 75ms
+
+## 视效表达（它真正出众在哪）
+
+原站的看家本领是**整段首屏入场编排**，不是某一个动效。实测同时运行 **65 个动画、24 组互不相同的动效**，由一套编排串成约 3 秒的开场：30 格图片瓦片逐格揭示（每 3 格叠一次 3D 翻转）→ 左右门帘合拢又打开 → Logo 描线绘制 → 标语淡入上浮 → 内容接管。所有常驻动效（marquee、旋转、脉冲、ken burns）都带**负延迟或超长时长**（marquee 380s/400s/440s、wallSpin 90s、kenBurns 32s、spin 22s），目的是让页面在**任何时刻被截屏都是一幅动着的构图**，而不是静止画面。
+
+**本条只抽取了其中一片**（瓦片揭示），其余 23 组在下面的动效清单里备查——这条清单本身就是资产，后续条目可以从中另选一片。
+
+## 别照搬
+
+1. **首屏被入场 overlay 劫持**：由 `sessionStorage['ownitt_intro_seen']` 门控、播完即从 DOM 卸载——首次访客要等 2~3 秒才见到内容，重复访客则完全看不到这段设计。对「内容要立刻可用」的站点是反模式。
+2. **超长循环动画过量**：marquee 380/400/440s、wallSpin 90s、spin 22s、kenBurns 32s 同时常驻，持续占用合成器与 GPU，低端设备上会持续掉帧，且滚动中无法暂停。
+3. **依赖重**：整站建立在 Next.js + GSAP 之上。本条虽以原生等价复刻，但要复现整段编排就不是轻量方案了。
 
 ## 这是什么
 
@@ -37,6 +50,37 @@
 2. 入场 overlay 播完即从 DOM 移除，所以截图只能截到「入场结束后」的状态。
 
 **仍未取证项（如实标注）：** 无。上一版标注的 `cellFlip` 关键帧内容已补取到（见上表），demo 已由 `rotateY(85°→0)` 的近似**改为逐字复刻**。
+
+## 动效清单（24 组，实测 `effect.getTiming()`）
+
+这些是原站「视效表达」的完整底账，本条只复刻了第 1 组。
+
+| 动效 | 时长 | 缓动 | 延迟 | 触发 |
+| --- | --- | --- | --- | --- |
+| `IntroAnimation__cellReveal` | 0.9s | `cubic-bezier(0.65,0,0.35,1)` | `calc(var(--i)*75ms)` | **本条复刻对象** |
+| `IntroAnimation__cellFlip` | 1s | `cubic-bezier(0.77,0,0.175,1)` | `calc(var(--i)*75ms)` | `nth-child(3n)` |
+| `IntroAnimation__doorLeft/RightSlide` | 未取证 | — | — | load（0%→48% 开、52%→100% 关） |
+| `AsteriskHero__stampEnter` | 0.95s | `cubic-bezier(0.16,1,0.3,1)` | 0.2s | load |
+| `AsteriskHero__fragmentRise` | 0.95s | `cubic-bezier(0.16,1,0.3,1)` | 0.25s / 0.55s | load，逐行错峰 |
+| `AsteriskHero__fragmentRiseAccent` | 1.05s | `cubic-bezier(0.16,1,0.3,1)` | 0.88s | load |
+| `AsteriskHero__spin` | 22s | linear | — | 无限循环 |
+| `AsteriskHero__rollCities` | 18s | linear | — | 无限循环 |
+| `AsteriskHero__dotTravel` | 2.2s | `cubic-bezier(0.4,0,0.2,1)` | — | 无限循环 |
+| `AsteriskHero__grainShift` | 1.6s | `steps(8)` | — | 无限循环 |
+| `AsteriskHero__kenBurns` | 32s | — | — | 无限循环 |
+| `KeywordRotator__keywordRotate` | 20s | `cubic-bezier(0.76,0,0.24,1)` | — | 无限循环 |
+| `LocalAnchor__anchorAppear / anchorPunch` | auto | `cubic-bezier(0.22,1,0.36,1)` | — | 滚动驱动 |
+| `Manifesto__spinAst` | 18s | linear | — | 无限循环 |
+| `Manifesto__marquee` | 34s | linear | — | 无限循环 |
+| `ProjectsWall__wallSpin` | 90s | linear | — | 无限循环 |
+| `ProjectsWall__marquee` ×3 | 380s / 400s / 440s | linear | -200s / -30s / -120s | 无限循环，负延迟错相位 |
+| `Services__numPulse` ×5 | 2.2s | ease-in-out | — | 无限循环 |
+| `Services__ghostBreath` ×5 | 4s | ease-in-out | — | 无限循环 |
+| `Services__wordRoll` ×5 / `__itemsRoll` ×5 | 22s / 28s | linear | — | 无限循环 |
+| `ClientLogos__creditsRoll` | 46s | linear | — | 无限循环 |
+| `SiteFooter__strokeDraw` ×7 | 1.7s | `cubic-bezier(0.77,0,0.175,1)` | 0/0.16/0.32/0.42/0.52/0.66/0.76s | 进视口，逐笔错峰 |
+| `CookieBanner__bannerReveal` / `__fadeInUp` ×3 / `__dotPulse` | 0.75s / 0.5s / 2.4s | — | 0.1s / 0.35~0.55s | load |
+| `AwwwardsBadge__pillPulse` / `__starSpin` | 3.5s / 8s | — | — | 无限循环 |
 
 **未萃取但已发现（留给后续条目）：** 同模块还有一对门开合关键帧
 `@keyframes …__doorLeftSlide / …__doorRightSlide`：`0%{translate(-100%)} 48%{translate(0)} 52%{translate(0)} 100%{translate(-100%)}`（右门镜像），以及 `logoDraw`、`taglineOverlay` 等子动效。

@@ -230,6 +230,8 @@ hr { border: 0; border-top: var(--hairline); margin: 0; }
 /* 值是这张卡最该读的内容：用墨色，不用灰 */
 .meta__v { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--ink); }
 .meta__v b { font-weight: 500; }
+/* 「别照搬」是判断，不是数据：给标签上强调色 */
+.meta__row--flag .meta__k { color: var(--accent); }
 .meta__v--clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 /* 该字段确实没有值：置灰的短横，保证三张卡的字段行数与基线一致 */
 .meta__v--none { color: var(--ink-soft); }
