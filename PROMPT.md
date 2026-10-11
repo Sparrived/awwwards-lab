@@ -1,4 +1,4 @@
-# Awwwards 每日设计萃取 — 任务提示词 v9
+# Awwwards 每日设计萃取 — 任务提示词 V1
 
 > 用途：Hermes 每天 08:30 的定时任务正文；每次为全新上下文，本提示词必须自包含。
 > 项目：`D:\Code\awwwards-lab`；远程：`github.com/Sparrived/awwwards-lab`；在线画廊由 GitHub Pages 提供。

@@ -10,7 +10,7 @@
 ## 结构
 
 ```text
-├── PROMPT.md                  每日任务 v9：先体验、排序、实现，再独立复核
+├── PROMPT.md                  每日任务 V1：先体验、排序、实现，再独立复核
 ├── index.json                 生成的机器索引（禁止手改）
 ├── gallery/index.html         生成的画廊（禁止手改）
 ├── seen.json                  候选与决策，用于去重
