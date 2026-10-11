@@ -11,6 +11,7 @@
 
 <!-- 0 · 奶油底 + 满幅色场 + 巨字压图 + 逐词遮罩揭示 -->
 <section class="scene s0" style="--field:#1F5FE0; color:var(--neon); --highlight-color:#FFF7E9">
+  <span class="scene__field" aria-hidden="true"></span>
   <span class="scene__idx">00 / orig</span>
   <span class="kicker" style="--kicker:var(--neon)">collection</span>
   <h1 class="scene__title">
@@ -23,6 +24,7 @@
 
 <!-- 1 · 一字母一行：窄词堆成竖字柱 -->
 <section class="scene s1 scene--light" style="--field:#F7D9C4; color:var(--pink)">
+  <span class="scene__field" aria-hidden="true"></span>
   <span class="scene__idx">01 / wedding</span>
   <h2 class="scene__title">
     <span class="word" style="--i:0"><span class="word__in">W</span></span>
@@ -60,6 +62,7 @@
 
 <!-- 4 · 极紧行高 + 15.6 倍小标签对比 -->
 <section class="scene s4" style="--field:#FFF200; color:#141723">
+  <span class="scene__field" aria-hidden="true"></span>
   <span class="scene__idx">04 / lh 0.68</span>
   <span class="kicker" style="--kicker:#141723">find your moment</span>
   <h2 class="scene__title">
@@ -72,6 +75,7 @@
 
 <!-- 5 · 视效状态：floating + shadow-blur + spark（关键帧原文复刻） -->
 <section class="scene s5 scene--light" style="--field:#0B7302; color:var(--ground)">
+  <span class="scene__field" aria-hidden="true"></span>
   <span class="scene__idx">05 / states</span>
   <h2 class="scene__title">
     <span class="word" style="--i:0"><span class="word__in">SPARK</span></span>
@@ -87,8 +91,8 @@
   <p class="scene__spec" style="position:static;opacity:.75;text-align:center;font-size:12px;line-height:1.8;max-width:66ch">
     机制与参数逐幕对应，全部取自原站实测。清洁室复刻：未复制原站代码、图片、字体或文案；
     产品图以纯色场 + 自绘"糖果环"占位，商用字体以系统无衬线替代。
-    逐词遮罩揭示在原站由 JS 切换 <code>.is-inview</code> 触发，本 demo 改用 CSS 滚动驱动（零 JS），
-    浏览器不支持时退化为静止呈现。
+    逐词遮罩揭示照原站机制实现——JS 给每个词加 <code>.is-inview</code>（用的是 rAF 节流的滚动位置检查，
+    而非 IntersectionObserver：后者对被跳滚跳过的元素不回调）。未启用 JS 时（html 上没有 .js）词直接可见。
   </p>
 </section>
 
