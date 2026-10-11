@@ -1,1 +1,154 @@
-[]
+[
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
+    "live_url": "https://ringpopcandy.com/",
+    "title": "Ring Pop® Candy",
+    "decision": "accepted",
+    "reason": "配色主题：暖米白底+单一墨色+一组高饱和糖果原色，色可实测，机制清晰（入库 candy-palette-theme）"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
+    "live_url": "https://ownitt.fr/",
+    "title": "Ownitt",
+    "decision": "accepted",
+    "reason": "动效：网格瓦片错峰揭示（cellReveal 900ms / stagger 75ms / cubic-bezier(0.65,0,0.35,1)），CSS 规则可取，机制明确（入库 staggered-cell-reveal）"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/los-angeles-public-library",
+    "live_url": "https://www.lapl.org/",
+    "title": "Los Angeles Public Library",
+    "decision": "rejected",
+    "reason": "暖纸底+衬线 display 的编辑风主题不错，但商用字体多、配色偏单一，配色主题的机制不如糖果色板鲜明"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/sphere-recruitment",
+    "live_url": "https://www.spheredigitalrecruitment.com/",
+    "title": "Sphere Digital Recruitment",
+    "decision": "rejected",
+    "reason": "紫/薄荷/深灰三色干净，但常见，缺乏可萃取的独特配色机制"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/woonpact",
+    "live_url": "https://woonpact.gent/",
+    "title": "Woonpact",
+    "decision": "rejected",
+    "reason": "粉+浅黄双色，色域偏窄，不足以撑起一套主题 token"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/lil-boxes-web-agency",
+    "live_url": "https://lil-boxes.com",
+    "title": "lil-boxes",
+    "decision": "rejected",
+    "reason": "页面仅 1 种背景色，无配色系统可言"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/atmos-gallery",
+    "live_url": "https://atmos.gallery",
+    "title": "Atmos Gallery",
+    "decision": "rejected",
+    "reason": "含 canvas/WebGL，色值多为逐帧渲染，无 GPU 环境难复现"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/vibe",
+    "live_url": "https://vibebevvy.com/",
+    "title": "Vibebevvy",
+    "decision": "rejected",
+    "reason": "桃+深紫+亮黄的配色很有个性，但页面含 canvas 动效，且主题机制与糖果色板同类，避免重复"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/nala-kun",
+    "live_url": "https://www.nalakun.com/",
+    "title": "Nala Kun",
+    "decision": "rejected",
+    "reason": "紫调主题，含 canvas，配色不够系统化"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/digital-meadow-1",
+    "live_url": "https://digitalmeadow.studio",
+    "title": "Digital Meadow",
+    "decision": "rejected",
+    "reason": "暗色终端风主题有特色，但色值多为 color(srgb …) 半透明叠加，难以沉淀为稳定 token"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/ringer-studio-noah-lesage",
+    "live_url": "https://noahlesage.com/",
+    "title": "Ringer Studio — Noah Lesage",
+    "decision": "rejected",
+    "reason": "白/黑+荧光黄/粉/蓝的高能量色块配色不错，但动效（8 个）与配色都较杂，单条机制不聚焦"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/blink-capital",
+    "live_url": "https://blink.capital/",
+    "title": "Blink Capital",
+    "decision": "rejected",
+    "reason": "文本错峰入场（200ms/stagger 50ms）机制清晰，但比 ownitt 的分格揭示更常见、可萃取结构更简单"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/kota-studio",
+    "live_url": "https://madebykota.com/",
+    "title": "KOTA Studio",
+    "decision": "rejected",
+    "reason": "Framer 站点，86 个动画、关键帧极长（linear() 自定义缓动）且含 canvas，复现成本高"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/the-tie-break",
+    "live_url": "https://thetiebreak.merci-michel.com/",
+    "title": "The Tie Break",
+    "decision": "rejected",
+    "reason": "含 canvas 游戏化交互（shadow/bounce/squish），无 GPU 环境不可复现"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/studio-mirage",
+    "live_url": "https://studiomirage.io/",
+    "title": "Studio Mirage",
+    "decision": "rejected",
+    "reason": "canvas 主导，动效多为 canvas 渲染；按钮过渡虽可测但不构成单一独特机制"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/rubens-cantuni-1",
+    "live_url": "https://www.rubens.design/",
+    "title": "Rubens Cantuni",
+    "decision": "rejected",
+    "reason": "分层 idle 头像动画（rotate/drift/breathe/blink，纯 CSS）是可复现的好机制，但核心形象依赖 canvas 与具体角色，清洁室复刻走样风险高"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/mathilde-de-chiara-portfolio",
+    "live_url": "https://www.mathildedechiara.com/",
+    "title": "Mathilde de Chiara",
+    "decision": "rejected",
+    "reason": "首屏仅 1 个入场动画 + canvas，动效信息量不足"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/sean-currlins-portfolio",
+    "live_url": "https://seancurrlin.com/",
+    "title": "Sean Currlin",
+    "decision": "rejected",
+    "reason": "含 canvas，动效分散（bounce/spin/wave），无单一聚焦机制"
+  },
+  {
+    "date": "2026-10-11",
+    "awwwards_url": "https://www.awwwards.com/sites/crow",
+    "live_url": "https://flycrooked.com/",
+    "title": "Crow",
+    "decision": "rejected",
+    "reason": "仅 1 个 scroll 箭头动画 + canvas，动效素材过少"
+  }
+]

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo · 错峰分格揭示 (staggered cell reveal)</title>
+<link rel="stylesheet" href="../src/component.css">
+<style>
+  /* 仅演示页排版，不属于组件本身 */
+  html,body{margin:0;background:#0b0c10;color:#e9ecf2;
+    font:14px/1.6 system-ui,"Noto Sans SC",sans-serif}
+  .wrap{max-width:1280px;margin:0 auto;padding:40px 24px 64px}
+  h1{font-size:18px;font-weight:600;letter-spacing:.02em;margin:0 0 6px}
+  p.hint{color:#8c93a3;font-size:13px;margin:0}
+  .bar{display:flex;gap:14px;align-items:center;margin:24px 0 14px}
+  button[data-sgr-replay]{background:#e9ecf2;color:#0b0c10;border:0;border-radius:8px;
+    padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+  .tok{color:#9aa3b2;font-size:12.5px;line-height:2;margin-top:28px;
+    border-top:1px solid #1c2027;padding-top:16px}
+  .tok code{color:#e9ecf2;background:#171a20;padding:1px 6px;border-radius:5px}
+  /* 演示瓦片填充：纯 CSS 渐变占位（清洁室，非原站素材） */
+  .sgr-cell__inner{background:linear-gradient(135deg,#232833,#39414f)}
+  .sgr-cell:nth-child(2n)  .sgr-cell__inner{background:linear-gradient(135deg,#2a3040,#45516a)}
+  .sgr-cell:nth-child(3n)  .sgr-cell__inner{background:linear-gradient(135deg,#33405a,#556785)}
+  .sgr-cell:nth-child(1)   .sgr-cell__inner{background:linear-gradient(135deg,#3b4a6b,#6a7fb8)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>demo · 错峰分格揭示</h1>
+    <p class="hint">网格 5×2：每格 clip-path inset(50%→0) + 上移 14px + 淡入，逐格延迟 75ms；每 3 格额外 3D 翻转。零依赖，双击即开。</p>
+
+    <div class="bar">
+      <button data-sgr-replay="grid1">▶ 重放</button>
+      <span class="hint">按钮重放同一段入场序列</span>
+    </div>
+
+    <!-- 组件挂载点：--i 直接写在 HTML，无 JS 也能错峰 -->
+    <div id="grid1" class="sgr-grid" data-sgr data-flip="on" style="--sgr-cols:5">
+      <div class="sgr-cell" style="--i:0"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:1"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:2"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:3"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:4"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:5"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:6"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:7"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:8"><div class="sgr-cell__inner"></div></div>
+      <div class="sgr-cell" style="--i:9"><div class="sgr-cell__inner"></div></div>
+    </div>
+
+    <div class="tok">
+      <div>实测来源：ownitt.fr 的 CSS 规则（<code>@keyframes ...__cellReveal</code> 与 <code>.__cell</code> 规则）</div>
+      <div>时长 <code>900ms</code> ｜ 缓动 <code>cubic-bezier(0.65, 0, 0.35, 1)</code> ｜ 错峰 <code>delay = index × 75ms</code></div>
+      <div>3n 格翻转 <code>1000ms cubic-bezier(0.77, 0, 0.175, 1)</code>（关键帧内容为等效重建，[未验证]）</div>
+    </div>
+  </div>
+  <script src="../src/component.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "id": "2026-10-11-staggered-cell-reveal",
+  "date": "2026-10-11",
+  "category": "motion",
+  "source": {
+    "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
+    "live_url": "https://ownitt.fr/",
+    "title": "Ownitt",
+    "author": "",
+    "award_date": "",
+    "tags": [
+      "animation",
+      "transitions",
+      "scrolling",
+      "storytelling",
+      "gestures-interaction",
+      "gsap",
+      "react",
+      "next-js"
+    ]
+  },
+  "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。",
+  "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转做节奏变化。",
+  "tokens": {
+    "colors": {},
+    "typography": {},
+    "spacing": {},
+    "motion": {
+      "duration": "900ms（reveal）；flip 1000ms；grain 1800ms",
+      "easing": "cubic-bezier(0.65, 0, 0.35, 1)（reveal）；flip cubic-bezier(0.77, 0, 0.175, 1)",
+      "trigger": "load（一次性入场，animation-fill-mode: forwards）；错峰 delay = index × 75ms"
+    }
+  },
+  "api": "CSS：容器加 class=\"sgr-grid\" 与 data-sgr，子元素 class=\"sgr-cell\"（用 style=\"--i:N\" 指定序号，或由 JS 自动编号），可选 data-flip=\"on\" 开启 3n 翻转，--sgr-cols 控制列数。JS：window.StaggerReveal.replay(gridEl) 重放；window.StaggerReveal.init(root) 手动初始化。",
+  "entrypoints": [
+    "src/component.css",
+    "src/component.js"
+  ],
+  "files": [
+    "demo/index.html",
+    "src/component.css",
+    "src/component.js"
+  ],
+  "deps": [],
+  "reuse_hints": "适合：作品集/品牌站首屏入场、图库或栏目卡的批量出现、内容段的节奏型揭示。别用：需要被反复触发的交互反馈（本条是一次性入场）；已内置 prefers-reduced-motion 降级为瞬时呈现。",
+  "verification": {
+    "rendered_ok": true,
+    "console_errors": 0,
+    "screenshot": "shots/hero.png",
+    "checked_at": "2026-10-11T10:21:48+08:00",
+    "note": "file:// 打开 demo：10 格，getAnimations() 显示 sgr-reveal 与 sgr-flip 在跑，clip-path 由 inset(4.6%) 收敛到 inset(0%)，控制台 0 报错"
+  }
+}

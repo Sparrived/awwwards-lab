@@ -1,0 +1,103 @@
+/* ============================================================
+   candy-palette-theme — 糖果配色主题 token（clean-room）
+   色值与字号来自 ringpopcandy.com 的 getComputedStyle 实测（见 README）。
+   用法：引入本文件，在容器上加 .candy-stage，用 .candy-* 组件；
+   所有值集中在 :root，可直接覆盖 --candy-*。
+   ============================================================ */
+
+:root {
+  /* —— colors（实测） —— */
+  --candy-ground:  #FFF7E9;   /* 暖米白底 */
+  --candy-ink:     #141723;   /* 单一近墨色，承载全部文字 */
+  --candy-yellow:  #FFF200;
+  --candy-red:     #E1251B;
+  --candy-blue:    #2B6FFC;
+  --candy-pink:    #F9367A;
+  --candy-lime:    #64F525;
+  --candy-orange:  #FC7600;
+  --candy-green:   #0B7302;
+  --candy-clay:    #D7CEC3;   /* 中性辅助 */
+  --candy-white:   #FFFFFF;
+
+  /* —— typography（实测字号/比例；字体为免费替代） —— */
+  --candy-font-display: system-ui, "Helvetica Neue", Arial, sans-serif;
+  --candy-font-body:    system-ui, "Helvetica Neue", Arial, sans-serif;
+  --candy-display-size: clamp(72px, 22vw, 250px);
+  --candy-display-weight: 400;
+  --candy-display-lh: 0.85;      /* 原站 213px / 250px */
+  --candy-display-ls: -0.02em;   /* 原站 -5px @ 250px */
+  --candy-body-size: 20px;
+  --candy-btn-size:  24px;
+
+  /* —— spacing（实测） —— */
+  --candy-btn-pad:    23px 40px;
+  --candy-btn-radius: 16px;
+}
+
+.candy-stage {
+  background: var(--candy-ground);
+  color: var(--candy-ink);
+  font-family: var(--candy-font-body);
+  font-size: var(--candy-body-size);
+}
+
+.candy-title {
+  margin: 0;
+  font-family: var(--candy-font-display);
+  font-weight: var(--candy-display-weight);
+  font-size: var(--candy-display-size);
+  line-height: var(--candy-display-lh);
+  letter-spacing: var(--candy-display-ls);
+  text-transform: uppercase;
+}
+
+.candy-btn {
+  display: inline-block;
+  border: 0;
+  border-radius: var(--candy-btn-radius);
+  padding: var(--candy-btn-pad);
+  font: inherit;
+  font-size: var(--candy-btn-size);
+  font-weight: 600;
+  background: var(--candy-ink);
+  color: var(--candy-ground);
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter .18s ease;
+}
+.candy-btn:hover { filter: brightness(1.08); }
+.candy-btn--red  { background: var(--candy-red);  color: var(--candy-white); }
+.candy-btn--blue { background: var(--candy-blue); color: var(--candy-white); }
+
+.candy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  background: var(--candy-yellow);
+  color: var(--candy-ink);
+}
+
+/* 色板单元格（demo 用，也可直接复用） */
+.candy-swatch {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  min-height: 116px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(20, 23, 35, .08);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.candy-swatch b { font-size: 12px; }
+.candy-swatch span { opacity: .7; font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  .candy-btn { transition: none; }
+}
