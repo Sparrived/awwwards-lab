@@ -74,7 +74,7 @@ body {
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.72;
 }
 .scene__idx {
   position: absolute;
@@ -83,7 +83,7 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 11px;
   letter-spacing: 0.06em;
-  opacity: 0.55;
+  opacity: 0.72;
 }
 
 /* ---------- 各幕：字号同时对宽度与高度双约束 ----------
@@ -95,7 +95,11 @@ body {
 .s3 { --bg: var(--red);    --fg: var(--ground); --fs: clamp(34px, min(22.4vw, 14svh), 250px); --lh: 0.852; }
 .s4 { --bg: var(--yellow); --fg: var(--ink);    --fs: clamp(28px, 15.2vw, 230px);             --lh: 0.680; }
 .s5 { --bg: var(--orange); --fg: var(--ink);    --fs: clamp(28px, min(17.6vw, 21svh), 213px); --lh: 0.833; }
-.s0 { --bg: var(--ground); --fg: var(--ink);    --fs: clamp(24px, min(8.6vw, 40svh), 118px);  --lh: 0.836; --fw: 500; }
+/* 开场幕也是巨字（原来给了偏小的上限，导致首屏只有 51% 宽 / 18% 高，被评"巨字不够巨"） */
+.s0 { --bg: var(--ground); --fg: var(--ink);    --fs: clamp(30px, min(29vw, 46svh), 250px);  --lh: 0.836; --fw: 500; }
+
+/* 细一点的滚动条，别让原生粗条破坏极简 */
+html { scrollbar-width: thin; scrollbar-color: rgba(20, 23, 35, 0.35) transparent; }
 
 /* ---------- 入场揭示（本 demo 自加，原站揭示机制未取证 → [未验证]） ----------
    用 CSS 滚动驱动动画，浏览器不支持时自动退化为静止呈现，零 JS。 */
