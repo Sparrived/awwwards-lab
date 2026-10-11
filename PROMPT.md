@@ -71,7 +71,10 @@ D:\Code\awwwards-lab\
 3. **侦察取证（只对获奖原站用浏览器；严禁凭缩略图或标题想象）**：
    用 `new_tab(url)` → `wait_for_load()` → 等 2~3 秒（重动效站要等入场结束）→
    `js()` 取 `getComputedStyle` / `getAnimations()` → `capture_screenshot()`：
-   - 截图：首屏 + 2~3 个代表性区块，存 `shots/`；
+   - 截图：首屏 + 2~3 个代表性区块，存 `shots/`。
+     **`capture_screenshot()` 每次写到同一个固定路径（`shot.png`），后一张会覆盖前一张**，
+     所以每截一张必须**立刻**复制进 `entries/<id>/shots/` 并重命名（如 `hero.png`、
+     `section-1.png`），再截下一张；
      实测 `capture_screenshot()` 可能 60s 超时（如 bluntumbrellas.com），
      重试一次仍失败就**在 README 注明「无截图」并用文字描述取证项**，不要伪造成有截图；
    - 样式：`getComputedStyle` 取真实色值 / 字体 / 字号 / 行高 / 间距；
@@ -112,6 +115,7 @@ D:\Code\awwwards-lab\
 
 ## 变更记录
 
+- v3 2026-10-11 补截图覆盖陷阱（`capture_screenshot()` 固定写同一路径，须即时另存）。
 - v2 2026-10-11 首轮实测后修订：查证 awwwards 对无头浏览器 403 / 对 curl UA 200，
   发现环节改走 `web_extract`/`curl`；补截图超时降级、`document.title` 前缀陷阱、
   canvas 类站点降级要求。
