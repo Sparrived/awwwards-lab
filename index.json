@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-11T10:27:15+08:00",
+  "generated_at": "2026-10-11T10:46:15+08:00",
   "generator": "scripts/build_gallery.py",
-  "count": 2,
+  "count": 3,
   "entries": [
     {
       "id": "2026-10-11-staggered-cell-reveal",
@@ -57,6 +57,92 @@
         "screenshot": "shots/hero.png",
         "checked_at": "2026-10-11T10:40:00+08:00",
         "note": "file:// 打开 demo：10 格，sgr-reveal 三格 delay 实测 0/75/150ms；seek 法实测 t=0 → clip-path inset(50%)/opacity 0/translateY(14px)、t=900 → inset(0%)/opacity 1/translateY(0)，与原站 @keyframes cellReveal 逐字一致；sgr-flip 已按原站 @keyframes cellFlip 改为 rotateY 0→90→0；控制台 0 报错、无外部请求。"
+      }
+    },
+    {
+      "id": "2026-10-11-paper-ink-catalog",
+      "date": "2026-10-11",
+      "category": "theme",
+      "title": "metic. – Take a closer look",
+      "author": "",
+      "tags": [
+        "minimal",
+        "typography",
+        "design-agencies",
+        "interaction-design",
+        "microinteractions",
+        "business-corporate",
+        "animation",
+        "sound-audio",
+        "three-js",
+        "webgl",
+        "next-js",
+        "web-interactive",
+        "nominees"
+      ],
+      "dir": "entries/2026-10-11-paper-ink-catalog",
+      "demo": "../entries/2026-10-11-paper-ink-catalog/demo/index.html",
+      "readme": "../entries/2026-10-11-paper-ink-catalog/README.md",
+      "source_url": "https://metic.studio/en",
+      "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
+      "shot": "../entries/2026-10-11-paper-ink-catalog/shots/hero.png",
+      "summary": "暖纸底 + 近墨色 + 细线分隔 + 单一强调色的「纸墨编目」主题：靠极端字号差与收紧字距建立秩序，卡片平面无投影，用暗底当作展品框。",
+      "extracted_mechanism": "paper-ink catalog theme：一块暖纸底（#F4F4F2）承住全部内容、近墨色（#121214）承载全部文字、1px 低对比细线做分隔；唯一强调色（#FF3E3E）只在「需要指向」的地方出现（分类标签/链接悬停/焦点环/选中文字）。秩序来自排印而非装饰：display 与正文形成约 5.4 倍字号差，字距随字号收紧（display -0.035em / h3 -0.02em），卡片一律平面纸 + 细线、无投影无浮起，作品预览放进暗底（#0B0C10）框里形成「展品」层级。",
+      "tokens": {
+        "colors": {
+          "paper": "#F4F4F2",
+          "paper-2": "#E9E9E6",
+          "ink": "#121214",
+          "ink-soft": "#62626A",
+          "accent": "#FF3E3E",
+          "dark": "#0B0C10"
+        },
+        "typography": {
+          "displayFont": "原站 Bricolage Grotesque（免费）→ 声明字体名 + system-ui 回退",
+          "displaySize": "92.16px（clamp 后 46→92.16px）",
+          "displayLineHeight": "0.96（88.47px ÷ 92.16px）",
+          "displayLetterSpacing": "-0.035em（-3.2256px @ 92.16px）",
+          "displayWeight": "500",
+          "h3Size": "30.72px · line-height 1.12 · letter-spacing -0.02em · weight 500",
+          "bodyFont": "原站 Space Grotesk（免费）→ 命名 + 回退",
+          "bodySize": "17px / line-height 1.55（26.35px）",
+          "smallSize": "14px / line-height 1.43（20px）",
+          "labelSize": "12px 大写 / letter-spacing 0.06em（0.72px）",
+          "monoFont": "ui-monospace 系统等宽（用于色值/时长等 token 展示）"
+        },
+        "spacing": {
+          "sectionY": "160px（部分区段 128px），clamp 后 64→160px",
+          "gridGap": "40px（栏间距）/ 32px / 8px",
+          "hairline": "1px solid rgba(18,18,20,0.12)（加重变体 rgb(98,98,106)）",
+          "radius": "卡片 12px / 药丸 999px / 极小元素 3px",
+          "maxWidth": "1560px 外壳 + clamp(20px,3.4vw,56px) 左右内边距"
+        },
+        "motion": {
+          "duration": "1050ms（入场）/ 另有 1100ms 与 6000ms 循环",
+          "easing": "linear（关键帧线性，节奏靠错峰而非缓动）",
+          "trigger": "load 入场 + 循环滚动；错峰 120/210/300ms（步长 90ms），另有 -400/-750/-550ms 负延迟组"
+        }
+      },
+      "api": "引入 src/theme.css 即得全部 token 与组件类。排版原语：.display / .h2 / .h3 / .lede / .small / .label / .mono。外壳：.shell（1560px 居中 + 响应式内边距）、.top（扁平吸顶纸面栏）、.filters/.search/.chip、.hero/.stats、.foot。编目：.catalog（自适应网格）、.plate（展品卡，用 --pi 序号驱动错峰入场）、.plate__media/.plate__idx/.plate__head/.plate__title/.meta/.meta__row/.swatches/.sw/.tag/.plate__foot。换肤只需覆盖 :root 里的 --paper/--ink/--accent/--dark/--fs-*/--gap/--dur-reveal/--stagger。",
+      "entrypoints": [
+        "src/theme.css"
+      ],
+      "files": [
+        "demo/index.html",
+        "src/theme.css",
+        "shots/hero.png",
+        "shots/catalog-in-use.png"
+      ],
+      "deps": [],
+      "reuse_hints": "适合：内容索引/编目/作品集/文档/杂志类界面，以及任何「内容比装饰重要」的展示页——本项目自身的画廊页就复用了它（gallery/index.html 直接 link 本条的 src/theme.css，是库内第一条被自己消费的条目）。别用：需要沉浸暗色、强科技感、游戏化或高饱和品牌表达的产品界面（纸墨底色会压制这类气质）；强调色只有一个，若项目需要多主色需自行扩展变量。",
+      "repro_notes": "全部数值取自 https://metic.studio/en 的浏览器计算样式（getComputedStyle / document.getAnimations），非目测。复核要点：①颜色直接读 body 与元素的 backgroundColor/color 出现频次（纸底 rgb(244,244,242) 出现 152 次、墨 rgb(18,18,20) 726 次、次要 rgb(98,98,106) 305 次、强调 rgb(255,62,62) 88 次）；②强调色用途可用「统计所有元素里等于 rgb(255,62,62) 的 color/backgroundColor/borderColor/outlineColor」复核，实测各有 44~47 处；③细线是 1px rgba(18,18,20,0.12)，实测 42 处，另有 1px rgb(98,98,106) 13 处作加重变体；④区段纵向 padding 实测 160px（部分 128px），12 栏网格 gap 40px；⑤动效实测 1050ms linear，错峰 120/210/300ms（步长 90ms）以及 -400/-750/-550ms 的负延迟组。字体：原站 Bricolage Grotesque + Space Grotesk（均为免费字体），本主题为「零外网依赖」只在 font-family 里声明字体名 + 系统回退，不引 CDN；本地装了这两款免费字体即自动生效。",
+      "variant_of": null,
+      "verification": {
+        "rendered_ok": true,
+        "console_errors": 0,
+        "screenshot": "shots/hero.png",
+        "checked_at": "2026-10-11T11:05:00+08:00",
+        "note": "file:// 打开 demo 与 gallery/index.html 均实测：控制台 0 报错、0 个外部网络请求；gallery 复用本条 theme.css 渲染出抬头/统计/筛选/展品卡；字体在未安装 Bricolage/Space Grotesk 的环境下按预期回退 system-ui，结构不变；prefers-reduced-motion 降级为瞬时。"
       }
     },
     {

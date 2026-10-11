@@ -4,122 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Awwwards Lab · 设计萃取库</title>
+<!--
+  本页样式直接复用库内条目 entries/2026-10-11-paper-ink-catalog/src/theme.css
+  （纸墨编目主题，token 取自 metic.studio 的实测值）。
+  画廊本身就是本库「可复用」的证明：改那一个文件，本页与该条目 demo 一起变。
+-->
+<link rel="stylesheet" href="../entries/2026-10-11-paper-ink-catalog/src/theme.css">
 <style>
-:root{
-  --bg:#090a0e; --fg:#e9ecf2; --muted:#8b93a5; --line:rgba(255,255,255,.10);
-  --glass:rgba(255,255,255,.045); --glass-2:rgba(255,255,255,.075);
-  --accent:#7aa2ff; --r:16px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  color:var(--fg); min-height:100vh;
-  font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Noto Sans SC",system-ui,sans-serif;
-  background:
-    radial-gradient(1100px 560px at 12% -8%, rgba(122,162,255,.15), transparent 62%),
-    radial-gradient(900px 520px at 102% 2%, rgba(178,124,255,.11), transparent 58%),
-    var(--bg);
-  -webkit-font-smoothing:antialiased;
-}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-header{
-  position:sticky;top:0;z-index:20;backdrop-filter:blur(18px) saturate(150%);
-  background:linear-gradient(180deg,rgba(9,10,14,.86),rgba(9,10,14,.66));
-  border-bottom:1px solid var(--line);
-}
-.bar{max-width:1560px;margin:0 auto;padding:16px 26px 12px;display:flex;
-  align-items:baseline;gap:18px;flex-wrap:wrap}
-.bar h1{margin:0;font-size:17px;font-weight:650;letter-spacing:.01em}
-.bar .sub{color:var(--muted);font-size:12.5px}
-.bar .links{margin-left:auto;display:flex;gap:14px;font-size:12.5px}
-.controls{max-width:1560px;margin:0 auto;padding:0 26px 14px;display:flex;
-  gap:10px;align-items:center;flex-wrap:wrap}
-input[type=search]{
-  flex:1 1 260px;max-width:420px;padding:9px 13px;border-radius:11px;
-  background:var(--glass);border:1px solid var(--line);color:var(--fg);
-  font:inherit;font-size:13px;outline:none;
-}
-input[type=search]:focus{border-color:rgba(122,162,255,.55);background:var(--glass-2)}
-input[type=search]::placeholder{color:#6b7285}
-.chips{display:flex;gap:7px;flex-wrap:wrap}
-.chip{
-  padding:6px 12px;border-radius:999px;cursor:pointer;font-size:12.5px;
-  background:var(--glass);border:1px solid var(--line);color:var(--muted);
-  user-select:none;transition:background .18s,border-color .18s,color .18s;
-}
-.chip:hover{background:var(--glass-2);color:var(--fg)}
-.chip[aria-pressed=true]{background:rgba(122,162,255,.16);border-color:rgba(122,162,255,.5);color:#cfe0ff}
-.chip .n{opacity:.55;margin-left:5px;font-size:11.5px}
-main{max-width:1560px;margin:0 auto;padding:22px 26px 90px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:20px}
-.card{
-  background:var(--glass);border:1px solid var(--line);border-radius:var(--r);
-  overflow:hidden;display:flex;flex-direction:column;
-  transition:border-color .2s,transform .2s,background .2s;
-}
-.card:hover{border-color:rgba(255,255,255,.2);background:var(--glass-2);transform:translateY(-2px)}
-.card .head{padding:15px 16px 11px;display:flex;gap:10px;align-items:flex-start}
-.card .head .t{flex:1;min-width:0}
-.card .head h3{margin:0 0 3px;font-size:15px;font-weight:620;line-height:1.35}
-.card .head .by{color:var(--muted);font-size:12.5px}
-.badge{
-  font-size:11px;padding:3.5px 9px;border-radius:999px;white-space:nowrap;
-  background:rgba(122,162,255,.14);border:1px solid rgba(122,162,255,.34);color:#c7d9ff;
-}
-.preview{position:relative;aspect-ratio:16/10;background:#05060a;border-block:1px solid var(--line)}
-.preview img,.preview iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.preview img{object-fit:cover;object-position:top center}
-.preview .ph{position:absolute;inset:0;display:grid;place-items:center;color:#4d5566;font-size:12.5px}
-.body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;flex:1}
-.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.row .k{color:var(--muted);font-size:12px;min-width:52px}
-.sw{width:20px;height:20px;border-radius:6px;border:1px solid rgba(255,255,255,.18)}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
-.summary{margin:0;color:#c8cddb;font-size:13px}
-.mech{margin:0;font-size:12.8px;color:#aab2c2}
-.mech b{color:#dbe2f0;font-weight:600}
-.tag{font-size:11.5px;padding:3px 8px;border-radius:7px;background:var(--glass-2);
-  border:1px solid var(--line);color:var(--muted)}
-.tag.dep{background:rgba(255,196,110,.12);border-color:rgba(255,196,110,.3);color:#f0cf9a}
-.tag.nodep{background:rgba(120,220,160,.1);border-color:rgba(120,220,160,.26);color:#a9e3c0}
-.foot{margin-top:auto;padding:11px 16px;border-top:1px solid var(--line);
-  display:flex;gap:14px;align-items:center;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
-.foot .go{margin-left:auto;display:flex;gap:14px}
-.empty{padding:80px 20px;text-align:center;color:var(--muted)}
-.empty code{background:var(--glass-2);padding:2px 7px;border-radius:6px;font-size:12.5px}
-.failed{max-width:1560px;margin:44px auto 0;padding:0 26px}
-.failed h2{font-size:14px;font-weight:600;color:#f0b9b9;margin:0 0 10px}
-.failed ul{margin:0;padding-left:20px;color:var(--muted);font-size:13px}
-.failed .mono{color:#d9c2c2}
-h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);
-  font-weight:600;margin:0 0 12px}
+  /* 仅本页需要的微调，不属于主题 */
+  .hero__top { display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="bar">
-    <h1>Awwwards Lab</h1>
-    <span class="sub" id="stat"></span>
-    <nav class="links">
-      <a href="../README.md">README</a>
-      <a href="../PROMPT.md">任务提示词</a>
-      <a href="../index.json">index.json</a>
-    </nav>
-  </div>
-  <div class="controls">
-    <input type="search" id="q" placeholder="搜索标题 / 作者 / 机制 / 标签 / 分类…">
-    <div class="chips" id="chips"></div>
+<header class="top">
+  <div class="shell">
+    <div class="top__bar">
+      <span class="top__brand">Awwwards Lab</span>
+      <span class="top__stat" id="stat">…</span>
+      <nav class="top__nav">
+        <a href="../README.md">README</a>
+        <a href="../PROMPT.md">任务提示词</a>
+        <a href="../index.json">index.json</a>
+      </nav>
+    </div>
+    <div class="filters">
+      <input class="search" type="search" id="q" placeholder="搜索标题 / 作者 / 机制 / 标签 / 分类…" aria-label="搜索条目">
+      <div class="chips" id="chips"></div>
+    </div>
   </div>
 </header>
 
 <main>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" hidden></div>
+  <section class="shell hero">
+    <div class="hero__top">
+      <h1 class="display">设计萃取库</h1>
+    </div>
+    <div class="hero__grid">
+      <p class="lede">每天从 Awwwards 挑 2 个优秀设计，清洁室复刻（clean-room）为可复用的前端能力。人在这里就能直观看到效果，Agent 读 <span class="mono">index.json</span> 检索复用。</p>
+      <div class="hero__meta">
+        <div class="rule">
+          <p class="label" style="margin:0 0 6px">内容最后更新</p>
+          <p class="small mono" style="margin:0" id="updated">—</p>
+        </div>
+        <div class="rule">
+          <p class="label" style="margin:0 0 6px">类别轮换</p>
+          <p class="small" style="margin:0">一 动效 · 二 排版 · 三 电商 · 四 作品集 · 五 导航交互 · 六 WebGL-3D · 日（周日）配色主题</p>
+        </div>
+      </div>
+    </div>
+    <dl class="stats" id="stats"></dl>
+  </section>
+
+  <section class="shell">
+    <div class="catalog" id="grid"></div>
+    <div class="empty" id="empty" hidden></div>
+  </section>
+
+  <section class="shell notice" id="failed" hidden></section>
 </main>
 
-<div class="failed" id="failed" hidden></div>
+<footer class="foot shell">
+  <span>Awwwards Lab · 清洁室复刻，不搬运原站素材</span>
+  <nav>
+    <a href="../README.md">README</a>
+    <a href="../PROMPT.md">提示词</a>
+    <a href="../entries/2026-10-11-paper-ink-catalog/README.md">本页主题出处</a>
+    <a href="https://github.com/Sparrived/awwwards-lab">GitHub</a>
+  </nav>
+</footer>
 
 <script type="application/json" id="data">__DATA__</script>
 <script>
@@ -129,130 +82,143 @@ h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--
   const entries = DATA.entries || [];
   const failed = DATA.failed || [];
 
-  // ---------- 统计 ----------
-  const cats = {};
-  entries.forEach(e => { const c = e.category || '(未分类)'; cats[c] = (cats[c] || 0) + 1; });
-  const catsSorted = Object.keys(cats).sort((a, b) => cats[b] - cats[a]);
-  document.getElementById('stat').textContent =
-    entries.length + ' 条 · ' + catsSorted.length + ' 个类别 · 更新 ' +
-    (DATA.generated_at || '').replace('T', ' ').slice(0, 16);
-
-  // ---------- 工具 ----------
   const esc = s => String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
   const isColor = v => /^(#[0-9a-f]{3,8}|rgb|hsl|oklch|lab|color\()/i.test(String(v || '').trim());
+  const el = html => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+  const pad = n => String(n).padStart(2, '0');
+  const NO_VALUE = v => !v || v === '—';
 
-  function el(html) {
-    const t = document.createElement('template');
-    t.innerHTML = html.trim();
-    return t.content.firstElementChild;
-  }
+  // ---------- 统计 ----------
+  const cats = {};
+  entries.forEach(e => { const c = e.category || '(未分类)'; cats[c] = (cats[c] || 0) + 1; });
+  const catsSorted = Object.keys(cats).sort((a, b) => cats[b] - cats[a]);
+  const noDeps = entries.filter(e => !(e.deps || []).length).length;
+  const mechs = new Set(entries.map(e => e.extracted_mechanism)).size;
 
-  // ---------- 卡片 ----------
+  document.getElementById('updated').textContent = (DATA.generated_at || '').replace('T', ' ').slice(0, 16);
+  document.getElementById('stat').textContent =
+    entries.length + ' 条 · ' + catsSorted.length + ' 类别 · ' + noDeps + ' 条零依赖';
+  document.getElementById('stats').innerHTML = [
+    ['条目', entries.length], ['类别', catsSorted.length],
+    ['零依赖', noDeps], ['不重复机制', mechs]
+  ].map(([k, v]) => '<div><dt>' + k + '</dt><dd class="mono">' + v + '</dd></div>').join('');
+
+  // ---------- 字段渲染（空值整行不渲染，不留破折号占位） ----------
+  const NONE = '<span class="meta__v--none">本条目无此项</span>';
+  const row = (k, v) => '<div class="meta__row"><span class="meta__k">' + k + '</span><p class="meta__v">' + v + '</p></div>';
+
   function swatches(tokens) {
     const colors = (tokens && tokens.colors) || {};
-    const items = Object.keys(colors).map(k => {
+    const keys = Object.keys(colors);
+    if (!keys.length) return '';
+    return keys.map(k => {
       const v = colors[k];
       return isColor(v)
         ? '<span class="sw" title="' + esc(k + ': ' + v) + '" style="background:' + esc(v) + '"></span>'
-        : '<span class="tag mono" title="' + esc(k) + '">' + esc(v) + '</span>';
-    });
-    return items.length ? '<div class="row"><span class="k">配色</span>' + items.join('') + '</div>' : '';
+        : '<span class="tag">' + esc(v) + '</span>';
+    }).join('');
   }
-
-  function motionRow(tokens) {
+  function motionText(tokens) {
     const m = (tokens && tokens.motion) || {};
-    const parts = [];
-    if (m.duration) parts.push('时长 <span class="mono">' + esc(m.duration) + '</span>');
-    if (m.easing) parts.push('缓动 <span class="mono">' + esc(m.easing) + '</span>');
-    if (m.trigger) parts.push('触发 ' + esc(m.trigger));
-    return parts.length ? '<div class="row"><span class="k">动效</span><span class="mech">' + parts.join(' · ') + '</span></div>' : '';
+    const p = [];
+    if (m.duration) p.push('时长 ' + m.duration);
+    if (m.easing) p.push('缓动 ' + m.easing);
+    if (m.trigger) p.push('触发 ' + m.trigger);
+    return p.length ? p.join(' · ') : '';
   }
-
-  function typeRow(tokens) {
+  function typeText(tokens) {
     const t = (tokens && tokens.typography) || {};
-    const keys = Object.keys(t);
-    if (!keys.length) return '';
-    return '<div class="row"><span class="k">排版</span><span class="mech mono">' +
-      keys.map(k => esc(k + ': ' + t[k])).join('  ·  ') + '</span></div>';
+    const k = Object.keys(t);
+    return k.length ? k.map(x => x + ' ' + t[x]).join(' · ') : '';
+  }
+  function depsText(deps) {
+    if (!deps || !deps.length) return '<span class="tag tag--none">零依赖</span>';
+    return deps.map(d => '<span class="tag tag--dep" title="' + esc(d.why || '') + '">' +
+      esc(d.name || d) + (d.version ? ' ' + esc(d.version) : '') + '</span>').join(' ');
   }
 
-  function depsRow(deps) {
-    if (!deps || !deps.length) return '<span class="tag nodep">零依赖</span>';
-    return deps.map(d => '<span class="tag dep" title="' + esc(d.why || '') + '">' +
-      esc(d.name || d) + (d.version ? ' ' + esc(d.version) : '') + '</span>').join('');
-  }
-
-  function card(e) {
-    const poster = e.shot
+  // ---------- 展品卡 ----------
+  function plate(e, i) {
+    const media = e.shot
       ? '<img src="' + esc(e.shot) + '" alt="" loading="lazy" onerror="this.remove()">'
-      : '';
-    const tags = (e.tags || []).slice(0, 6)
-      .map(t => '<span class="tag">' + esc(t) + '</span>').join('');
+      : '<span class="ph">无截图证据</span>';
+
+    // 主干信息固定三行（机制/配色/动效），缺值也占行 → 三张卡基线一致
+    const sw = swatches(e.tokens);
+    const mo = motionText(e.tokens);
+    const rows = [
+      row('机制', '<span class="meta__v--clamp">' + esc(e.extracted_mechanism) + '</span>'),
+      row('配色', sw ? '<span class="swatches">' + sw + '</span>' : NONE),
+      row('动效', mo ? '<span class="mono">' + esc(mo) + '</span>' : NONE)
+    ];
+
+    const more = [];
+    more.push(row('依赖', depsText(e.deps)));
+    const ty = typeText(e.tokens);
+    if (ty) more.push(row('排版', '<span class="mono">' + esc(ty) + '</span>'));
+    if (e.reuse_hints) more.push(row('适用', esc(e.reuse_hints)));
+    if (e.repro_notes) more.push(row('复核要点', esc(e.repro_notes)));
+    if ((e.tags || []).length) {
+      more.push(row('原站标签', e.tags.map(t => '<span class="tag">' + esc(t) + '</span>').join(' ')));
+    }
+
     const node = el(
-      '<article class="card">' +
-        '<div class="head">' +
-          '<div class="t"><h3>' + esc(e.title || e.id) + '</h3>' +
-            '<div class="by">' + esc(e.author || '') +
-              (e.date ? (e.author ? ' · ' : '') + esc(e.date) : '') + '</div></div>' +
-          '<span class="badge">' + esc(e.category || '') + '</span>' +
+      '<article class="plate" style="--pi:' + i + '">' +
+        '<div class="plate__media" data-src="' + esc(e.demo) + '">' +
+          '<span class="plate__idx">' + pad(i + 1) + '</span>' + media +
+          '<button class="plate__load" type="button">载入实时预览</button>' +
         '</div>' +
-        '<div class="preview" data-src="' + esc(e.demo) + '">' + poster +
-          '<span class="ph">滚动到此处自动加载预览</span></div>' +
-        '<div class="body">' +
-          '<p class="summary">' + esc(e.summary || '') + '</p>' +
-          '<p class="mech"><b>机制</b> ' + esc(e.extracted_mechanism || '') + '</p>' +
-          swatches(e.tokens) + motionRow(e.tokens) + typeRow(e.tokens) +
-          (e.reuse_hints ? '<p class="mech"><b>适用</b> ' + esc(e.reuse_hints) + '</p>' : '') +
-          (tags ? '<div class="row">' + tags + '</div>' : '') +
-          '<div class="row"><span class="k">依赖</span>' + depsRow(e.deps) + '</div>' +
+        '<div class="plate__head">' +
+          '<div class="plate__sub">' +
+            '<span class="label accent">' + esc(e.category || '') + '</span>' +
+            '<span class="label">' + esc(e.date || '') + '</span>' +
+            (e.author ? '<span class="label">' + esc(e.author) + '</span>' : '') +
+          '</div>' +
+          '<h2 class="plate__title">' + esc(e.title || e.id) + '</h2>' +
         '</div>' +
-        '<div class="foot">' +
-          '<span class="mono">' + esc(e.id) + '</span>' +
+        '<dl class="meta">' + rows.join('') + '</dl>' +
+        (more.length ? '<details class="plate__more"><summary>字段明细 · 复核要点 · 标签<span class="label">' +
+                       more.length + '</span></summary><dl class="meta">' + more.join('') + '</dl></details>' : '') +
+        '<div class="plate__foot">' +
+          '<span class="plate__id" title="条目目录名">' + esc(e.id) + '</span>' +
           '<span class="go">' +
-            '<a href="' + esc(e.demo) + '" target="_blank" rel="noopener">打开 demo ↗</a>' +
-            (e.source_url ? '<a href="' + esc(e.source_url) + '" target="_blank" rel="noopener">原站 ↗</a>' : '') +
-            (e.awwwards_url ? '<a href="' + esc(e.awwwards_url) + '" target="_blank" rel="noopener">Awwwards ↗</a>' : '') +
+            '<a class="is-primary" href="' + esc(e.demo) + '" target="_blank" rel="noopener">打开 demo</a>' +
+            (e.source_url ? '<a href="' + esc(e.source_url) + '" target="_blank" rel="noopener">原站</a>' : '') +
+            (e.awwwards_url ? '<a href="' + esc(e.awwwards_url) + '" target="_blank" rel="noopener">Awwwards</a>' : '') +
             '<a href="' + esc(e.readme) + '">README</a>' +
           '</span>' +
         '</div>' +
       '</article>');
-    // 搜索用的小写索引
-    node.dataset.hay = [e.id, e.title, e.author, e.category, e.summary,
-      e.extracted_mechanism, e.reuse_hints, (e.tags || []).join(' ')].join(' ').toLowerCase();
+
+    // 预览默认是截图；点按钮才换成实时 iframe（截图轻、且没有内部滚动条）
+    node.querySelector('.plate__load').addEventListener('click', function () {
+      const box = node.querySelector('.plate__media');
+      const img = box.querySelector('img');
+      const iframe = document.createElement('iframe');
+      iframe.src = box.dataset.src;
+      iframe.title = 'demo 实时预览';
+      box.insertBefore(iframe, box.querySelector('.plate__load'));
+      if (img) img.remove();
+      this.remove();
+    });
+
+    node.dataset.hay = [e.id, e.title, e.author, e.category, e.summary, e.extracted_mechanism,
+      e.reuse_hints, (e.tags || []).join(' ')].join(' ').toLowerCase();
     node.dataset.cat = e.category || '(未分类)';
     return node;
   }
 
   const grid = document.getElementById('grid');
-  const nodes = entries.map(e => { const n = card(e); grid.appendChild(n); return n; });
-
-  // ---------- 懒加载预览 ----------
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(rows => {
-      rows.forEach(r => {
-        if (!r.isIntersecting) return;
-        const box = r.target;
-        const ph = box.querySelector('.ph');
-        if (ph) ph.remove();
-        const f = document.createElement('iframe');
-        f.src = box.dataset.src;
-        f.loading = 'lazy';
-        f.title = 'preview';
-        box.appendChild(f);
-        io.unobserve(box);
-      });
-    }, { rootMargin: '700px 0px' });
-    document.querySelectorAll('.preview').forEach(b => io.observe(b));
-  }
+  const nodes = entries.map((e, i) => { const n = plate(e, i); grid.appendChild(n); return n; });
 
   // ---------- 筛选 ----------
   const chips = document.getElementById('chips');
   const active = new Set();
   catsSorted.forEach(c => {
     const b = el('<button class="chip" type="button" aria-pressed="false">' + esc(c) +
-                 '<span class="n">' + cats[c] + '</span></button>');
+                 '<span class="chip__n">' + cats[c] + '</span></button>');
     b.onclick = () => {
       if (active.has(c)) active.delete(c); else active.add(c);
       b.setAttribute('aria-pressed', active.has(c));
@@ -267,21 +233,18 @@ h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--
     const term = q.value.trim().toLowerCase();
     let shown = 0;
     nodes.forEach(n => {
-      const okCat = active.size === 0 || active.has(n.dataset.cat);
-      const okQ = !term || n.dataset.hay.includes(term);
-      const ok = okCat && okQ;
+      const ok = (active.size === 0 || active.has(n.dataset.cat)) && (!term || n.dataset.hay.includes(term));
       n.hidden = !ok;
       if (ok) shown++;
     });
-    const on = term || active.size;
     if (!entries.length) {
       empty.hidden = false;
-      empty.innerHTML = '库里还没有条目。<br><br>先跑一次任务：<br>' +
-        '<code>python3 scripts/new_entry.py "slug" --category motion</code><br>' +
-        '<code>python3 scripts/build_gallery.py</code>';
-    } else if (shown === 0 && on) {
+      empty.innerHTML = '<p class="h3">库里还没有条目</p>' +
+        '<p class="small">先跑一次任务：<br><code>python3 scripts/new_entry.py "slug" --category motion</code><br>' +
+        '<code>python3 scripts/build_gallery.py</code></p>';
+    } else if (shown === 0) {
       empty.hidden = false;
-      empty.textContent = '没有匹配的条目。';
+      empty.innerHTML = '<p class="h3">没有匹配的条目</p><p class="small">换个关键词，或清掉分类筛选。</p>';
     } else {
       empty.hidden = true;
     }
@@ -292,9 +255,8 @@ h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--
   if (failed.length) {
     const box = document.getElementById('failed');
     box.hidden = false;
-    box.innerHTML = '<h2>未入库 ' + failed.length + ' 条（存在但未通过自检 / 结构不合契约）</h2><ul>' +
-      failed.map(f => '<li><span class="mono">' + esc(f.dir) + '</span> — ' + esc(f.reason) + '</li>')
-            .join('') + '</ul>';
+    box.innerHTML = '<h2>未入库 ' + failed.length + ' 条</h2>' +
+      '<ul>' + failed.map(f => '<li><span class="mono">' + esc(f.dir) + '</span> — ' + esc(f.reason) + '</li>').join('') + '</ul>';
   }
 })();
 </script>

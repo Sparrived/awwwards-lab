@@ -74,9 +74,14 @@ D:\Code\awwwards-lab\
    用 `new_tab(url)` → `wait_for_load()` → 等 2~3 秒（重动效站要等入场结束）→
    `js()` 取 `getComputedStyle` / `getAnimations()` → `capture_screenshot()`：
    - 截图：首屏 + 2~3 个代表性区块，存 `shots/`。
-     **`capture_screenshot()` 每次写到同一个固定路径（`shot.png`），后一张会覆盖前一张**，
-     所以每截一张必须**立刻**复制进 `entries/<id>/shots/` 并重命名（如 `hero.png`、
-     `section-1.png`），再截下一张；
+     **`capture_screenshot('/绝对路径/hero.png')` 可直接指定输出路径**（实测可用）——
+     优先这样写，一步到位。不带路径时才写进固定文件 `shot.png`（后一张覆盖前一张），
+     那时必须每截一张立刻复制进 `entries/<id>/shots/` 并重命名，再截下一张。
+     截图前先确认环境有中文字体（无头 Linux 默认**没有**，中文全变豆腐块：
+     `fc-list :lang=zh` 为空即缺；装 `fonts-wqy-microhei` 后**必须重启浏览器**才会重读
+     fontconfig，否则 Canvas 探针里中文宽度会等于私用区缺失字形宽度）。
+     用 `js("(c=>{c.font='40px sans-serif';return c.measureText('设').width!==c.measureText('\\uE000').width})"
+     + "(document.createElement('canvas').getContext('2d'))")` 可先自检中文是否真的在渲染。
      实测 `capture_screenshot()` 可能 60s 超时（如 bluntumbrellas.com），
      重试一次仍失败就**在 README 注明「无截图」并用文字描述取证项**，不要伪造成有截图；
    - 样式：`getComputedStyle` 取真实色值 / 字体 / 字号 / 行高 / 间距；
@@ -134,12 +139,16 @@ D:\Code\awwwards-lab\
 
 ## 变更记录
 
+- v6 2026-10-11 画廊改造期间的两条环境修正：`capture_screenshot()` 可直接传输出路径
+  （v3 的"必须即时另存"是不完整结论）；无头 Linux 无中文字体导致截图全豆腐块，
+  需装 fonts-wqy-microhei 并**重启浏览器**，附 Canvas 自检方法。
 - v5 2026-10-11 首条实测复核后修订：自检改用 seek 法（标签页 hidden 时
   `playState=running` 但时钟恒 0，只看动画条数会误判）；取证须写完整选择器
   （含 CSS-modules 前缀）；一次性动效须记录 storage 门控键；rgb→hex 归一化须注明。
 - v4 2026-10-11 补齐三处缺口：类别轮换明确为「当日项 + 次日项」；
   收尾新增 seen.json 落库（含被拒候选）；周期参数固定（每天 08:30）。
-- v3 2026-10-11 补截图覆盖陷阱（`capture_screenshot()` 固定写同一路径，须即时另存）。
+- v3 2026-10-11 补截图覆盖陷阱（`capture_screenshot()` 固定写同一路径，须即时另存；
+  v6 修正为可直接传输出路径，见上）。
 - v2 2026-10-11 首轮实测后修订：查证 awwwards 对无头浏览器 403 / 对 curl UA 200，
   发现环节改走 `web_extract`/`curl`；补截图超时降级、`document.title` 前缀陷阱、
   canvas 类站点降级要求。

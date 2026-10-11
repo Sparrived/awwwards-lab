@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo · 纸墨编目主题（paper-ink-catalog）</title>
+<link rel="stylesheet" href="../src/theme.css">
+<style>
+  /* 仅本 demo 需要的微调，不属于主题 */
+  .rows { display: grid; gap: 0; border-top: var(--hairline); }
+  .rows > div { display: grid; grid-template-columns: 190px minmax(0,1fr); gap: 16px;
+                padding-block: 12px; border-bottom: var(--hairline); align-items: baseline; }
+  .plate-demo { max-width: 460px; }
+  .demo-block { display: grid; gap: var(--gap-sm); padding-block: var(--sec-y-sm); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="shell">
+    <div class="top__bar">
+      <span class="top__brand">paper · ink · catalog</span>
+      <span class="top__stat">theme demo</span>
+      <nav class="top__nav"><a href="#">链接</a><a href="#">演示</a></nav>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+
+  <section class="hero">
+    <div class="hero__top">
+      <h1 class="display">纸墨编目</h1>
+      <span class="label accent">theme</span>
+    </div>
+    <div class="hero__grid">
+      <p class="lede">暖纸底承住内容，近墨色承载全部文字，细线做分隔，唯一强调色只在需要指向的地方出现一次。字阶靠极端字号差与收紧字距建立秩序，不靠投影与圆角堆装饰。</p>
+      <div class="hero__meta">
+        <div class="rule">
+          <p class="label" style="margin:0 0 6px">字号/字距</p>
+          <p class="small mono" style="margin:0">display -0.035em · h3 -0.02em</p>
+        </div>
+        <div class="rule">
+          <p class="label" style="margin:0 0 6px">动效</p>
+          <p class="small mono" style="margin:0">1050ms linear · 错峰 90ms</p>
+        </div>
+      </div>
+    </div>
+    <dl class="stats">
+      <div><dt>纸底</dt><dd class="mono">#F4F4F2</dd></div>
+      <div><dt>墨色</dt><dd class="mono">#121214</dd></div>
+      <div><dt>强调</dt><dd class="mono accent">#FF3E3E</dd></div>
+      <div><dt>暗底</dt><dd class="mono">#0B0C10</dd></div>
+    </dl>
+  </section>
+
+  <section class="demo-block">
+    <h2 class="h2">展品卡（编目条目）</h2>
+    <p class="lede">卡片是平面纸 + 细线，无投影无浮起；预览框用暗底 <span class="mono">#0B0C10</span> 把作品当展品摆出来，序号用等宽字体贴在角上。</p>
+    <div class="catalog" style="padding-block:0">
+      <article class="plate" style="--pi:0">
+        <div class="plate__head">
+          <div class="plate__sub">
+            <span class="label accent">motion</span>
+            <span class="label">2026-10-11</span>
+            <span class="label">示例作者</span>
+          </div>
+          <h2 class="plate__title">错峰分格揭示</h2>
+        </div>
+        <div class="plate__media">
+          <span class="plate__idx">01</span>
+          <span class="ph">展品预览区</span>
+        </div>
+        <dl class="meta">
+          <div class="meta__row"><span class="meta__k">机制</span>
+            <p class="meta__v">N 个瓦片共用同一段揭示关键帧，靠 <span class="mono">animation-delay = 序号 × 步长</span> 制造错峰。</p></div>
+          <div class="meta__row"><span class="meta__k">配色</span>
+            <p class="meta__v"><span class="swatches">
+              <span class="sw" style="background:#0B0C10"></span>
+              <span class="sw" style="background:#FF3E3E"></span>
+              <span class="sw" style="background:#F4F4F2"></span></span></p></div>
+          <div class="meta__row"><span class="meta__k">动效</span>
+            <p class="meta__v mono">时长 900ms · 缓动 cubic-bezier(0.65,0,0.35,1)</p></div>
+          <div class="meta__row"><span class="meta__k">依赖</span>
+            <p class="meta__v"><span class="tag tag--none">零依赖</span></p></div>
+        </dl>
+        <div class="plate__foot">
+          <span class="plate__id">demo-plate</span>
+          <span class="go"><a href="#">打开 demo</a><a href="#">原站</a><a href="#">README</a></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="demo-block">
+    <h2 class="h2">字阶与排版原语</h2>
+    <div class="rows">
+      <div><span class="label">display</span><span style="font-family:var(--font-display);font-size:var(--fs-display);line-height:.96;letter-spacing:var(--ls-display);font-weight:500">Aa 92</span></div>
+      <div><span class="label">h2</span><span class="h2">Aa 49</span></div>
+      <div><span class="label">h3</span><span class="h3">Aa 31</span></div>
+      <div><span class="label">body</span><span>正文 17px / 行高 1.55 —— 长段落用这个，不要再小。</span></div>
+      <div><span class="label">small</span><span class="small">小字 14px / 行高 1.43 —— 元信息、脚注。</span></div>
+      <div><span class="label">label</span><span class="label">12px 大写 字距 0.06em —— 字段名</span></div>
+      <div><span class="label">mono</span><span class="mono">#F4F4F2 · 900ms · 0.65,0,0.35,1</span></div>
+    </div>
+  </section>
+
+  <section class="demo-block">
+    <h2 class="h2">着色板</h2>
+    <div class="rows">
+      <div><span class="label">paper</span><span class="swatches"><span class="sw" style="background:var(--paper)"></span><span class="small mono">--paper #F4F4F2</span></span></div>
+      <div><span class="label">paper-2</span><span class="swatches"><span class="sw" style="background:var(--paper-2)"></span><span class="small mono">--paper-2 #E9E9E6</span></span></div>
+      <div><span class="label">ink</span><span class="swatches"><span class="sw" style="background:var(--ink)"></span><span class="small mono">--ink #121214</span></span></div>
+      <div><span class="label">ink-soft</span><span class="swatches"><span class="sw" style="background:var(--ink-soft)"></span><span class="small mono">--ink-soft #62626A</span></span></div>
+      <div><span class="label">accent</span><span class="swatches"><span class="sw" style="background:var(--accent)"></span><span class="small mono">--accent #FF3E3E</span></span></div>
+      <div><span class="label">dark</span><span class="swatches"><span class="sw" style="background:var(--dark)"></span><span class="small mono">--dark #0B0C10</span></span></div>
+    </div>
+  </section>
+
+  <section class="demo-block">
+    <h2 class="h2">怎么调</h2>
+    <p class="lede">全部可调项集中在 <span class="mono">src/theme.css</span> 顶部的 <span class="mono">:root</span>：颜色、字体栈、字阶、间距节奏、动效时长与错峰步长。覆盖变量即可换肤，无需改类名。
+    强调色只在此处出现：分类标签、链接悬停、焦点环、选中文字 —— 想要更克制，把 <span class="mono">--accent</span> 改成 <span class="mono">--ink</span> 即可。</p>
+  </section>
+
+</div>
+
+<footer class="foot shell">
+  <span>paper-ink-catalog · 清洁室复刻自 metic.studio 的实测 token</span>
+  <nav><a href="../../2026-10-11-paper-ink-catalog/README.md">README</a></nav>
+</footer>
+
+</body>
+</html>

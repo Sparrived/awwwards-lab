@@ -4,124 +4,77 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Awwwards Lab · 设计萃取库</title>
+<!--
+  本页样式直接复用库内条目 entries/2026-10-11-paper-ink-catalog/src/theme.css
+  （纸墨编目主题，token 取自 metic.studio 的实测值）。
+  画廊本身就是本库「可复用」的证明：改那一个文件，本页与该条目 demo 一起变。
+-->
+<link rel="stylesheet" href="../entries/2026-10-11-paper-ink-catalog/src/theme.css">
 <style>
-:root{
-  --bg:#090a0e; --fg:#e9ecf2; --muted:#8b93a5; --line:rgba(255,255,255,.10);
-  --glass:rgba(255,255,255,.045); --glass-2:rgba(255,255,255,.075);
-  --accent:#7aa2ff; --r:16px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  color:var(--fg); min-height:100vh;
-  font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Noto Sans SC",system-ui,sans-serif;
-  background:
-    radial-gradient(1100px 560px at 12% -8%, rgba(122,162,255,.15), transparent 62%),
-    radial-gradient(900px 520px at 102% 2%, rgba(178,124,255,.11), transparent 58%),
-    var(--bg);
-  -webkit-font-smoothing:antialiased;
-}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-header{
-  position:sticky;top:0;z-index:20;backdrop-filter:blur(18px) saturate(150%);
-  background:linear-gradient(180deg,rgba(9,10,14,.86),rgba(9,10,14,.66));
-  border-bottom:1px solid var(--line);
-}
-.bar{max-width:1560px;margin:0 auto;padding:16px 26px 12px;display:flex;
-  align-items:baseline;gap:18px;flex-wrap:wrap}
-.bar h1{margin:0;font-size:17px;font-weight:650;letter-spacing:.01em}
-.bar .sub{color:var(--muted);font-size:12.5px}
-.bar .links{margin-left:auto;display:flex;gap:14px;font-size:12.5px}
-.controls{max-width:1560px;margin:0 auto;padding:0 26px 14px;display:flex;
-  gap:10px;align-items:center;flex-wrap:wrap}
-input[type=search]{
-  flex:1 1 260px;max-width:420px;padding:9px 13px;border-radius:11px;
-  background:var(--glass);border:1px solid var(--line);color:var(--fg);
-  font:inherit;font-size:13px;outline:none;
-}
-input[type=search]:focus{border-color:rgba(122,162,255,.55);background:var(--glass-2)}
-input[type=search]::placeholder{color:#6b7285}
-.chips{display:flex;gap:7px;flex-wrap:wrap}
-.chip{
-  padding:6px 12px;border-radius:999px;cursor:pointer;font-size:12.5px;
-  background:var(--glass);border:1px solid var(--line);color:var(--muted);
-  user-select:none;transition:background .18s,border-color .18s,color .18s;
-}
-.chip:hover{background:var(--glass-2);color:var(--fg)}
-.chip[aria-pressed=true]{background:rgba(122,162,255,.16);border-color:rgba(122,162,255,.5);color:#cfe0ff}
-.chip .n{opacity:.55;margin-left:5px;font-size:11.5px}
-main{max-width:1560px;margin:0 auto;padding:22px 26px 90px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:20px}
-.card{
-  background:var(--glass);border:1px solid var(--line);border-radius:var(--r);
-  overflow:hidden;display:flex;flex-direction:column;
-  transition:border-color .2s,transform .2s,background .2s;
-}
-.card:hover{border-color:rgba(255,255,255,.2);background:var(--glass-2);transform:translateY(-2px)}
-.card .head{padding:15px 16px 11px;display:flex;gap:10px;align-items:flex-start}
-.card .head .t{flex:1;min-width:0}
-.card .head h3{margin:0 0 3px;font-size:15px;font-weight:620;line-height:1.35}
-.card .head .by{color:var(--muted);font-size:12.5px}
-.badge{
-  font-size:11px;padding:3.5px 9px;border-radius:999px;white-space:nowrap;
-  background:rgba(122,162,255,.14);border:1px solid rgba(122,162,255,.34);color:#c7d9ff;
-}
-.preview{position:relative;aspect-ratio:16/10;background:#05060a;border-block:1px solid var(--line)}
-.preview img,.preview iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.preview img{object-fit:cover;object-position:top center}
-.preview .ph{position:absolute;inset:0;display:grid;place-items:center;color:#4d5566;font-size:12.5px}
-.body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;flex:1}
-.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.row .k{color:var(--muted);font-size:12px;min-width:52px}
-.sw{width:20px;height:20px;border-radius:6px;border:1px solid rgba(255,255,255,.18)}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
-.summary{margin:0;color:#c8cddb;font-size:13px}
-.mech{margin:0;font-size:12.8px;color:#aab2c2}
-.mech b{color:#dbe2f0;font-weight:600}
-.tag{font-size:11.5px;padding:3px 8px;border-radius:7px;background:var(--glass-2);
-  border:1px solid var(--line);color:var(--muted)}
-.tag.dep{background:rgba(255,196,110,.12);border-color:rgba(255,196,110,.3);color:#f0cf9a}
-.tag.nodep{background:rgba(120,220,160,.1);border-color:rgba(120,220,160,.26);color:#a9e3c0}
-.foot{margin-top:auto;padding:11px 16px;border-top:1px solid var(--line);
-  display:flex;gap:14px;align-items:center;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
-.foot .go{margin-left:auto;display:flex;gap:14px}
-.empty{padding:80px 20px;text-align:center;color:var(--muted)}
-.empty code{background:var(--glass-2);padding:2px 7px;border-radius:6px;font-size:12.5px}
-.failed{max-width:1560px;margin:44px auto 0;padding:0 26px}
-.failed h2{font-size:14px;font-weight:600;color:#f0b9b9;margin:0 0 10px}
-.failed ul{margin:0;padding-left:20px;color:var(--muted);font-size:13px}
-.failed .mono{color:#d9c2c2}
-h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);
-  font-weight:600;margin:0 0 12px}
+  /* 仅本页需要的微调，不属于主题 */
+  .hero__top { display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="bar">
-    <h1>Awwwards Lab</h1>
-    <span class="sub" id="stat"></span>
-    <nav class="links">
-      <a href="../README.md">README</a>
-      <a href="../PROMPT.md">任务提示词</a>
-      <a href="../index.json">index.json</a>
-    </nav>
-  </div>
-  <div class="controls">
-    <input type="search" id="q" placeholder="搜索标题 / 作者 / 机制 / 标签 / 分类…">
-    <div class="chips" id="chips"></div>
+<header class="top">
+  <div class="shell">
+    <div class="top__bar">
+      <span class="top__brand">Awwwards Lab</span>
+      <span class="top__stat" id="stat">…</span>
+      <nav class="top__nav">
+        <a href="../README.md">README</a>
+        <a href="../PROMPT.md">任务提示词</a>
+        <a href="../index.json">index.json</a>
+      </nav>
+    </div>
+    <div class="filters">
+      <input class="search" type="search" id="q" placeholder="搜索标题 / 作者 / 机制 / 标签 / 分类…" aria-label="搜索条目">
+      <div class="chips" id="chips"></div>
+    </div>
   </div>
 </header>
 
 <main>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" hidden></div>
+  <section class="shell hero">
+    <div class="hero__top">
+      <h1 class="display">设计萃取库</h1>
+    </div>
+    <div class="hero__grid">
+      <p class="lede">每天从 Awwwards 挑 2 个优秀设计，清洁室复刻（clean-room）为可复用的前端能力。人在这里就能直观看到效果，Agent 读 <span class="mono">index.json</span> 检索复用。</p>
+      <div class="hero__meta">
+        <div class="rule">
+          <p class="label" style="margin:0 0 6px">内容最后更新</p>
+          <p class="small mono" style="margin:0" id="updated">—</p>
+        </div>
+        <div class="rule">
+          <p class="label" style="margin:0 0 6px">类别轮换</p>
+          <p class="small" style="margin:0">一 动效 · 二 排版 · 三 电商 · 四 作品集 · 五 导航交互 · 六 WebGL-3D · 日（周日）配色主题</p>
+        </div>
+      </div>
+    </div>
+    <dl class="stats" id="stats"></dl>
+  </section>
+
+  <section class="shell">
+    <div class="catalog" id="grid"></div>
+    <div class="empty" id="empty" hidden></div>
+  </section>
+
+  <section class="shell notice" id="failed" hidden></section>
 </main>
 
-<div class="failed" id="failed" hidden></div>
+<footer class="foot shell">
+  <span>Awwwards Lab · 清洁室复刻，不搬运原站素材</span>
+  <nav>
+    <a href="../README.md">README</a>
+    <a href="../PROMPT.md">提示词</a>
+    <a href="../entries/2026-10-11-paper-ink-catalog/README.md">本页主题出处</a>
+    <a href="https://github.com/Sparrived/awwwards-lab">GitHub</a>
+  </nav>
+</footer>
 
-<script type="application/json" id="data">{"generated_at": "2026-10-11T10:27:15+08:00", "entries": [{"id": "2026-10-11-staggered-cell-reveal", "date": "2026-10-11", "category": "motion", "title": "Ownitt", "author": "", "tags": ["animation", "transitions", "scrolling", "storytelling", "gestures-interaction", "gsap", "react", "next-js"], "dir": "entries/2026-10-11-staggered-cell-reveal", "demo": "../entries/2026-10-11-staggered-cell-reveal/demo/index.html", "readme": "../entries/2026-10-11-staggered-cell-reveal/README.md", "source_url": "https://ownitt.fr/", "awwwards_url": "https://www.awwwards.com/sites/ownitt-2", "shot": "../entries/2026-10-11-staggered-cell-reveal/shots/hero.png", "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。", "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转（rotateY 0→90→0）做节奏变化。", "tokens": {"colors": {}, "typography": {}, "spacing": {}, "motion": {"duration": "900ms（reveal）；cellFlip 1s；grain 1800ms", "easing": "cubic-bezier(0.65, 0, 0.35, 1)（reveal）；cellFlip cubic-bezier(0.77, 0, 0.175, 1)", "trigger": "load 一次性入场（animation-fill-mode: forwards），由 sessionStorage['ownitt_intro_seen'] 门控（首访播放、复访不挂载）；错峰 delay = index × 75ms；cellFlip 复用同一 75ms 错峰"}}, "api": "CSS：容器加 class=\"sgr-grid\" 与 data-sgr，子元素 class=\"sgr-cell\"（用 style=\"--i:N\" 指定序号，或由 JS 自动编号），可选 data-flip=\"on\" 开启 3n 翻转，--sgr-cols 控制列数。JS：window.StaggerReveal.replay(gridEl) 重放；window.StaggerReveal.init(root) 手动初始化。", "entrypoints": ["src/component.css", "src/component.js"], "files": ["demo/index.html", "src/component.css", "src/component.js"], "deps": [], "reuse_hints": "适合：作品集/品牌站首屏入场、图库或栏目卡的批量出现、内容段的节奏型揭示。别用：需要被反复触发的交互反馈（本条是一次性入场）；已内置 prefers-reduced-motion 降级为瞬时呈现。", "repro_notes": "原站类名带 CSS modules 前缀 IntroAnimation-module__HH0i_W__（__cell / __cellInner / __grid）；复核时必须先清 sessionStorage（门控键 ownitt_intro_seen），否则 overlay 不挂载、DOM 里查不到 __cell，会被误判为机制不存在。入场 overlay 播完即从 DOM 移除，只能截到入场结束态。自检动效要用 seek 法（pause + currentTime），标签页 hidden 时动画时钟恒为 0 但 playState 仍是 running。", "variant_of": null, "verification": {"rendered_ok": true, "console_errors": 0, "screenshot": "shots/hero.png", "checked_at": "2026-10-11T10:40:00+08:00", "note": "file:// 打开 demo：10 格，sgr-reveal 三格 delay 实测 0/75/150ms；seek 法实测 t=0 → clip-path inset(50%)/opacity 0/translateY(14px)、t=900 → inset(0%)/opacity 1/translateY(0)，与原站 @keyframes cellReveal 逐字一致；sgr-flip 已按原站 @keyframes cellFlip 改为 rotateY 0→90→0；控制台 0 报错、无外部请求。"}}, {"id": "2026-10-11-candy-palette-theme", "date": "2026-10-11", "category": "theme", "title": "Ring Pop® Candy", "author": "", "tags": ["e-commerce", "colorful", "microinteractions", "scrolling", "storytelling", "shopify", "figma"], "dir": "entries/2026-10-11-candy-palette-theme", "demo": "../entries/2026-10-11-candy-palette-theme/demo/index.html", "readme": "../entries/2026-10-11-candy-palette-theme/README.md", "source_url": "https://ringpopcandy.com/", "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy", "shot": "../entries/2026-10-11-candy-palette-theme/shots/hero.png", "summary": "暖米白底 + 单一近墨色文字 + 一组高饱和糖果原色的配色主题 token 系统。", "extracted_mechanism": "candy palette theme：一块暖米白底（ground）承底、单一深墨色（ink）承载全部文字，再用一组互补的高饱和色作为分区/强调色块；配一套极端字号对比的排印比例（巨号 display ≈ 正文的 12 倍）。", "tokens": {"colors": {"ground": "#FFF7E9", "ink": "#141723", "yellow": "#FFF200", "red": "#E1251B", "blue": "#2B6FFC", "pink": "#F9367A", "lime": "#64F525", "orange": "#FC7600", "green": "#0B7302", "clay": "#D7CEC3", "white": "#FFFFFF"}, "typography": {"displayFont": "原站 RINGOLD（商用）→ 免费替代 system-ui/Helvetica Neue 无衬线", "displaySize": "250px", "displayLineHeight": "0.85（213px ÷ 250px）", "displayLetterSpacing": "-0.02em（-5px @ 250px）", "bodyFont": "原站 GREED STANDARD（商用）→ 免费替代 system-ui/Helvetica Neue", "bodySize": "20px", "buttonSize": "24px"}, "spacing": {"buttonPadding": "23px 40px", "buttonRadius": "16px"}, "motion": {"duration": "", "easing": "", "trigger": "—（本条为配色主题，未萃取动效；原站首屏 getAnimations() 为 0，属静态配色型站点）"}}, "api": "引入 src/component.css 后在容器上加 .candy-stage；用 .candy-title / .candy-btn（--red --blue 变体）/ .candy-chip / .candy-swatch。所有色与字号来自 :root 的 --candy-* 变量，可整体覆盖换肤。JS：window.CandyTheme.readTokens() 读取当前 token。", "entrypoints": ["src/component.css", "src/component.js"], "files": ["demo/index.html", "src/component.css", "src/component.js"], "deps": [], "reuse_hints": "适合：食品/糖果/玩具/儿童等需要「庆祝感 + 高能量」的品牌落地页、活动页、电商首屏；也适合作为深色/中性 UI 的强调色来源。别用：需要克制、专业、金融/医疗气质的界面（高饱和撞色会显轻浮）；大量正文场景需降低强调色占比。", "repro_notes": "色板值的取法：在站内 CSS / 计算样式里采集到的原值多为 rgb() 形式，本条统一归一化成 hex，复核时用 rgb() 比对可能对不上（如 pink 实测到的是 rgb(249,54,122) 形式的定义，clay 为 rgb(215,206,195)）——这是归一化差异，不是编造。关键取值另经站内 CSS 变量复核：--font-heading-h1-size: 250px、--brand-color: #141723、display 字体 'Ringold'、正文 'Greed Standard'（均实测命中）。ground/ink 与 h1 的 250px/213px/-5px/400 可直接用 getComputedStyle 复现。", "variant_of": null, "verification": {"rendered_ok": true, "console_errors": 0, "screenshot": "shots/hero.png", "checked_at": "2026-10-11T10:40:00+08:00", "note": "file:// 打开 demo：body 底色 rgb(255,247,233)、墨色 rgb(20,23,35)、display 250px/ls -5px/lh 212.5px、11 色板 + 8 色块渲染正常，控制台 0 报错、无外部请求。独立复核：原站实测 bodyBg rgb(255,247,233)/color rgb(20,23,35)/body 20px/h1 250px·213px·-5px·400/主按钮 24px·23px 40px·16px/getAnimations()=0 全部吻合。"}}], "failed": []}</script>
+<script type="application/json" id="data">{"generated_at": "2026-10-11T10:46:15+08:00", "entries": [{"id": "2026-10-11-staggered-cell-reveal", "date": "2026-10-11", "category": "motion", "title": "Ownitt", "author": "", "tags": ["animation", "transitions", "scrolling", "storytelling", "gestures-interaction", "gsap", "react", "next-js"], "dir": "entries/2026-10-11-staggered-cell-reveal", "demo": "../entries/2026-10-11-staggered-cell-reveal/demo/index.html", "readme": "../entries/2026-10-11-staggered-cell-reveal/README.md", "source_url": "https://ownitt.fr/", "awwwards_url": "https://www.awwwards.com/sites/ownitt-2", "shot": "../entries/2026-10-11-staggered-cell-reveal/shots/hero.png", "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。", "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转（rotateY 0→90→0）做节奏变化。", "tokens": {"colors": {}, "typography": {}, "spacing": {}, "motion": {"duration": "900ms（reveal）；cellFlip 1s；grain 1800ms", "easing": "cubic-bezier(0.65, 0, 0.35, 1)（reveal）；cellFlip cubic-bezier(0.77, 0, 0.175, 1)", "trigger": "load 一次性入场（animation-fill-mode: forwards），由 sessionStorage['ownitt_intro_seen'] 门控（首访播放、复访不挂载）；错峰 delay = index × 75ms；cellFlip 复用同一 75ms 错峰"}}, "api": "CSS：容器加 class=\"sgr-grid\" 与 data-sgr，子元素 class=\"sgr-cell\"（用 style=\"--i:N\" 指定序号，或由 JS 自动编号），可选 data-flip=\"on\" 开启 3n 翻转，--sgr-cols 控制列数。JS：window.StaggerReveal.replay(gridEl) 重放；window.StaggerReveal.init(root) 手动初始化。", "entrypoints": ["src/component.css", "src/component.js"], "files": ["demo/index.html", "src/component.css", "src/component.js"], "deps": [], "reuse_hints": "适合：作品集/品牌站首屏入场、图库或栏目卡的批量出现、内容段的节奏型揭示。别用：需要被反复触发的交互反馈（本条是一次性入场）；已内置 prefers-reduced-motion 降级为瞬时呈现。", "repro_notes": "原站类名带 CSS modules 前缀 IntroAnimation-module__HH0i_W__（__cell / __cellInner / __grid）；复核时必须先清 sessionStorage（门控键 ownitt_intro_seen），否则 overlay 不挂载、DOM 里查不到 __cell，会被误判为机制不存在。入场 overlay 播完即从 DOM 移除，只能截到入场结束态。自检动效要用 seek 法（pause + currentTime），标签页 hidden 时动画时钟恒为 0 但 playState 仍是 running。", "variant_of": null, "verification": {"rendered_ok": true, "console_errors": 0, "screenshot": "shots/hero.png", "checked_at": "2026-10-11T10:40:00+08:00", "note": "file:// 打开 demo：10 格，sgr-reveal 三格 delay 实测 0/75/150ms；seek 法实测 t=0 → clip-path inset(50%)/opacity 0/translateY(14px)、t=900 → inset(0%)/opacity 1/translateY(0)，与原站 @keyframes cellReveal 逐字一致；sgr-flip 已按原站 @keyframes cellFlip 改为 rotateY 0→90→0；控制台 0 报错、无外部请求。"}}, {"id": "2026-10-11-paper-ink-catalog", "date": "2026-10-11", "category": "theme", "title": "metic. – Take a closer look", "author": "", "tags": ["minimal", "typography", "design-agencies", "interaction-design", "microinteractions", "business-corporate", "animation", "sound-audio", "three-js", "webgl", "next-js", "web-interactive", "nominees"], "dir": "entries/2026-10-11-paper-ink-catalog", "demo": "../entries/2026-10-11-paper-ink-catalog/demo/index.html", "readme": "../entries/2026-10-11-paper-ink-catalog/README.md", "source_url": "https://metic.studio/en", "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look", "shot": "../entries/2026-10-11-paper-ink-catalog/shots/hero.png", "summary": "暖纸底 + 近墨色 + 细线分隔 + 单一强调色的「纸墨编目」主题：靠极端字号差与收紧字距建立秩序，卡片平面无投影，用暗底当作展品框。", "extracted_mechanism": "paper-ink catalog theme：一块暖纸底（#F4F4F2）承住全部内容、近墨色（#121214）承载全部文字、1px 低对比细线做分隔；唯一强调色（#FF3E3E）只在「需要指向」的地方出现（分类标签/链接悬停/焦点环/选中文字）。秩序来自排印而非装饰：display 与正文形成约 5.4 倍字号差，字距随字号收紧（display -0.035em / h3 -0.02em），卡片一律平面纸 + 细线、无投影无浮起，作品预览放进暗底（#0B0C10）框里形成「展品」层级。", "tokens": {"colors": {"paper": "#F4F4F2", "paper-2": "#E9E9E6", "ink": "#121214", "ink-soft": "#62626A", "accent": "#FF3E3E", "dark": "#0B0C10"}, "typography": {"displayFont": "原站 Bricolage Grotesque（免费）→ 声明字体名 + system-ui 回退", "displaySize": "92.16px（clamp 后 46→92.16px）", "displayLineHeight": "0.96（88.47px ÷ 92.16px）", "displayLetterSpacing": "-0.035em（-3.2256px @ 92.16px）", "displayWeight": "500", "h3Size": "30.72px · line-height 1.12 · letter-spacing -0.02em · weight 500", "bodyFont": "原站 Space Grotesk（免费）→ 命名 + 回退", "bodySize": "17px / line-height 1.55（26.35px）", "smallSize": "14px / line-height 1.43（20px）", "labelSize": "12px 大写 / letter-spacing 0.06em（0.72px）", "monoFont": "ui-monospace 系统等宽（用于色值/时长等 token 展示）"}, "spacing": {"sectionY": "160px（部分区段 128px），clamp 后 64→160px", "gridGap": "40px（栏间距）/ 32px / 8px", "hairline": "1px solid rgba(18,18,20,0.12)（加重变体 rgb(98,98,106)）", "radius": "卡片 12px / 药丸 999px / 极小元素 3px", "maxWidth": "1560px 外壳 + clamp(20px,3.4vw,56px) 左右内边距"}, "motion": {"duration": "1050ms（入场）/ 另有 1100ms 与 6000ms 循环", "easing": "linear（关键帧线性，节奏靠错峰而非缓动）", "trigger": "load 入场 + 循环滚动；错峰 120/210/300ms（步长 90ms），另有 -400/-750/-550ms 负延迟组"}}, "api": "引入 src/theme.css 即得全部 token 与组件类。排版原语：.display / .h2 / .h3 / .lede / .small / .label / .mono。外壳：.shell（1560px 居中 + 响应式内边距）、.top（扁平吸顶纸面栏）、.filters/.search/.chip、.hero/.stats、.foot。编目：.catalog（自适应网格）、.plate（展品卡，用 --pi 序号驱动错峰入场）、.plate__media/.plate__idx/.plate__head/.plate__title/.meta/.meta__row/.swatches/.sw/.tag/.plate__foot。换肤只需覆盖 :root 里的 --paper/--ink/--accent/--dark/--fs-*/--gap/--dur-reveal/--stagger。", "entrypoints": ["src/theme.css"], "files": ["demo/index.html", "src/theme.css", "shots/hero.png", "shots/catalog-in-use.png"], "deps": [], "reuse_hints": "适合：内容索引/编目/作品集/文档/杂志类界面，以及任何「内容比装饰重要」的展示页——本项目自身的画廊页就复用了它（gallery/index.html 直接 link 本条的 src/theme.css，是库内第一条被自己消费的条目）。别用：需要沉浸暗色、强科技感、游戏化或高饱和品牌表达的产品界面（纸墨底色会压制这类气质）；强调色只有一个，若项目需要多主色需自行扩展变量。", "repro_notes": "全部数值取自 https://metic.studio/en 的浏览器计算样式（getComputedStyle / document.getAnimations），非目测。复核要点：①颜色直接读 body 与元素的 backgroundColor/color 出现频次（纸底 rgb(244,244,242) 出现 152 次、墨 rgb(18,18,20) 726 次、次要 rgb(98,98,106) 305 次、强调 rgb(255,62,62) 88 次）；②强调色用途可用「统计所有元素里等于 rgb(255,62,62) 的 color/backgroundColor/borderColor/outlineColor」复核，实测各有 44~47 处；③细线是 1px rgba(18,18,20,0.12)，实测 42 处，另有 1px rgb(98,98,106) 13 处作加重变体；④区段纵向 padding 实测 160px（部分 128px），12 栏网格 gap 40px；⑤动效实测 1050ms linear，错峰 120/210/300ms（步长 90ms）以及 -400/-750/-550ms 的负延迟组。字体：原站 Bricolage Grotesque + Space Grotesk（均为免费字体），本主题为「零外网依赖」只在 font-family 里声明字体名 + 系统回退，不引 CDN；本地装了这两款免费字体即自动生效。", "variant_of": null, "verification": {"rendered_ok": true, "console_errors": 0, "screenshot": "shots/hero.png", "checked_at": "2026-10-11T11:05:00+08:00", "note": "file:// 打开 demo 与 gallery/index.html 均实测：控制台 0 报错、0 个外部网络请求；gallery 复用本条 theme.css 渲染出抬头/统计/筛选/展品卡；字体在未安装 Bricolage/Space Grotesk 的环境下按预期回退 system-ui，结构不变；prefers-reduced-motion 降级为瞬时。"}}, {"id": "2026-10-11-candy-palette-theme", "date": "2026-10-11", "category": "theme", "title": "Ring Pop® Candy", "author": "", "tags": ["e-commerce", "colorful", "microinteractions", "scrolling", "storytelling", "shopify", "figma"], "dir": "entries/2026-10-11-candy-palette-theme", "demo": "../entries/2026-10-11-candy-palette-theme/demo/index.html", "readme": "../entries/2026-10-11-candy-palette-theme/README.md", "source_url": "https://ringpopcandy.com/", "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy", "shot": "../entries/2026-10-11-candy-palette-theme/shots/hero.png", "summary": "暖米白底 + 单一近墨色文字 + 一组高饱和糖果原色的配色主题 token 系统。", "extracted_mechanism": "candy palette theme：一块暖米白底（ground）承底、单一深墨色（ink）承载全部文字，再用一组互补的高饱和色作为分区/强调色块；配一套极端字号对比的排印比例（巨号 display ≈ 正文的 12 倍）。", "tokens": {"colors": {"ground": "#FFF7E9", "ink": "#141723", "yellow": "#FFF200", "red": "#E1251B", "blue": "#2B6FFC", "pink": "#F9367A", "lime": "#64F525", "orange": "#FC7600", "green": "#0B7302", "clay": "#D7CEC3", "white": "#FFFFFF"}, "typography": {"displayFont": "原站 RINGOLD（商用）→ 免费替代 system-ui/Helvetica Neue 无衬线", "displaySize": "250px", "displayLineHeight": "0.85（213px ÷ 250px）", "displayLetterSpacing": "-0.02em（-5px @ 250px）", "bodyFont": "原站 GREED STANDARD（商用）→ 免费替代 system-ui/Helvetica Neue", "bodySize": "20px", "buttonSize": "24px"}, "spacing": {"buttonPadding": "23px 40px", "buttonRadius": "16px"}, "motion": {"duration": "", "easing": "", "trigger": "—（本条为配色主题，未萃取动效；原站首屏 getAnimations() 为 0，属静态配色型站点）"}}, "api": "引入 src/component.css 后在容器上加 .candy-stage；用 .candy-title / .candy-btn（--red --blue 变体）/ .candy-chip / .candy-swatch。所有色与字号来自 :root 的 --candy-* 变量，可整体覆盖换肤。JS：window.CandyTheme.readTokens() 读取当前 token。", "entrypoints": ["src/component.css", "src/component.js"], "files": ["demo/index.html", "src/component.css", "src/component.js"], "deps": [], "reuse_hints": "适合：食品/糖果/玩具/儿童等需要「庆祝感 + 高能量」的品牌落地页、活动页、电商首屏；也适合作为深色/中性 UI 的强调色来源。别用：需要克制、专业、金融/医疗气质的界面（高饱和撞色会显轻浮）；大量正文场景需降低强调色占比。", "repro_notes": "色板值的取法：在站内 CSS / 计算样式里采集到的原值多为 rgb() 形式，本条统一归一化成 hex，复核时用 rgb() 比对可能对不上（如 pink 实测到的是 rgb(249,54,122) 形式的定义，clay 为 rgb(215,206,195)）——这是归一化差异，不是编造。关键取值另经站内 CSS 变量复核：--font-heading-h1-size: 250px、--brand-color: #141723、display 字体 'Ringold'、正文 'Greed Standard'（均实测命中）。ground/ink 与 h1 的 250px/213px/-5px/400 可直接用 getComputedStyle 复现。", "variant_of": null, "verification": {"rendered_ok": true, "console_errors": 0, "screenshot": "shots/hero.png", "checked_at": "2026-10-11T10:40:00+08:00", "note": "file:// 打开 demo：body 底色 rgb(255,247,233)、墨色 rgb(20,23,35)、display 250px/ls -5px/lh 212.5px、11 色板 + 8 色块渲染正常，控制台 0 报错、无外部请求。独立复核：原站实测 bodyBg rgb(255,247,233)/color rgb(20,23,35)/body 20px/h1 250px·213px·-5px·400/主按钮 24px·23px 40px·16px/getAnimations()=0 全部吻合。"}}], "failed": []}</script>
 <script>
 (function () {
   'use strict';
@@ -129,130 +82,143 @@ h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--
   const entries = DATA.entries || [];
   const failed = DATA.failed || [];
 
-  // ---------- 统计 ----------
-  const cats = {};
-  entries.forEach(e => { const c = e.category || '(未分类)'; cats[c] = (cats[c] || 0) + 1; });
-  const catsSorted = Object.keys(cats).sort((a, b) => cats[b] - cats[a]);
-  document.getElementById('stat').textContent =
-    entries.length + ' 条 · ' + catsSorted.length + ' 个类别 · 更新 ' +
-    (DATA.generated_at || '').replace('T', ' ').slice(0, 16);
-
-  // ---------- 工具 ----------
   const esc = s => String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
   const isColor = v => /^(#[0-9a-f]{3,8}|rgb|hsl|oklch|lab|color\()/i.test(String(v || '').trim());
+  const el = html => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+  const pad = n => String(n).padStart(2, '0');
+  const NO_VALUE = v => !v || v === '—';
 
-  function el(html) {
-    const t = document.createElement('template');
-    t.innerHTML = html.trim();
-    return t.content.firstElementChild;
-  }
+  // ---------- 统计 ----------
+  const cats = {};
+  entries.forEach(e => { const c = e.category || '(未分类)'; cats[c] = (cats[c] || 0) + 1; });
+  const catsSorted = Object.keys(cats).sort((a, b) => cats[b] - cats[a]);
+  const noDeps = entries.filter(e => !(e.deps || []).length).length;
+  const mechs = new Set(entries.map(e => e.extracted_mechanism)).size;
 
-  // ---------- 卡片 ----------
+  document.getElementById('updated').textContent = (DATA.generated_at || '').replace('T', ' ').slice(0, 16);
+  document.getElementById('stat').textContent =
+    entries.length + ' 条 · ' + catsSorted.length + ' 类别 · ' + noDeps + ' 条零依赖';
+  document.getElementById('stats').innerHTML = [
+    ['条目', entries.length], ['类别', catsSorted.length],
+    ['零依赖', noDeps], ['不重复机制', mechs]
+  ].map(([k, v]) => '<div><dt>' + k + '</dt><dd class="mono">' + v + '</dd></div>').join('');
+
+  // ---------- 字段渲染（空值整行不渲染，不留破折号占位） ----------
+  const NONE = '<span class="meta__v--none">本条目无此项</span>';
+  const row = (k, v) => '<div class="meta__row"><span class="meta__k">' + k + '</span><p class="meta__v">' + v + '</p></div>';
+
   function swatches(tokens) {
     const colors = (tokens && tokens.colors) || {};
-    const items = Object.keys(colors).map(k => {
+    const keys = Object.keys(colors);
+    if (!keys.length) return '';
+    return keys.map(k => {
       const v = colors[k];
       return isColor(v)
         ? '<span class="sw" title="' + esc(k + ': ' + v) + '" style="background:' + esc(v) + '"></span>'
-        : '<span class="tag mono" title="' + esc(k) + '">' + esc(v) + '</span>';
-    });
-    return items.length ? '<div class="row"><span class="k">配色</span>' + items.join('') + '</div>' : '';
+        : '<span class="tag">' + esc(v) + '</span>';
+    }).join('');
   }
-
-  function motionRow(tokens) {
+  function motionText(tokens) {
     const m = (tokens && tokens.motion) || {};
-    const parts = [];
-    if (m.duration) parts.push('时长 <span class="mono">' + esc(m.duration) + '</span>');
-    if (m.easing) parts.push('缓动 <span class="mono">' + esc(m.easing) + '</span>');
-    if (m.trigger) parts.push('触发 ' + esc(m.trigger));
-    return parts.length ? '<div class="row"><span class="k">动效</span><span class="mech">' + parts.join(' · ') + '</span></div>' : '';
+    const p = [];
+    if (m.duration) p.push('时长 ' + m.duration);
+    if (m.easing) p.push('缓动 ' + m.easing);
+    if (m.trigger) p.push('触发 ' + m.trigger);
+    return p.length ? p.join(' · ') : '';
   }
-
-  function typeRow(tokens) {
+  function typeText(tokens) {
     const t = (tokens && tokens.typography) || {};
-    const keys = Object.keys(t);
-    if (!keys.length) return '';
-    return '<div class="row"><span class="k">排版</span><span class="mech mono">' +
-      keys.map(k => esc(k + ': ' + t[k])).join('  ·  ') + '</span></div>';
+    const k = Object.keys(t);
+    return k.length ? k.map(x => x + ' ' + t[x]).join(' · ') : '';
+  }
+  function depsText(deps) {
+    if (!deps || !deps.length) return '<span class="tag tag--none">零依赖</span>';
+    return deps.map(d => '<span class="tag tag--dep" title="' + esc(d.why || '') + '">' +
+      esc(d.name || d) + (d.version ? ' ' + esc(d.version) : '') + '</span>').join(' ');
   }
 
-  function depsRow(deps) {
-    if (!deps || !deps.length) return '<span class="tag nodep">零依赖</span>';
-    return deps.map(d => '<span class="tag dep" title="' + esc(d.why || '') + '">' +
-      esc(d.name || d) + (d.version ? ' ' + esc(d.version) : '') + '</span>').join('');
-  }
-
-  function card(e) {
-    const poster = e.shot
+  // ---------- 展品卡 ----------
+  function plate(e, i) {
+    const media = e.shot
       ? '<img src="' + esc(e.shot) + '" alt="" loading="lazy" onerror="this.remove()">'
-      : '';
-    const tags = (e.tags || []).slice(0, 6)
-      .map(t => '<span class="tag">' + esc(t) + '</span>').join('');
+      : '<span class="ph">无截图证据</span>';
+
+    // 主干信息固定三行（机制/配色/动效），缺值也占行 → 三张卡基线一致
+    const sw = swatches(e.tokens);
+    const mo = motionText(e.tokens);
+    const rows = [
+      row('机制', '<span class="meta__v--clamp">' + esc(e.extracted_mechanism) + '</span>'),
+      row('配色', sw ? '<span class="swatches">' + sw + '</span>' : NONE),
+      row('动效', mo ? '<span class="mono">' + esc(mo) + '</span>' : NONE)
+    ];
+
+    const more = [];
+    more.push(row('依赖', depsText(e.deps)));
+    const ty = typeText(e.tokens);
+    if (ty) more.push(row('排版', '<span class="mono">' + esc(ty) + '</span>'));
+    if (e.reuse_hints) more.push(row('适用', esc(e.reuse_hints)));
+    if (e.repro_notes) more.push(row('复核要点', esc(e.repro_notes)));
+    if ((e.tags || []).length) {
+      more.push(row('原站标签', e.tags.map(t => '<span class="tag">' + esc(t) + '</span>').join(' ')));
+    }
+
     const node = el(
-      '<article class="card">' +
-        '<div class="head">' +
-          '<div class="t"><h3>' + esc(e.title || e.id) + '</h3>' +
-            '<div class="by">' + esc(e.author || '') +
-              (e.date ? (e.author ? ' · ' : '') + esc(e.date) : '') + '</div></div>' +
-          '<span class="badge">' + esc(e.category || '') + '</span>' +
+      '<article class="plate" style="--pi:' + i + '">' +
+        '<div class="plate__media" data-src="' + esc(e.demo) + '">' +
+          '<span class="plate__idx">' + pad(i + 1) + '</span>' + media +
+          '<button class="plate__load" type="button">载入实时预览</button>' +
         '</div>' +
-        '<div class="preview" data-src="' + esc(e.demo) + '">' + poster +
-          '<span class="ph">滚动到此处自动加载预览</span></div>' +
-        '<div class="body">' +
-          '<p class="summary">' + esc(e.summary || '') + '</p>' +
-          '<p class="mech"><b>机制</b> ' + esc(e.extracted_mechanism || '') + '</p>' +
-          swatches(e.tokens) + motionRow(e.tokens) + typeRow(e.tokens) +
-          (e.reuse_hints ? '<p class="mech"><b>适用</b> ' + esc(e.reuse_hints) + '</p>' : '') +
-          (tags ? '<div class="row">' + tags + '</div>' : '') +
-          '<div class="row"><span class="k">依赖</span>' + depsRow(e.deps) + '</div>' +
+        '<div class="plate__head">' +
+          '<div class="plate__sub">' +
+            '<span class="label accent">' + esc(e.category || '') + '</span>' +
+            '<span class="label">' + esc(e.date || '') + '</span>' +
+            (e.author ? '<span class="label">' + esc(e.author) + '</span>' : '') +
+          '</div>' +
+          '<h2 class="plate__title">' + esc(e.title || e.id) + '</h2>' +
         '</div>' +
-        '<div class="foot">' +
-          '<span class="mono">' + esc(e.id) + '</span>' +
+        '<dl class="meta">' + rows.join('') + '</dl>' +
+        (more.length ? '<details class="plate__more"><summary>字段明细 · 复核要点 · 标签<span class="label">' +
+                       more.length + '</span></summary><dl class="meta">' + more.join('') + '</dl></details>' : '') +
+        '<div class="plate__foot">' +
+          '<span class="plate__id" title="条目目录名">' + esc(e.id) + '</span>' +
           '<span class="go">' +
-            '<a href="' + esc(e.demo) + '" target="_blank" rel="noopener">打开 demo ↗</a>' +
-            (e.source_url ? '<a href="' + esc(e.source_url) + '" target="_blank" rel="noopener">原站 ↗</a>' : '') +
-            (e.awwwards_url ? '<a href="' + esc(e.awwwards_url) + '" target="_blank" rel="noopener">Awwwards ↗</a>' : '') +
+            '<a class="is-primary" href="' + esc(e.demo) + '" target="_blank" rel="noopener">打开 demo</a>' +
+            (e.source_url ? '<a href="' + esc(e.source_url) + '" target="_blank" rel="noopener">原站</a>' : '') +
+            (e.awwwards_url ? '<a href="' + esc(e.awwwards_url) + '" target="_blank" rel="noopener">Awwwards</a>' : '') +
             '<a href="' + esc(e.readme) + '">README</a>' +
           '</span>' +
         '</div>' +
       '</article>');
-    // 搜索用的小写索引
-    node.dataset.hay = [e.id, e.title, e.author, e.category, e.summary,
-      e.extracted_mechanism, e.reuse_hints, (e.tags || []).join(' ')].join(' ').toLowerCase();
+
+    // 预览默认是截图；点按钮才换成实时 iframe（截图轻、且没有内部滚动条）
+    node.querySelector('.plate__load').addEventListener('click', function () {
+      const box = node.querySelector('.plate__media');
+      const img = box.querySelector('img');
+      const iframe = document.createElement('iframe');
+      iframe.src = box.dataset.src;
+      iframe.title = 'demo 实时预览';
+      box.insertBefore(iframe, box.querySelector('.plate__load'));
+      if (img) img.remove();
+      this.remove();
+    });
+
+    node.dataset.hay = [e.id, e.title, e.author, e.category, e.summary, e.extracted_mechanism,
+      e.reuse_hints, (e.tags || []).join(' ')].join(' ').toLowerCase();
     node.dataset.cat = e.category || '(未分类)';
     return node;
   }
 
   const grid = document.getElementById('grid');
-  const nodes = entries.map(e => { const n = card(e); grid.appendChild(n); return n; });
-
-  // ---------- 懒加载预览 ----------
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(rows => {
-      rows.forEach(r => {
-        if (!r.isIntersecting) return;
-        const box = r.target;
-        const ph = box.querySelector('.ph');
-        if (ph) ph.remove();
-        const f = document.createElement('iframe');
-        f.src = box.dataset.src;
-        f.loading = 'lazy';
-        f.title = 'preview';
-        box.appendChild(f);
-        io.unobserve(box);
-      });
-    }, { rootMargin: '700px 0px' });
-    document.querySelectorAll('.preview').forEach(b => io.observe(b));
-  }
+  const nodes = entries.map((e, i) => { const n = plate(e, i); grid.appendChild(n); return n; });
 
   // ---------- 筛选 ----------
   const chips = document.getElementById('chips');
   const active = new Set();
   catsSorted.forEach(c => {
     const b = el('<button class="chip" type="button" aria-pressed="false">' + esc(c) +
-                 '<span class="n">' + cats[c] + '</span></button>');
+                 '<span class="chip__n">' + cats[c] + '</span></button>');
     b.onclick = () => {
       if (active.has(c)) active.delete(c); else active.add(c);
       b.setAttribute('aria-pressed', active.has(c));
@@ -267,21 +233,18 @@ h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--
     const term = q.value.trim().toLowerCase();
     let shown = 0;
     nodes.forEach(n => {
-      const okCat = active.size === 0 || active.has(n.dataset.cat);
-      const okQ = !term || n.dataset.hay.includes(term);
-      const ok = okCat && okQ;
+      const ok = (active.size === 0 || active.has(n.dataset.cat)) && (!term || n.dataset.hay.includes(term));
       n.hidden = !ok;
       if (ok) shown++;
     });
-    const on = term || active.size;
     if (!entries.length) {
       empty.hidden = false;
-      empty.innerHTML = '库里还没有条目。<br><br>先跑一次任务：<br>' +
-        '<code>python3 scripts/new_entry.py "slug" --category motion</code><br>' +
-        '<code>python3 scripts/build_gallery.py</code>';
-    } else if (shown === 0 && on) {
+      empty.innerHTML = '<p class="h3">库里还没有条目</p>' +
+        '<p class="small">先跑一次任务：<br><code>python3 scripts/new_entry.py "slug" --category motion</code><br>' +
+        '<code>python3 scripts/build_gallery.py</code></p>';
+    } else if (shown === 0) {
       empty.hidden = false;
-      empty.textContent = '没有匹配的条目。';
+      empty.innerHTML = '<p class="h3">没有匹配的条目</p><p class="small">换个关键词，或清掉分类筛选。</p>';
     } else {
       empty.hidden = true;
     }
@@ -292,9 +255,8 @@ h2.sec{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--
   if (failed.length) {
     const box = document.getElementById('failed');
     box.hidden = false;
-    box.innerHTML = '<h2>未入库 ' + failed.length + ' 条（存在但未通过自检 / 结构不合契约）</h2><ul>' +
-      failed.map(f => '<li><span class="mono">' + esc(f.dir) + '</span> — ' + esc(f.reason) + '</li>')
-            .join('') + '</ul>';
+    box.innerHTML = '<h2>未入库 ' + failed.length + ' 条</h2>' +
+      '<ul>' + failed.map(f => '<li><span class="mono">' + esc(f.dir) + '</span> — ' + esc(f.reason) + '</li>').join('') + '</ul>';
   }
 })();
 </script>
