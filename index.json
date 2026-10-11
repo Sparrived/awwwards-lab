@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T11:15:26+08:00",
+  "generated_at": "2026-10-11T12:34:00+08:00",
   "generator": "scripts/build_gallery.py",
   "count": 3,
   "entries": [
@@ -377,122 +377,108 @@
       "source_url": "https://ringpopcandy.com/",
       "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
       "shot": "../entries/2026-10-11-giant-type-scenes/shots/original-site.png",
-      "summary": "巨字分幕装置：把标题本身放大成主视觉（字号 102~250px、行高比压到 0.68~0.85 让字块紧贴），用强制换行把一句话堆成 2~6 行撑满视口，每段换一个整屏色块当底，形成分幕节奏。",
+      "summary": "巨字 × 满幅图分幕：底色恒定（奶油 #FFF7E9），每幕一张满幅产品图当色场，巨字压在图上面；字色跟着图挑（粉字配桃底、萤光黄配蓝底）。文字本身带三层效果：逐词遮罩上抽的揭示、词级局部换色、画出来的下划线。",
       "strength": "type-as-image",
-      "expression": "它不靠插画或摄影当主视觉，而是让「文字」承担图像功能——同一套排印规则（全大写、字距 -0.02em、行高比压紧）在 10 个区段里重复，只改字号（102 / 120 / 128 / 160 / 250px）和断行位置，就构成了整页的节奏。字块不是「一行标题」，而是一块占据大半屏的长方形字屏：短句会被强制断成 2~4 行，长单词甚至一字母一行（W-E-D-D-I-N-G）变成一根竖字柱。色板在这里的作用也不是「好看」，而是分幕：每段一个整屏色块，色块切换标记阅读章节，艳色因为被放大到 1278px 宽、和 250px 的字并置，反而被尺度压住了。",
-      "composition": "实测（视口 1280×577）：页面总高 11047px，14 个 section，其中 10 个带 .section-title；字号 250px 出现 6 段，160px / 128px / 120px / 102px 各若干；同一 250px 字号下行高按字面光学微调为 170 / 205 / 213px（比值 0.680 / 0.820 / 0.852），小字号比值保持一致（120→100 = 0.833、102→86 = 0.843、128→107 = 0.836、160→115 = 0.719）；整屏色块宽 1278px（几乎等于视口宽），单块高 766~1209px；标题为 display:inline-block + text-transform:uppercase，真实 h1 是 visually-hidden。",
+      "expression": "三层叠起来才是它的看点。①**字压图**：标题不是摆在图旁边，而是**压在图上面**——实测标题中心点调用 document.elementsFromPoint 命中的最上层是 picture.mfr-responsive-image，即产品图就是字的底。所以「配色方案」这个说法是偏的：全站底色恒定为 rgb(255,247,233) 不变，每幕的「色」来自那张满幅产品图（实测宽 1278px ≈ 视口宽，高 863~1490px），**真正逐幕变化的是字色，而字色是跟着图挑的**（粉 #E8588A 配桃底、萤光黄 #E0FF18 配蓝底、柠檬 #64F525、黄 #FFF200）。②**文字效果**（静态首屏量不到）：标题被拆成**逐词块**——div.split-text > span.split-text__inner，外层 overflow:hidden 当遮罩，未进入视口时 opacity:0 + transform:translateY(min(100%,80px))，JS 加上 .is-inview 后归位 → 巨型词块**逐词从下往上抽出来**，天然可逐词错峰；标题内可**局部换色**（.section-title .highlighted / b / strong → color: var(--highlight-color)，另有 .has-gradient-highlight 渐变）；**下划线是画出来的小条**而不是 border（strong::after { height: 0.025em; background: var(--underline-color) }）。③**层级靠极端对比**：kicker 16px 与巨字 250px = 15.6 倍字号差，同一色系里做极小+极大；分幕之间用 box-shadow: 0 -30px 40px 制造层叠感（.as-stacking-section--shadow）。",
+      "composition": "实测（视口 1280×577）：body 底色 rgb(255,247,233) 全站恒定；14 个 section，10 个 .section-title（其中 5 个带 .as-stacking-section，高度 863 / 882 / 942 / 839 / 859px）；字号 250px（6 段）/ 160 / 128 / 120 / 102px；行高比 0.680~0.852（250/170、250/205、250/213、120/100、102/86、128/107、160/115）；字距 -0.02em；全大写；真实 h1 为 visually-hidden。满幅图宽 1278px（= 视口宽）、高 863~1490px。kicker（.small-title）16px。页面总高 11047px。",
       "motion_catalog": [
+        {
+          "name": "split-text 逐词遮罩揭示",
+          "duration": "",
+          "easing": "",
+          "delay": "",
+          "trigger": "进入视口时 JS 加 .is-inview（未进入：opacity 0 + translateY(min(100%, 80px))）"
+        },
         {
           "name": "floating",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": "class 切换（时长未取证）"
+          "trigger": "无限循环：0% translateY(0) → 65% translateY(15px) → 100% translateY(0)"
         },
         {
           "name": "floating-reverse",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
+          "trigger": "同上，-15px"
         },
         {
           "name": "shadow-blur",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
+          "trigger": "无限循环：0% blur(1.3rem) grayscale(1) brightness(0) + scale(1) skew(30deg,-4deg) → 65% blur(0.8rem) + scale(0.85) + 同斜切 → 100% 回位（随悬浮物缩小）"
         },
         {
-          "name": "shadow-blur-reverse",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
+          "name": "spark",
+          "duration": "3s",
+          "easing": "ease-in-out",
+          "delay": "0s",
+          "trigger": "无限循环：scale 0 → 1 → 0"
         },
         {
-          "name": "shadow-blur-small",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
-        },
-        {
-          "name": "flying",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
+          "name": "spark-fast",
+          "duration": "2s",
+          "easing": "ease-in-out",
+          "delay": "0s",
+          "trigger": "同上，更快"
         },
         {
           "name": "rotating",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
+          "duration": "26s",
+          "easing": "linear",
+          "delay": "0s",
+          "trigger": "无限循环：rotate 0→360（另有 .rotating-slow）"
         },
         {
           "name": "pulsate",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
-        },
-        {
-          "name": "spark",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
-        },
-        {
-          "name": "spark-fast",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
+          "trigger": "无限循环：scale 1 → 0.7 → 1"
         },
         {
           "name": "tada",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
+          "trigger": "扭动：scaleX(1) → scale3d(0.9,0.9,0.9) rotate(-3deg) → scale3d(1.1,1.1,1.1) rotate(3deg) 交替"
+        },
+        {
+          "name": "flying",
+          "duration": "",
+          "easing": "",
+          "delay": "",
+          "trigger": "left -5% → 65% 70% → 110%（横穿）"
         },
         {
           "name": "waveAnimation",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
+          "trigger": "background-position-x 0 → 200%（背景波）"
         },
         {
-          "name": "right-to-left-marquee",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
-        },
-        {
-          "name": "left-to-right-marquee",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ""
+          "name": "dash",
+          "duration": "1.4s",
+          "easing": "ease-in-out",
+          "delay": "0s",
+          "trigger": "无限循环：stroke-dashoffset 280 → 75 且 rotate(135deg) → 280 且 rotate(450deg)"
         },
         {
           "name": "arrow-move",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
+          "trigger": "translate(-100%) → translate(100%)（箭头穿梭）"
         },
         {
-          "name": "fadeIn",
+          "name": "right-to-left-marquee / left-to-right-marquee",
           "duration": "",
           "easing": "",
           "delay": "",
-          "trigger": ""
+          "trigger": "translate(0) ↔ translate(-50%)"
         },
         {
           "name": "animateMenuOpen",
@@ -502,62 +488,49 @@
           "trigger": "点击开菜单"
         },
         {
-          "name": "placeholderCardShimmer",
-          "duration": "2.25s",
-          "easing": "ease",
-          "delay": "0s",
-          "trigger": "无限循环占位"
-        },
-        {
-          "name": "dash",
-          "duration": "1.4s",
-          "easing": "ease-in-out",
-          "delay": "0s",
-          "trigger": "无限循环描边"
-        },
-        {
-          "name": "offcanvas-search-caret-blink",
-          "duration": "1s",
-          "easing": "step-end",
-          "delay": "0s",
-          "trigger": "搜索框光标"
+          "name": "hover 状态（导航/图标）",
+          "duration": "",
+          "easing": "",
+          "delay": "",
+          "trigger": ".header-menu__title:hover span::after { transform: scaleX(1) }（下划线展开）／ .header__search-trigger:hover { transform: scale(1.25); filter: drop-shadow(...) } 且其六边形图标 rotate(180deg)／ .cover-image:hover { scale(1.05) }"
         }
       ],
-      "extracted_mechanism": "巨字分幕装置：一套排印规则（全大写 + 字距 -0.02em + 行高比固定在 0.68~0.85）在多个区段重复，只改字号与断行位置；字号必须同时对「视口宽 ÷ 行内字符数」与「视口高 ÷ 行数」双约束，才能让字块既撑满又不被裁；每段配一个整屏色块当幕。",
-      "dont_copy": "三条：①配色本身并不精致——8 个高饱和原色并置，单看色板并不是好配色；它成立只是因为色块被放大到整屏、与 250px 巨字并置，靠尺度与节奏压住了艳度。把它的色板抄到小尺寸界面会立刻显廉价。②全大写 + 强制换行牺牲可读性：一字母一行只对短英文单词成立，中文、德文长词、需要连续阅读的段落都不适用。③强依赖商用字体与大幅摄影：原站用 Ringold（商用）与大量商品图，本 demo 只能以系统无衬线 + 纯色替代，观感会打折。",
+      "extracted_mechanism": "巨字压满幅图的分幕装置：底色恒定不变，每幕用一张满幅图当色场，巨字块直接压在图上层（字色从图里挑）；字块由「逐词拆字 + 外层 overflow:hidden 遮罩」构成，未进入视口时 opacity:0 + translateY(min(100%,80px))，进入后逐词归位形成上抽揭示；层级靠 kicker 16px 与巨字 250px 的 15.6 倍字号差建立；分幕之间以上投影制造层叠感。",
+      "dont_copy": "四条：①**配色本身不精致，别把它的色板当范本**——8 个高饱和原色并置并不好看，它成立是因为色块被放大到满幅、与 250px 巨字并置，靠尺度压住了艳度；抄到小尺寸界面会立刻显廉价。②**全大写 + 强制换行牺牲可读性**：一字母一行只对短英文词成立，中文、德文长词、需要连续阅读的段落都不适用。③**首屏文字全部依赖 JS 揭示**：文字初始 opacity:0，若脚本失败或爬虫/预览不执行 JS，正文是隐形空白的（本 demo 用 html.js 做渐进增强规避，但原站没做）。④**强依赖商用字体与大幅产品摄影**：原站用 Ringold（商用）与大量商品图，代码复刻只能以系统无衬线 + 纯色场替代，观感必然打折。",
       "tokens": {
         "colors": {
           "ground": "#FFF7E9",
           "ink": "#141723",
-          "blue": "#2364E7",
-          "red": "#E1251B",
+          "pink": "#E8588A",
+          "neon": "#E0FF18",
           "yellow": "#FFF200",
-          "orange": "#FC7600",
-          "green": "#0B7302",
-          "clay": "#D7CEC3"
+          "lime": "#64F525",
+          "deep": "#38292B",
+          "field-blue": "#1F5FE0"
         },
         "typography": {
-          "sceneTitleSize": "250px / 160px / 128px / 120px / 102px（按段变化，实测）",
-          "sceneTitleLineHeight": "170px / 205px / 213px（字高比 0.680 / 0.820 / 0.852，小字号同比）",
+          "sceneTitleSize": "250px / 160px / 128px / 120px / 102px（逐幕变化，实测）",
+          "sceneTitleLineHeight": "170 / 205 / 213px（行高比 0.680 / 0.820 / 0.852，小字号同比）",
           "sceneTitleLetterSpacing": "-0.02em（-5px @ 250px）",
-          "sceneTitleTransform": "uppercase（全大写）",
-          "sceneTitleWeight": "400 / 500",
-          "displayFont": "原站 Ringold（商用）→ 免费替代 system-ui / Helvetica Neue",
-          "bodySize": "20px"
+          "sceneTitleTransform": "uppercase",
+          "kickerSize": "16px（与巨字 250px 差 15.6 倍）",
+          "highlightColor": "var(--highlight-color)，用于标题内 .highlighted / b / strong 的局部换色",
+          "underline": "strong::after 画出的 0.025em 高小条，色走 var(--underline-color)",
+          "displayFont": "原站 Ringold（商用）→ 免费替代 system-ui / Helvetica Neue"
         },
         "spacing": {
-          "sceneMinHeight": "整屏（每幕 766~1209px 高）",
-          "colorBlockWidth": "1278px（视口 1280，即满宽）",
-          "buttonPadding": "23px 40px",
-          "buttonRadius": "16px"
+          "sceneHeight": "整屏（实测 839 / 859 / 863 / 882 / 942px）",
+          "fullBleedWidth": "1278px（视口 1280，即满宽）",
+          "stackingShadow": "0 -30px 40px rgba(0,0,0,.25)（分幕层叠感）",
+          "revealOffset": "translateY(min(100%, 80px))"
         },
         "motion": {
-          "duration": "站点自有 @keyframes 共 25 个，逐个取到时长的 4 个：0.4s / 2.25s / 1.4s / 1s",
-          "easing": "cubic-bezier(0.5, 0, 0, 1)、ease、ease-in-out、step-end",
-          "trigger": "以 class 切换 / hover / 进入视口为主，非自动播放"
+          "duration": "站点自有 @keyframes 共 25 个；逐个取到时长的 4 个：0.4s / 2.25s / 1.4s / 1s",
+          "easing": "linear、ease-in-out、cubic-bezier(0.5,0,0,1)、step-end",
+          "trigger": "以「进入视口加 .is-inview」与 hover 状态为主，非自动播放"
         }
       },
-      "api": "引入 src/scenes.css 后：每幕一个 <section class=\"scene s1\">，标题 <h2 class=\"scene__title\">，文本中的换行用真实换行（white-space: pre 保留）。用 CSS 变量控场：--bg 幕底色、--fg 字色、--fs 字号、--lh 行高比、--fw 字重；新增一幕只需加一个 .sN 类并给这几个变量。角标 .scene__spec 把该幕的实测参数写在画面上。",
+      "api": "引入 src/scenes.css；每幕一个 section.scene + section.scene__field（色场）；标题里**每个词**包一层 .word > .word__in（.word 提供 overflow:hidden 遮罩，故每词独占一行）。变量：--field 场色、color 字色、--fs 字号、--lh 行高比、--highlight-color 局部高亮色、--underline-color 下划线色、--i 词序号（决定错峰延迟）。揭示由 demo 里 12 行脚本加 .is-inview 触发；未启用 JS 时（html 上没有 .js）词直接可见。",
       "entrypoints": [
         "src/scenes.css"
       ],
@@ -568,15 +541,15 @@
         "shots/demo.png"
       ],
       "deps": [],
-      "reuse_hints": "适合：品牌/活动/电商首屏、需要「一句话当主视觉」的落地页、章节式滚动叙事、展会/菜单/唱片等以文字为主体的场景。别用：需要连续阅读的正文页、信息密度高的后台、中文长标题（强制断行对中文不成立）、需要小尺寸呈现的场景（这套装置的全部力量来自尺度）。",
-      "repro_notes": "①本条原被误记为「糖果配色主题」，2026-10-11 复盘后改名并改轴（theme → typography）：分类轴只是发现它的搜索面，不决定条目写什么。②`getAnimations().length === 0` 在本站成立，但那只是「采样时刻无运行动画」，不代表站点静态——站内实测有 25 个 @keyframes 与 147 处 transition 声明，动效以 class / hover / 进入视口触发。③25 个 keyframe 中有 2 个（onetrust-fade-in、ot-go-spin）来自第三方 OneTrust cookie 组件，不计入站点设计。④色值由 rgb() 归一化为 hex。⑤字号同时用 vw 与 svh 双约束是复刻时的必要修正：只用 vw 会在矮窗口把多行字块裁掉（实测 6 行 × 250px = 1278px > 577px 视口）。⑥demo 的入场揭示是本 demo 自加的（CSS 滚动驱动动画），原站揭示机制未取证 → [未验证]。",
+      "reuse_hints": "适合：品牌/活动/电商首屏、需要「一句话当主视觉」的落地页、章节式滚动叙事、展会/菜单/唱片等以文字为主体的场景；尤其适合「有大幅产品图/摄影素材可当色场」的品牌。别用：需要连续阅读的正文页、信息密度高的后台、中文长标题（强制换行对中文不成立）、需要小尺寸呈现的场景（力量全来自尺度）、以及没有 JS 也要保证正文可见的页面（除非照本 demo 做渐进增强）。",
+      "repro_notes": "①本条被复写过三版，v1 误记为「糖果配色主题」、v2 只改了轴与字段、v3（本条）才挖到真机制：原因是我一直在量「好测量的东西」（色值/字号），而它的看点在于**层叠关系与状态**。②**别把满幅图自带的大色块当成站点的配色方案**：全站底色恒为 rgb(255,247,233)，蓝/红等都是产品图自己的底色；取样时要把「图片」与「CSS 背景」分开（可用 document.elementsFromPoint 看字底下压着什么、用 img 的几何尺寸判断是否满幅）。③文字效果只在**状态切换**时可见，必须主动触发：枚举状态类名（.is-inview / .aos-animate / [split-text=\"fadeUp\"]）并对比状态前后的计算样式，静态首屏量不到。④@keyframes 要取**正文**（名字只是索引）：本条已拿到 floating / shadow-blur / spark / tada / flying / waveAnimation / dash / arrow-move / marquee 的关键帧原文；25 个里 2 个（onetrust-fade-in、ot-go-spin）属第三方 OneTrust cookie 组件，不计入。⑤`getAnimations().length === 0` ≠ 静态站点（本条站内有 25 个 keyframes + 147 处 transition）。⑥复刻时踩到两个真坑，都写在了 src/scenes.css 注释里：**容器上的 overflow:hidden 会变成滚动容器，使子元素的 view() 时间线以该容器为 scrollport**（改 overflow:clip）；**IntersectionObserver 对被跳滚跳过的元素不回调**（实测跳到底部只揭开 3/17 个词，改用 rAF 节流的滚动位置检查）。⑦色值由 rgb() 归一化为 hex。",
       "variant_of": null,
       "verification": {
         "rendered_ok": true,
         "console_errors": 0,
         "screenshot": "shots/demo.png",
-        "checked_at": "2026-10-11T11:20:00+08:00",
-        "note": "demo 在 4 个视口实测（1280×577 / 1440×900 / 1920×1080 / 390×844）：全部零横向溢出、零纵向溢出；行高比实测 0.836 / 0.852 / 0.820 / 0.852 / 0.680 / 0.833 与设定一致；控制台 0 报错、0 个外部网络请求；CSS.supports('animation-timeline','view()') 为 true（不支持时退化为静止呈现）。shots/original-site.png 为原站首屏截图（原 hero.png，重命名以免被误认为 demo 截图）。"
+        "checked_at": "2026-10-11T12:45:00+08:00",
+        "note": "demo 在 4 个视口实测（1440×900 / 1280×577 / 1920×1080 / 390×844）：标题零横向溢出、零纵向溢出；控制台 0 报错。揭示机制实测：顶部 1 个词已揭示、其余 16 个 opacity 0 且**视口内无未揭示元素**；直接跳到底部 17/17 全部揭示（跳滚不漏）；缓滚一遍后 17/17 opacity 1；回顶无空白词。floating / shadow-blur / spark 关键帧按原站原文复刻并常驻循环。字号取「宽度约束（最长单词字符数）」与「高度约束（行数 × 行高比）」的较小值，已按实测字形推进 0.588em/字符 反推。"
       }
     }
   ],

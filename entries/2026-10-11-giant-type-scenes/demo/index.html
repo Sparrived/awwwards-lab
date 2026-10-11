@@ -3,69 +3,126 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>demo · 巨字分幕装置（giant type scenes）</title>
+<title>demo · 巨字 × 满幅图分幕（giant type scenes）</title>
+<script>document.documentElement.classList.add('js');</script>
 <link rel="stylesheet" href="../src/scenes.css">
 </head>
 <body>
 
-<!-- 0 · 说明幕（同样是巨字） -->
-<section class="scene s0">
-  <span class="scene__idx">00 / intro</span>
-  <h1 class="scene__title">GIANT
-TYPE</h1>
-  <span class="scene__spec">as a device · 滚动看 5 幕 · 行高比始终压紧</span>
+<!-- 0 · 奶油底 + 满幅色场 + 巨字压图 + 逐词遮罩揭示 -->
+<section class="scene s0" style="--field:#1F5FE0; color:var(--neon); --highlight-color:#FFF7E9">
+  <span class="scene__idx">00 / orig</span>
+  <span class="kicker" style="--kicker:var(--neon)">collection</span>
+  <h1 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in">ORIGINALS</span></span>
+  </h1>
+  <span class="candy candy--bl" style="--candy:#F9367A"></span>
+  <span class="spark spark--fast spark--a"></span>
+  <span class="scene__spec">字色 #E0FF18 × 场色 #1F5FE0 · 250px · lh 0.852 · 逐词遮罩上抽</span>
 </section>
 
-<!-- 1 · 两行字块，奶油底 -->
-<section class="scene s1">
-  <span class="scene__idx">01</span>
-  <h2 class="scene__title">PUT YOUR
-COLORS ON</h2>
-  <span class="scene__spec">250px · lh 0.852 · ls -0.02em · 2 行</span>
+<!-- 1 · 一字母一行：窄词堆成竖字柱 -->
+<section class="scene s1 scene--light" style="--field:#F7D9C4; color:var(--pink)">
+  <span class="scene__idx">01 / wedding</span>
+  <h2 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in">W</span></span>
+    <span class="word" style="--i:1"><span class="word__in">E</span></span>
+    <span class="word" style="--i:2"><span class="word__in">D</span></span>
+    <span class="word" style="--i:3"><span class="word__in">D</span></span>
+    <span class="word" style="--i:4"><span class="word__in">I</span></span>
+    <span class="word" style="--i:5"><span class="word__in">N</span></span>
+    <span class="word" style="--i:6"><span class="word__in">G</span></span>
+  </h2>
+  <span class="candy candy--tr" style="--candy:#E8588A"></span>
+  <span class="scene__spec">字色 #E8588A × 场色 #F7D9C4 · 250px · lh 0.852 · 一字母一词 → 竖字柱</span>
 </section>
 
-<!-- 2 · 单行满宽，蓝底 -->
-<section class="scene s2">
-  <span class="scene__idx">02</span>
-  <h2 class="scene__title">PARTY PACK</h2>
-  <span class="scene__spec">205px · lh 0.820 · 单行撑满</span>
+<!-- 2 · 词级局部换色（实测 .highlighted → var(--highlight-color)） -->
+<section class="scene s2" style="color:var(--ink); --highlight-color:#E1251B">
+  <span class="scene__idx">02 / highlight</span>
+  <h2 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in">PUT YOUR</span></span>
+    <span class="word" style="--i:1"><span class="word__in hl">COLORS</span></span>
+    <span class="word" style="--i:2"><span class="word__in">WHERE</span></span>
+  </h2>
+  <span class="scene__spec">词级局部换色：<span style="color:#E1251B">COLORS</span> 走 --highlight-color（实测 .section-title .highlighted）· 165px · lh 0.820</span>
 </section>
 
-<!-- 3 · 一字母一行，红底 -->
-<section class="scene s3">
-  <span class="scene__idx">03</span>
-  <h2 class="scene__title">C
-O
-L
-O
-R
-S</h2>
-  <span class="scene__spec">250px · lh 0.852 · 一字母一行 → 竖字块</span>
+<!-- 3 · 画出来的下划线（实测 strong::after height:0.025em） -->
+<section class="scene s3" style="color:var(--deep); --underline-color:#DB1F60">
+  <span class="scene__idx">03 / underline</span>
+  <h2 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in ul">PARTY</span></span>
+    <span class="word" style="--i:1"><span class="word__in ul">PACK</span></span>
+  </h2>
+  <span class="scene__spec">下划线不是 border 是画出来的：::after · height 0.025em · 色走 --underline-color</span>
 </section>
 
-<!-- 4 · 行高比压到 0.68，黄底 -->
-<section class="scene s4">
-  <span class="scene__idx">04</span>
-  <h2 class="scene__title">ORIGINALS</h2>
-  <span class="scene__spec">230px · lh 0.680 · 极端压紧（字块几乎叠合）</span>
+<!-- 4 · 极紧行高 + 15.6 倍小标签对比 -->
+<section class="scene s4" style="--field:#FFF200; color:#141723">
+  <span class="scene__idx">04 / lh 0.68</span>
+  <span class="kicker" style="--kicker:#141723">find your moment</span>
+  <h2 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in">A RING FOR</span></span>
+    <span class="word" style="--i:1"><span class="word__in">EVERYTHING</span></span>
+  </h2>
+  <span class="spark spark--b"></span>
+  <span class="scene__spec">行高比压到 0.680（字块几乎叠合）· kicker 16px 与 230px 差 14 倍</span>
 </section>
 
-<!-- 5 · 短句堆成四行，橙底 -->
-<section class="scene s5">
-  <span class="scene__idx">05</span>
-  <h2 class="scene__title">STAY
-IN
-THE
-LOOP</h2>
-  <span class="scene__spec">213px · lh 0.833 · 短句堆成 4 行撑满高度</span>
+<!-- 5 · 视效状态：floating + shadow-blur + spark（关键帧原文复刻） -->
+<section class="scene s5 scene--light" style="--field:#0B7302; color:var(--ground)">
+  <span class="scene__idx">05 / states</span>
+  <h2 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in">SPARK</span></span>
+    <span class="word" style="--i:1"><span class="word__in">AND FLOAT</span></span>
+  </h2>
+  <span class="candy candy--tr" style="--candy:#FFF200"></span>
+  <span class="spark spark--a"></span>
+  <span class="spark spark--fast spark--b"></span>
+  <span class="scene__spec">floating ±15px（4.2s）+ shadow-blur（斜切 30° 模糊投影随悬浮缩放）+ spark 3s / spark-fast 2s</span>
 </section>
 
-<section class="scene s1" style="min-height:auto;padding-block:clamp(40px,8vw,96px)">
-  <p class="scene__spec" style="position:static;opacity:.72;text-align:center;max-width:62ch;font-size:12px;line-height:1.75">
-    参数与画面逐幕对应，全部取自原站实测。清洁室复刻：未复制原站代码、图片、字体或文案；
-    色值取自计算样式，原站商用字体以系统无衬线替代。入场揭示是本 demo 自加的，原站揭示机制未取证 → [未验证]。
+<section class="scene s0" style="min-height:auto;padding-block:clamp(36px,7vw,84px);color:var(--ink)">
+  <p class="scene__spec" style="position:static;opacity:.75;text-align:center;font-size:12px;line-height:1.8;max-width:66ch">
+    机制与参数逐幕对应，全部取自原站实测。清洁室复刻：未复制原站代码、图片、字体或文案；
+    产品图以纯色场 + 自绘"糖果环"占位，商用字体以系统无衬线替代。
+    逐词遮罩揭示在原站由 JS 切换 <code>.is-inview</code> 触发，本 demo 改用 CSS 滚动驱动（零 JS），
+    浏览器不支持时退化为静止呈现。
   </p>
 </section>
+
+<script>
+/* 逐词遮罩揭示：忠实复刻原站（JS 给 .word 加 .is-inview，类名实测为 .is-inview / .aos-animate）。
+   用 AOS 同款思路——rAF 节流的滚动检查，而不是 IntersectionObserver：
+   IO 对被「跳滚」跳过的元素不回调（实测跳到底部只揭开 3/17 个词，回头上翻会看到空白词），
+   逐个比对位置则对跳滚、锚点跳转、刷新恢复滚动位置都成立。 */
+(function () {
+  var pending = Array.prototype.slice.call(document.querySelectorAll('.word'));
+  function check() {
+    var h = window.innerHeight;
+    for (var i = pending.length - 1; i >= 0; i--) {
+      if (pending[i].getBoundingClientRect().top < h * 0.88) {
+        pending[i].classList.add('is-inview');
+        pending.splice(i, 1);
+      }
+    }
+    if (!pending.length) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+  }
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { check(); ticking = false; });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  check();
+})();
+</script>
 
 </body>
 </html>

@@ -1,36 +1,50 @@
 /* ============================================================
-   giant-type-scenes · 巨字分幕装置（clean-room 复刻）
-   机制：不用插图当主视觉，而把「标题」本身放大成图像——
-   字号给到 100~250px、行高比压到 0.68~0.85（字块紧贴），
-   再用强制换行把一句话堆成 2~6 行字块（短词甚至一字母一行），
-   让字块撑满整屏；每段换一个整屏色块当底，形成分幕节奏。
+   giant-type-scenes · 巨字 × 满幅图分幕（clean-room 复刻）
+   ------------------------------------------------------------
+   实测自 ringpopcandy.com（getComputedStyle / CSSOM / 几何测量）：
 
-   实测自 ringpopcandy.com（getComputedStyle，非目测）：
-     10 个 .section-title，字号 102 / 120 / 128 / 160 / 250px 按段变化
-     行高比 0.68 ~ 0.852（250/205、250/213、250/170、120/100、102/86、128/107、160/115）
-     字距 -0.02em，字重 400~500，全大写
-     页面总高 11047px，14 个 section，整屏色块宽 1278px（视口 1280）
+   ① 底色恒定：body 背景 rgb(255,247,233) 全站不变。
+      每幕的"色"来自一张满幅产品图（实测宽 1278px ≈ 视口宽，高 863~1490px），
+      不是 CSS 背景色 —— 所以"它有一套配色方案"这个说法本身就偏了：
+      真正在变的是「字色」，而字色是**跟着图挑的**。
+   ② 巨字分幕：10 个 .section-title，字号 102/120/128/160/250px 逐幕变化，
+      行高比恒定 0.68~0.852（250/205、250/213、250/170、120/100、102/86），
+      字距 -0.02em，全大写；靠强制换行堆成 2~6 行字块。
+   ③ 小标签层级：kicker 16px 与巨字 250px = 15.6 倍字号差（实测 class .small-title）。
+   ④ 文字效果（本条重点，静态首屏量不到）：
+      - 逐词拆字：div.split-text > span.split-text__inner（每个"词"一个块）
+      - 遮罩上抽：[split-text="fadeUp"] .split-text { overflow: hidden }
+        未进入视口：opacity:0; transform: translateY(min(100%, 80px))
+        加 .is-inview 后归位 → 逐词从下往上抽出来，可逐词错峰
+      - 词级局部换色：.section-title .highlighted / b / strong { color: var(--highlight-color) }
+      - 下划线是画出来的：strong::after { height: 0.025em; background: var(--underline-color) }
+   ⑤ 视效状态（CSS 动画名与关键帧原文实测）：
+      floating ±15px / shadow-blur（斜切 30° 的模糊投影随悬浮物缩小）
+      spark 3s、spark-fast 2s（缩放 0→1→0）/ rotating 26s / pulsate 1→0.7→1
+      dash（stroke-dashoffset 280→75 且 rotate 135→450）/ arrow-move（-100%→100%）
+      tada（扭动）/ marquee（translate 0→-50%）
+   ⑥ 分幕层叠感：.as-stacking-section--shadow { box-shadow: 0 -30px 40px }
    ============================================================ */
 
 :root {
-  /* 色值全部为原站实测（rgb() → hex） */
-  --ground:  #FFF7E9;
+  --ground:  #FFF7E9;   /* 恒定奶油底（实测 body 背景） */
   --ink:     #141723;
-  --blue:    #2364E7;
-  --red:     #E1251B;
-  --yellow:  #FFF200;
-  --orange:  #FC7600;
-  --green:   #0B7302;
+  --pink:    #E8588A;   /* W E D D I N G 实测字色 */
+  --neon:    #E0FF18;   /* ORIGINALS 实测字色 */
+  --yellow:  #FFF200;   /* PARTY PACK 实测字色 */
+  --lime:    #64F525;   /* COLORFEST 实测字色 */
+  --deep:    #38292B;   /* 低调正文色实测 */
+  --field:   #1F5FE0;   /* 幕的色场（原站为产品图底色，此处以纯色替代） */
 
   --font: "Helvetica Neue", "HelveticaNeue", Helvetica, "Arial Narrow", Arial,
           "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-
-  --track: -0.02em;   /* 实测字距 */
-  --pad:   clamp(20px, 4vw, 56px);
+  --track: -0.02em;      /* 实测字距 */
+  --pad: clamp(18px, 3.6vw, 52px);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
+html { scrollbar-width: thin; scrollbar-color: rgba(20, 23, 35, 0.35) transparent; }
 body {
   background: var(--ground);
   color: var(--ink);
@@ -47,72 +61,148 @@ body {
   align-content: center;
   justify-items: center;
   padding: var(--pad);
-  overflow: hidden;          /* 字块允许被裁，但不许撑出布局 */
-  background: var(--bg, var(--ground));
-  color: var(--fg, var(--ink));
+  /* 必须是 clip 而不是 hidden：overflow:hidden 会让本幕成为子元素的滚动容器，
+     view() 时间线就会以「这一幕」为 scrollport 而不是页面（实测进度不合理）。
+     本 demo 已改用 IntersectionObserver 触发揭示，但仍保留 clip —— 裁剪正确且不引入滚动容器。 */
+  overflow: clip;
+  background: var(--ground);
+  /* 分幕层叠感：上投影（实测 .as-stacking-section--shadow） */
+  box-shadow: rgba(0, 0, 0, 0.16) 0 -30px 40px;
+}
+/* 幕的色场：原站是满幅产品图，此处用纯色块 + 自绘"糖果环"占位（清洁室） */
+.scene__field { position: absolute; inset: 0; background: var(--field, transparent); z-index: 0; }
+.scene--light .scene__field { inset: auto 0 0 0; height: 62%; }
+
+.kicker {
+  position: relative; z-index: 2;
+  font-size: 16px;                 /* 实测 16px，与巨字 250px 差 15.6 倍 */
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: clamp(8px, 1.2vw, 18px);
+  color: var(--kicker, currentColor);
 }
 
-/* ---------- 字块 ---------- */
+/* ---------- 字块与逐词遮罩 ---------- */
 .scene__title {
+  position: relative; z-index: 2;
   margin: 0;
   font-weight: var(--fw, 400);
   font-size: var(--fs);
-  line-height: var(--lh, 0.85);   /* 行高比：字块紧贴的关键 */
+  line-height: var(--lh, 0.85);
   letter-spacing: var(--track);
   text-transform: uppercase;
   text-align: center;
-  white-space: pre;               /* 保留换行，不自动折行 */
   max-width: 100%;
 }
+/* 逐词块：原站结构 div.split-text > span.split-text__inner */
+.word { display: block; overflow: hidden; }   /* 每词独占一行 + 遮罩 */
+.word__in {
+  display: inline-block;
+  padding-right: 0.03em;           /* 实测：防止字重/斜体溢出被裁 */
+  padding-bottom: 0.08em;
+}
+/* 词级局部换色（实测 .highlighted / b / strong → var(--highlight-color)） */
+.hl { color: var(--highlight-color, var(--neon)); }
+/* 下划线是画出来的小条（实测 strong::after height: 0.025em） */
+.ul { position: relative; }
+.ul::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0.02em;
+  width: 100%; height: 0.025em;
+  background: var(--underline-color, currentColor);
+}
 
-/* 角标：把这一幕的实测参数写在画面上，既是说明也是装饰 */
+/* ---------- 角标 ---------- */
 .scene__spec {
-  position: absolute;
-  left: var(--pad);
-  bottom: var(--pad);
+  position: absolute; left: var(--pad); bottom: var(--pad); z-index: 2;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  opacity: 0.72;
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  opacity: 0.72; max-width: 62ch;
 }
 .scene__idx {
-  position: absolute;
-  right: var(--pad);
-  top: var(--pad);
+  position: absolute; right: var(--pad); top: var(--pad); z-index: 2;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  opacity: 0.72;
+  font-size: 11px; letter-spacing: 0.06em; opacity: 0.72;
 }
 
-/* ---------- 各幕：字号同时对宽度与高度双约束 ----------
-   宽度：按行内字符数反推（字块撑满视口宽）
-   高度：按行数反推（多行字块不许超出视口高，否则会被裁）
-   只用 vw 会在矮窗口里把多行字块裁掉——实测 6 行 × 250px = 1278px > 577px 视口。 */
-.s1 { --bg: var(--ground); --fg: var(--ink);    --fs: clamp(32px, min(16.6vw, 40svh), 250px); --lh: 0.852; }
-.s2 { --bg: var(--blue);   --fg: var(--ground); --fs: clamp(26px, 13.4vw, 205px);             --lh: 0.820; }
-.s3 { --bg: var(--red);    --fg: var(--ground); --fs: clamp(34px, min(22.4vw, 14svh), 250px); --lh: 0.852; }
-.s4 { --bg: var(--yellow); --fg: var(--ink);    --fs: clamp(28px, 15.2vw, 230px);             --lh: 0.680; }
-.s5 { --bg: var(--orange); --fg: var(--ink);    --fs: clamp(28px, min(17.6vw, 21svh), 213px); --lh: 0.833; }
-/* 开场幕也是巨字（原来给了偏小的上限，导致首屏只有 51% 宽 / 18% 高，被评"巨字不够巨"） */
-.s0 { --bg: var(--ground); --fg: var(--ink);    --fs: clamp(30px, min(29vw, 46svh), 250px);  --lh: 0.836; --fw: 500; }
+/* ---------- 自绘"糖果环"占位（替代原站产品图，清洁室原则） ---------- */
+.candy {
+  position: absolute; z-index: 1;
+  width: clamp(110px, 21vw, 300px); aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, transparent 0 26%, var(--candy, #F9367A) 27% 100%);
+  box-shadow: inset 0 -0.06em 0.12em rgba(0, 0, 0, 0.18);
+  animation: floating 4.2s ease-in-out infinite;
+}
+.candy::after {              /* 斜切模糊投影：实测 @keyframes shadow-blur 的形态 */
+  content: ""; position: absolute; left: 8%; right: 8%; bottom: -14%; height: 16%;
+  background: rgba(0, 0, 0, 0.9);
+  filter: blur(1.1rem) grayscale(1) brightness(0);
+  transform: scale(1) skew(30deg, -4deg);
+  z-index: -1;
+  animation: shadow-blur 4.2s ease-in-out infinite;
+}
+.candy--tr { top: 10%; right: 5%; }
+.candy--bl { bottom: 7%; left: 7%; --candy: #64F525; }
 
-/* 细一点的滚动条，别让原生粗条破坏极简 */
-html { scrollbar-width: thin; scrollbar-color: rgba(20, 23, 35, 0.35) transparent; }
+/* ---------- 视效状态（关键帧原文实测） ---------- */
+@keyframes floating {                    /* 实测：0% → 65% translateY(15px) → 100% */
+  0%, 100% { transform: translateY(0); }
+  65%      { transform: translateY(15px); }
+}
+@keyframes shadow-blur {                 /* 实测：blur 缩、scale 缩、斜切保持 */
+  0%, 100% { filter: blur(1.3rem) grayscale(1) brightness(0); transform: scale(1) skew(30deg, -4deg); }
+  65%      { filter: blur(0.8rem) grayscale(1) brightness(0); transform: scale(0.85) skew(30deg, -4deg); }
+}
+.spark {                                  /* 实测 spark 3s / spark-fast 2s */
+  position: absolute; z-index: 3;
+  width: 12px; height: 12px; border-radius: 50%; background: #fff;
+  animation: spark 3s ease-in-out infinite;
+}
+.spark--fast { animation-duration: 2s; }
+.spark--a { top: 22%; left: 18%; }
+.spark--b { bottom: 26%; right: 22%; }
+@keyframes spark {
+  0%, 100% { transform: scale(0); opacity: 0; }
+  50%      { transform: scale(1); opacity: 1; }
+}
 
-/* ---------- 入场揭示（本 demo 自加，原站揭示机制未取证 → [未验证]） ----------
-   用 CSS 滚动驱动动画，浏览器不支持时自动退化为静止呈现，零 JS。 */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .scene__title {
-      animation: rise linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 42%;
-    }
-    @keyframes rise {
-      from { transform: translateY(0.32em); opacity: 0; }
-      to   { transform: translateY(0);      opacity: 1; }
-    }
-  }
+/* ---------- 逐词遮罩揭示（忠实复刻原站机制） ----------
+   原站实测：由 JS 给每个 .word 块加 .is-inview（类名实测），
+   未加时：opacity:0; transform: translateY(min(100%, 80px))，外层 .word 的 overflow:hidden 当遮罩。
+   本 demo 用 IntersectionObserver 做同一件事（约 12 行 JS），而不是 CSS 滚动时间线 ——
+   实测 view() 时间线在本页面里给出的进度不合理（词还在视口下方 300px 就开始揭示），
+   且原站本来就是 JS 切换类名，这样更忠实。
+   渐进增强：未启用 JS 时词必须可见，所以初始隐藏态只在 html.js 下生效。 */
+html.js .word__in {
+  opacity: 0;
+  transform: translateY(min(100%, 80px));
+}
+.word__in {
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);   /* 逐词错峰 */
+}
+html.js .word.is-inview .word__in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .word__in { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- 各幕：字号取「宽度约束」与「高度约束」的较小值 ----------
+   宽度：每词独占一行后，约束是最长单词的字符数，不是整行 ——
+         fs_vw ≤ 92.8vw ÷ (0.60 × 最长词字符数)；像素上限同理 ÷ 0.60×字符数
+   高度：fs_svh ≤ 88svh ÷ (行数 × 行高比)
+   实测字形推进约 0.588em/字符（"ORIGINALS" 230px → 1217px），取 0.60 保守算。 */
+.s0 { --fs: clamp(26px, min(16vw,   88svh),        215px); --lh: 0.836; --fw: 500; } /* 1 行 · 最长词 9 字符 */
+.s1 { --fs: clamp(26px, min(24vw,   14svh),        250px); --lh: 0.820; }           /* 7 行 · 每行 1 字符 */
+.s2 { --fs: clamp(26px, min(18vw,   34svh),        240px); --lh: 0.852; }           /* 3 行 · 最长词 8 字符 */
+.s3 { --fs: clamp(26px, min(28vw,   48svh),        250px); --lh: 0.852; }           /* 2 行 · 最长词 5 字符 */
+.s4 { --fs: clamp(24px, min(14.5vw, 60svh),        195px); --lh: 0.680; }           /* 2 行 · 最长词 10 字符 */
+.s5 { --fs: clamp(26px, min(16vw,   48svh),        215px); --lh: 0.852; }           /* 2 行 · 最长词 9 字符 */
+
+@media (prefers-reduced-motion: reduce) {
+  .candy, .candy::after, .spark { animation: none !important; }
 }

@@ -1,97 +1,121 @@
-# 巨字分幕装置 · giant type scenes
+# 巨字 × 满幅图分幕 · giant type scenes
 
-- 类别轴：typography（**由 theme 轴发现、复盘后改到 typography**，见下）
+- 类别轴：typography（**由 theme 轴发现、复盘后改到 typography**）
 - 萃取的维度（strength）：`type-as-image`（排印当图像）
 - 来源：[awwwards](https://www.awwwards.com/sites/ring-pop-r-candy) → [原站](https://ringpopcandy.com/)
-- 作者：（列表页未提供，未取证） ｜ 获奖：Awwwards Nominee
 
-## 这是什么
+## 三层叠起来才是它的看点
 
-一条反直觉的做法：**不画主视觉，把标题放大成主视觉。**
+### ① 字压图（不是字配图）
 
-同一套排印规则（全大写、字距 `-0.02em`、行高比压紧）在 10 个区段里重复，只改两件事——**字号**（102 / 120 / 128 / 160 / 250px）和**断行位置**。于是：
+标题不是摆在产品图旁边，而是**压在图上面**。实测：对标题中心点调用 `document.elementsFromPoint( cx, cy )`，命中的最上层元素是 `picture.mfr-responsive-image`——产品图就是字的底。
 
-- 短句被强制断成 2~4 行，变成一块占大半屏的长方形「字屏」；
-- 长单词一字母一行（`W E D D I N G`），变成一根竖字柱；
-- 每段配一个**整屏色块**当幕，色块切换即章节切换。
+由此推翻了两个错误读法：
 
-关键参数是**行高比**而不是字号：250px 的字配 170 / 205 / 213px 行高（0.680 / 0.820 / 0.852），字号变小比值不变（120→100 = 0.833）。行高比压紧，字块才会像印刷物一样贴成一块，而不是「一行行排开的标题」。
+- **「它有一套配色方案」是偏的。** 全站底色**恒定**为 `rgb(255,247,233)`，一个值都没变过；每幕的「色」来自那张**满幅产品图**（实测宽 1278px ≈ 视口宽，高 863~1490px）。
+- **真正逐幕变化的是「字色」，而字色是跟着图挑的**：粉 `#E8588A` 配桃底、萤光黄 `#E0FF18` 配蓝底、柠檬 `#64F525`、黄 `#FFF200`。所以它出众的是「**从图里挑字色**」这个配对动作，不是色板本身。
 
-色板在这里的角色**不是审美，是分幕**：8 个高饱和原色被放大到 1278px 宽，和 250px 的字并置，反而被尺度压住了。
+### ② 文字效果（静态首屏量不到，必须切状态）
 
-## 取证记录（真实测量，非推测）
+标题被拆成**逐词块**：
+
+```html
+<div class="section-title__inner split-text--rendered">
+  <div class="split-text is-inview"><span class="split-text__inner">PUT</span></div>
+  <div class="split-text is-inview"><span class="split-text__inner">YOUR</span></div>
+  …
+```
+
+配套的实测规则：
+
+| 机制 | 实测规则 | 效果 |
+| --- | --- | --- |
+| 遮罩 | `[split-text="fadeUp"] .split-text { overflow: hidden }` | 每个词外面套一个遮罩盒 |
+| 未进入视口 | `:not(.is-inview):not(.disable-inview) { opacity: 0; transform: translateY(min(100%, 80px)) }` | 词块藏在遮罩下方 |
+| 进入视口 | JS 加 `.is-inview` | 词块**逐词从下往上抽出来**，天然可逐词错峰 |
+| 词级局部换色 | `.section-title .highlighted / b / strong { color: var(--highlight-color) }` | 一个巨字块里可以让**某一个词换色** |
+| 渐变高亮 | `.section-title.has-gradient-highlight strong` | 同上，换成渐变填充 |
+| 下划线 | `strong::after { content:""; height: 0.025em; background: var(--underline-color) }` | **不是 border，是画出来的一条小条** |
+
+### ③ 层级靠极端对比，不靠装饰
+
+- kicker（`.small-title`）**16px** ↔ 巨字 **250px** = **15.6 倍**字号差，而且常常是**同色系**里的极小 + 极大；
+- 分幕之间用 `.as-stacking-section--shadow { box-shadow: 0 -30px 40px }` 上投影制造**层叠感**；
+- 巨字的秩序参数只有三个：行高比 `0.680~0.852`、字距 `-0.02em`、强制换行位置。
+
+## 取证记录（真实测量）
 
 | 项 | 值 | 来源 |
 | --- | --- | --- |
-| 区段标题数 | 10 个 `.section-title` | DOM 实测 |
-| 标题字号 | `250px`（6 段）/ `160px` / `128px` / `120px` / `102px` | 逐段 `getComputedStyle` |
-| 标题行高 | `170px` / `205px` / `213px`（250px 字号下按字面微调） | 同上 |
-| 行高比 | `0.680` / `0.820` / `0.852`；小字号同比 `0.833` / `0.843` / `0.836` / `0.719` | 行高 ÷ 字号，实测 |
-| 字距 | `-0.02em`（-5px @ 250px） | 同上 |
-| 大写 | `text-transform: uppercase`；标题为 `display: inline-block` | 同上 |
-| 真实 h1 | `h1.visually-hidden`（对读屏可见、对视觉隐藏） | DOM 实测 |
-| 分幕尺度 | 页面总高 `11047px`，14 个 `section`；整屏色块宽 `1278px`（视口 1280），单块高 `766~1209px` | 几何实测 |
-| 动效 | **25 个 `@keyframes`** + **147 处 `transition` 声明** | 样式表全文统计 |
-| 其中可确定时长的 | `animateMenuOpen 0.4s cubic-bezier(0.5,0,0,1)`、`placeholderCardShimmer 2.25s ease`、`dash 1.4s ease-in-out`、`offcanvas-search-caret-blink 1s step-end` | 规则匹配 |
-| 配色 | ground `#FFF7E9` / ink `#141723` / blue `#2364E7` / red `#E1251B` / yellow `#FFF200` / orange `#FC7600` / green `#0B7302` | 计算样式（rgb→hex 归一化） |
+| 全站底色 | `rgb(255,247,233)` **恒定** | `getComputedStyle(body).backgroundColor` |
+| 满幅产品图 | 宽 `1278px`（视口 1280）、高 `863~1490px`；示例 `Bazooka_DefendTheRing_Website_Orange.jpg` | `img` 几何测量 |
+| 标题数 / 字号 | 10 个 `.section-title`；`250px`（6 段）/ `160` / `128` / `120` / `102px` | 逐段 `getComputedStyle` |
+| 行高比 | `250/170=0.680`、`250/205=0.820`、`250/213=0.852`、`120/100=0.833`、`102/86=0.843`、`128/107=0.836`、`160/115=0.719` | 行高 ÷ 字号 |
+| 字距 / 大写 | `-0.02em`、`text-transform: uppercase` | 同上 |
+| kicker | `.small-title` **16px** | 同上 |
+| 分幕 | 5 个 `.as-stacking-section`，高 `863 / 882 / 942 / 839 / 859px` | 几何测量 |
+| 页面总高 | `11047px`，14 个 `section` | 实测 |
+| 动效 | **25 个 `@keyframes`** + **147 处 `transition`** | 样式表全文统计 |
+| 真实 h1 | `h1.visually-hidden`（读屏可见、视觉隐藏） | DOM 实测 |
 
-## 别照搬（这条和机制一样重要）
+## 视效状态清单（关键帧原文实测）
 
-1. **配色本身并不精致。** 8 个高饱和原色并置，单看色板不是好配色——它成立只是因为色块被放大到整屏、与 250px 巨字并置。**把它的色板抄到小尺寸界面会立刻显廉价。**
-2. **全大写 + 强制换行牺牲可读性。** 一字母一行只对短英文单词成立；中文、德文长词、需要连续阅读的段落都不适用。
-3. **强依赖商用字体与大幅摄影。** 原站用 Ringold（商用）与大量商品图，本 demo 只能以系统无衬线 + 纯色替代，观感会打折。
-
-## 复刻时的两处必要修正
-
-- **字号必须双约束**：`clamp(32px, min(16.6vw, 40svh), 250px)`。只用 `vw` 只保证「撑满宽度」，在矮窗口里多行字块会被裁掉——实测 6 行 × 250px = 1278px，而视口高只有 577px。`svh` 那一项保证「不超出高度」。
-- **原站揭示机制未取证**：demo 里的入场揭示是我们自加的（CSS 滚动驱动动画 `animation-timeline: view()`，浏览器不支持则退化为静止呈现），标记 `[未验证]`，可整块删掉。
-
-## 关于「撑满」的诚实说明（复刻的关键难点）
-
-原站的字块是真的顶到视口两边。**纯 CSS 做不到这一点**——`vw` 只能按「视口宽 ÷ 字符数」估算，而字符的实际宽度取决于字体（本 demo 用系统无衬线，观感宽度与原站商用字体不同）。所以本 demo 各幕的实际填充率在 **39%~97%** 之间浮动：
-
-| 视口 | 第 1 幕（2 行 × 8 字符） | 第 3 幕（6 行单字母） |
+| 动效 | 时长 | 关键帧原文（摘） |
 | --- | --- | --- |
-| 1280×577 | 宽 97% | 宽 5% / 高 72% |
-| 1440×900 | 宽 97% | 宽 7% / 高 72% |
-| 1920×1080 | 宽 76% | 宽 6% / 高 72% |
+| `floating` | — | `0% translateY(0)` → `65% translateY(15px)` → `100% translateY(0)` |
+| `floating-reverse` | — | 同上，`-15px` |
+| `shadow-blur` | — | `0% blur(1.3rem) grayscale(1) brightness(0); scale(1) skew(30deg,-4deg)` → `65% blur(0.8rem); scale(0.85); 同斜切` → `100% 回位` |
+| `spark` / `spark-fast` | **3s** / **2s** | `scale(0)` → `scale(1)` → `scale(0)`，ease-in-out 无限循环 |
+| `rotating` | **26s** | `rotate(0)` → `rotate(360deg)`，linear 无限循环 |
+| `pulsate` | — | `scale(1)` → `scale(0.7)` → `scale(1)` |
+| `tada` | — | `scale3d(0.9,0.9,0.9) rotate(-3deg)` ↔ `scale3d(1.1,1.1,1.1) rotate(3deg)` |
+| `flying` | — | `left: -5%` → `65%: 70%` → `110%` |
+| `waveAnimation` | — | `background-position-x: 0` → `200%` |
+| `dash` | **1.4s** | `stroke-dashoffset: 280` → `75` 且 `rotate(135deg)` → `280` 且 `rotate(450deg)` |
+| `arrow-move` | — | `translate(-100%)` → `translate(100%)` |
+| `*-marquee` | — | `translate(0)` ↔ `translate(-50%)` |
+| `animateMenuOpen` | **0.4s** | `cubic-bezier(0.5,0,0,1)` |
+| hover 状态 | — | 导航下划线 `scaleX(1)` 展开；搜索图标 `scale(1.25)` + `drop-shadow`，其六边形 `rotate(180deg)`；封面图 `scale(1.05)` |
 
-要真正逐字顶满，只有两条路：
-1. **SVG `textLength="100%"`**（`<svg><text textLength="100%" lengthAdjust="spacingAndGlyphs">`）——纯声明式，不需 JS，但要把每行写成一个 `<tspan>`，且会拉伸字距；
-2. **JS 量字**（`canvas.measureText` 或 `Range.getBoundingClientRect` 反推字号）——最精确，代价是引入脚本。
+> 25 个 keyframe 中有 2 个（`onetrust-fade-in`、`ot-go-spin`）来自第三方 OneTrust cookie 组件，不计入站点设计。
 
-本 demo 选了「零 JS」这条折中路线，并把量到的填充率如实列在上面，而不是假装顶满了。宽屏上填充率还会被 `250px` 上限进一步压住——**这一点与原站一致**（原站在 1280 视口用的就是 250px 上限）。
+## 别照搬
+
+1. **配色本身不精致。** 8 个高饱和原色并置，单看色板不是好配色——它成立是因为色块被放大到满幅、与 250px 巨字并置。**抄到小尺寸界面会立刻显廉价。**
+2. **全大写 + 强制换行牺牲可读性。** 一字母一行只对短英文词成立；中文、德文长词、需要连续阅读的段落都不适用。
+3. **首屏文字全部依赖 JS 揭示。** 文字初始 `opacity: 0`，脚本失败或爬虫/预览不执行 JS 时正文是隐形空白的。本 demo 用 `html.js` 作用域 + 无 JS 兜底规避，**原站没做**。
+4. **强依赖商用字体与大幅产品摄影。** 原站用 Ringold（商用）与大量商品图；代码复刻只能以系统无衬线 + 纯色场替代，观感必然打折。
+
+## 复刻时踩到的两个真坑（都写在 `src/scenes.css` 注释里）
+
+1. **`overflow: hidden` 会变成滚动容器**，于是子元素的 `view()` 时间线以**该容器**为 scrollport 而不是页面，滚动驱动动画永远停在终态。若要滚动驱动，容器用 `overflow: clip`（裁剪但不产生滚动容器）。
+2. **`IntersectionObserver` 对被「跳滚」跳过的元素不回调**：实测直接滚到底部只揭开了 3/17 个词，用户回头上翻会看到空白词。改用 AOS 同款的 **rAF 节流滚动位置检查**（本 demo 的做法），对跳滚、锚点跳转、刷新恢复滚动位置都成立。
+
+另外：本 demo 最终**没有**用 CSS 滚动时间线做揭示，因为实测 `view()` 给出的进度不合理（词还在视口下方 300px 就开始揭示），而原站本来就是 **JS 加 `.is-inview`**——按原机制实现既更忠实、也可验证。
 
 ## 怎么用
 
 ```html
 <link rel="stylesheet" href="src/scenes.css">
-<section class="scene s1">
-  <h2 class="scene__title">PUT YOUR
-COLORS ON</h2>          <!-- 换行是真实的换行符，white-space: pre 保留 -->
-  <span class="scene__spec">250px · lh 0.852 · 2 行</span>
+<section class="scene" style="--field:#1F5FE0; color:var(--neon); --highlight-color:#FFF7E9">
+  <span class="kicker">collection</span>
+  <h2 class="scene__title">
+    <span class="word" style="--i:0"><span class="word__in">ORIGINALS</span></span>
+  </h2>
+  <span class="candy candy--bl"></span>
 </section>
 ```
 
-新增一幕：加一个 `.sN` 类，给 `--bg / --fg / --fs / --lh / --fw` 五个变量即可。
+- 每幕：`section.scene` + 可选 `.scene__field`（色场）、`.candy`（自绘占位）、`.spark`；
+- 每个**词**包一层 `.word > .word__in`（`.word` 提供遮罩，因此每词独占一行）；
+- 变量：`--field / color / --fs / --lh / --highlight-color / --underline-color / --i`。
 
 ## 怎么改
 
-- 全部可调项在 `src/scenes.css` 顶部的 `:root`（色板、字体栈、字距、内边距）与各 `.sN` 类（每幕的底色/字色/字号/行高比）；
-- 字号公式：`--fs: clamp(下限, min(宽度项, 高度项), 上限)`——宽度项 ≈ `148vw ÷ 行内字符数`，高度项 ≈ `100svh ÷ (行数 × 行高比) × 0.75`；
-- 降级：`prefers-reduced-motion` 下不加揭示动画；不支持滚动驱动动画的浏览器直接静止呈现，不影响排版。
+- 可调项集中在 `src/scenes.css` 顶部 `:root`（色、字体、字距、内边距）与各 `.sN` 类；
+- **字号公式**：`--fs: clamp(下限, min(宽度项, 高度项), 上限)`，其中
+  宽度项 `≈ 92.8vw ÷ (0.60 × 最长单词字符数)`（实测字形推进约 0.588em/字符），
+  高度项 `≈ 88svh ÷ (行数 × 行高比)`。**两个都要有**：只有宽度项会在矮窗口把多行字块裁掉；
+- 揭示：`html.js` 下词块初始隐藏，加 `.is-inview` 后归位，错峰由 `transition-delay: calc(var(--i) * 90ms)` 控制。
 
-## 依赖
-
-无。纯原生 HTML/CSS，零构建、零 JS、零 CDN，双击即开。断网正常可读。
-
-## 复盘记录：这条为什么被改名
-
-本条最初被记为 **`2026-10-11-candy-palette-theme`「糖果配色主题」**，轴为 `theme`。问题在两处：
-
-1. **分类轴反过来决定了叙事**——当天轮换轴是「配色主题」，于是最容易测量的东西（色值）成了条目主题；
-2. **只写优点**，没有判断`——原站的配色其实并不出众，条目却把它当成了学习对象。
-
-修正：改轴为 `typography`、改名为 `giant-type-scenes`、机制改为「巨字分幕装置」、补 `strength` / `expression` / `composition` / `motion_catalog` / `dont_copy`，并修掉了原条目里「静态配色型站点」的错误结论（`getAnimations()=0` 只是采样时刻无运行动画，实际站内有 25 个 keyframe）。提示词同步升到 v7：**分类轴只是搜索面，不是命令；必须写出它不出众的地方。**
-
-截图：`shots/original-site.png`（原站首屏，非本 demo）。
+截图：`shots/original-site.png`（原站首屏）、`shots/demo.png`（本条目 demo）。
