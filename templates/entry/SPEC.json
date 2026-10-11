@@ -1,4 +1,5 @@
 {
+  "schema_version": 2,
   "id": "__ID__",
   "date": "__DATE__",
   "category": "__CATEGORY__",
@@ -8,51 +9,47 @@
     "title": "__TITLE__",
     "author": "",
     "award_date": "",
-    "tags": []
+    "tags": [],
+    "observed_at": "",
+    "route": ""
   },
-  "summary": "一句话：这是什么。",
-  "strength": "它真正最出众的维度（枚举：type-as-image / color-as-composition / scene-choreography / motion-recipe / layout-system / component / material-light / webgl-3d / tone-system）。",
-  "expression": "视效表达：它为什么好看、是怎么构造出来的（机制语言，不是参数清单）。",
-  "composition": "构图证据：尺度与分幕（整屏色块/出血区宽高与屏占比、分幕数、页面总高、栅格列数与 gap、同一字号用了多少段）。",
-  "motion_catalog": [
-    {
-      "name": "",
-      "duration": "",
-      "easing": "",
-      "delay": "",
-      "trigger": ""
-    }
-  ],
-  "extracted_mechanism": "被萃取的单一机制，必须是 strength 那一维，不是最容易测量的那个。",
-  "dont_copy": "它并不出众 / 不该照搬的地方（至少一条）。说不出哪里不好 = 没看懂。",
+  "summary": "",
+  "strength": "",
+  "expression": "",
+  "composition": "",
+  "highlights": [],
+  "selected_fragment": {
+    "highlight_id": "",
+    "scope": "",
+    "rationale": "",
+    "invariants": [],
+    "omitted": [],
+    "asset_substitutions": []
+  },
+  "motion_catalog": [],
+  "evidence": [],
+  "extracted_mechanism": "",
+  "dont_copy": "",
   "tokens": {
     "colors": {},
     "typography": {},
     "spacing": {},
-    "motion": {
-      "duration": "",
-      "easing": "",
-      "trigger": ""
-    }
+    "motion": {}
   },
-  "api": "怎么用：CSS class 名 / JS 构造参数 / data 属性。",
-  "entrypoints": [
-    "src/component.css",
-    "src/component.js"
-  ],
-  "files": [
-    "demo/index.html",
-    "src/component.css",
-    "src/component.js"
-  ],
+  "api": "",
+  "entrypoints": ["src/component.css", "src/component.js"],
+  "files": ["demo/index.html", "src/component.css", "src/component.js"],
   "deps": [],
-  "reuse_hints": "什么场景该用它，什么场景别用。",
-  "repro_notes": "复核者复现本条取证时必须知道的事：完整选择器（含 CSS-modules 前缀）、一次性动效的 storage 门控键、色值是否做过 rgb→hex 归一化、动效是否用 seek 法验证。写不清楚会让复核者误判为编造。",
+  "reuse_hints": "",
+  "repro_notes": "",
   "verification": {
     "rendered_ok": false,
     "console_errors": null,
     "screenshot": "",
     "checked_at": "",
-    "note": "自检通过后把 rendered_ok 改为 true，否则本条不会进 index.json"
+    "source_observed": false,
+    "mechanism_preserved": false,
+    "user_review": {"passed": false, "reviewer": "", "cases": []},
+    "note": "草稿：完成原站取证、片段对照及独立操作复核后才能申请入库"
   }
 }

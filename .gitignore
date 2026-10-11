@@ -5,6 +5,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# 取证过程中的临时文件（最终截图应落在 entries/*/shots/）
+# 取证临时文件与不公开的原站证据
 /tmp/
 *.log
+/entries/*/shots/private/

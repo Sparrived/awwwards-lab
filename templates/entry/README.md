@@ -1,45 +1,73 @@
 # <条目名>
 
-- 类别：<category>
-- 来源：[awwwards](<awwwards_url>) → [原站](<live_url>)
-- 作者：<author> ｜ 获奖：<award_date>
-- 萃取机制：<extracted_mechanism>
+- 发现类别：<category>（仅用于发现与检索，不预设亮点）
+- 来源：[Awwwards](<awwwards_url>) → [原站](<live_url>)
+- 作者：<author> ｜ 获奖信息：<award_date；未核实留空>
+- 实际访问：<observed_at> ｜ 路由与视口：<route / viewport>
+- 规格：`schema_version: 2`；当前状态：<草稿 / v2 复核记录通过>
 
-## 这是什么
+## 设计判断与亮点排序
 
-<summary>
+<先写产品/品牌/用户任务，再按辨识度、作用、证据与可迁移性排序。通常 2–3 项，只有一项就不凑数。>
 
-## 取证记录（真实测量，非推测）
+| 亮点 id / 排序 | 具体设计关系 | 为什么有效（解释判断） | 必要依赖 | 证据 id |
+| --- | --- | --- | --- | --- |
+| h1 / 1 | <不是色号或特效名> | <不假称提升转化> | <字体/主体/层级/行为> | ev1 |
 
-| 项 | 值 | 来源 |
+## 本次片段与不可丢的关系
+
+- 选中亮点：<highlight_id>
+- 实现范围与选择理由：<scope / rationale>
+- 不实现：<omitted>
+
+| 不变量 id | 必须保留的关系 | 如何操作/对照验收 |
 | --- | --- | --- |
-| 主色 | `#------` | `getComputedStyle` on `.selector` |
-| 字体 | `---` | 同上 |
-| 动效时长 | `---ms` | `getAnimations()` |
-| 缓动曲线 | `cubic-bezier(...)` | `getAnimations()[0].easing` |
-| 触发条件 | scroll / hover / load | 交互实测 |
+| inv1 | <与片段相关的构图或行为> | <实际操作及前/中/后状态> |
 
-截图：`shots/original-site.png`（原站首屏，证据；卡片海报取这张）、`shots/demo.png`（本条目 demo 实拍）
+不变量写入 `selected_fragment.invariants`，每项为 `{id, description}`；独立复核的每条 case 用 `invariant_id` 对应，不靠字体数值或动画数量冒充关系保真。
 
-## 怎么用
+## 体验路径与证据状态
+
+| 证据 id | 用户动作 → 所见变化 | 结论与状态 | 路由 / 元素 / 视口 | 文件 / 是否可公开 |
+| --- | --- | --- | --- | --- |
+| ev1 | <真实观察；未操作则如实说明> | <observed / source-supported / inferred / unknown> | <条件> | <相对路径；publishable> |
+
+- 源码声明只能支持机制解释，不能自动升级为用户实际看见。
+- 静态作品的 `motion_catalog` 用 `[]`；不要列未使用的动画规则。
+- 原站证据与 demo 用同视口、同片段、同关键状态对照；首屏参考不能代替中段行为。
+- demo 封面为 `shots/demo.png`。未确认再发布条件的原站证据放 `shots/private/`（Git 忽略），`publishable: false`；不得搬进 demo 或公开海报。公开证据需记录许可/可展示依据。
+
+## 机制与实现 / API
+
+<说明构图、素材、触发和反馈如何共同工作，核心 API 位于 src/；有 DOM 示例和初始化/销毁方式。>
 
 ```html
-<!-- 最小用法示例 -->
+<!-- 最小使用示例；不只引用 demo 中的内联代码 -->
 ```
 
-调用说明：<api>
+- 调参：<CSS 变量、行为参数>
+- 断点、无 JS、离线、reduced-motion、离屏处理：<实现与未验证范围>
+- 依赖：<库名 / 固定版本 / 必要性；无依赖写无>
 
-## 怎么改
+## 素材替代与适用边界
 
-- token 在 `src/component.css` 顶部的 `:root` 块；
-- 行为参数在 `src/component.js` 顶部常量区；
-- 断点/降级：<说明>
+| 设计角色 | 独立替代素材 / 字体 | 保留的轮廓、尺度与层级 | 来源 / 许可 / 已知损失 |
+| --- | --- | --- | --- |
+| <主体或字体> | <原创/合法替代> | <不能随便换成通用占位> | <说明> |
 
-## 依赖
+<适用任务、必要条件、不适用场景和已验证风险。dont_copy 不要求强行批评原作；未测性能或无障碍不能称其失败。>
 
-<deps 列表 + 断网时的降级行为；无依赖写「无」>
+## 独立操作复核与未验证项
 
-## 清洁室声明
+- 复核者：<未参与实现的子代理标识>
+- 先直开 demo 复核，过门槛后构建画廊再检查入口；不提前设 true 来绕过入库顺序。
 
-未复制原站代码、图片、字体、视频或品牌文案；素材以 CSS 渐变 / 生成 SVG 占位。
-字体替代：<商用字体 → 免费替代，或「原站即用免费字体」>。
+| invariant_id | 实际动作 | 用户所见 | 视口 | pass / fail / unverified | demo 实拍 / 录像 |
+| --- | --- | --- | --- | --- | --- |
+| inv1 | <action> | <observation> | <viewport> | <result> | <artifacts 相对路径> |
+
+<控制台结果、对照条件、时间、未验证项与具体阻塞。源码/截图审阅不是实际操作通过。只有全部不变量通过才可设置 source_observed、mechanism_preserved、user_review.passed 和 rendered_ok。>
+
+## 独立实现声明
+
+依据行为与测量独立实现，不搬运原站代码、关键帧文本、图片、字体文件、视频或品牌文案；素材替换保留设计角色。本声明不自动构成法律上的 clean-room 认证。
