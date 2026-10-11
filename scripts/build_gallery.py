@@ -109,14 +109,27 @@ def build(lib: pathlib.Path) -> int:
     entries, failed = load_entries(lib)
     now = datetime.datetime.now().astimezone().replace(microsecond=0).isoformat()
 
+    # 幂等：内容没变就沿用旧时间戳，让文件字节不变，
+    # 这样每日提交只在真的有新条目/变更时才产生 diff。
+    index_f = lib / "index.json"
+    stamp = now
+    if index_f.is_file():
+        try:
+            old = json.loads(index_f.read_text(encoding="utf-8"))
+            if old.get("entries") == entries and old.get("failed") == failed \
+                    and old.get("generated_at"):
+                stamp = old["generated_at"]
+        except Exception:  # noqa: BLE001
+            pass
+
     index = {
-        "generated_at": now,
+        "generated_at": stamp,
         "generator": "scripts/build_gallery.py",
         "count": len(entries),
         "entries": entries,
         "failed": failed,
     }
-    (lib / "index.json").write_text(
+    index_f.write_text(
         json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     shell_f = lib / "templates" / "gallery_shell.html"
@@ -124,19 +137,20 @@ def build(lib: pathlib.Path) -> int:
         print(f"ERROR: 缺少 {shell_f}", file=sys.stderr)
         return 1
     shell = shell_f.read_text(encoding="utf-8")
-    payload = json.dumps({"generated_at": now, "entries": entries, "failed": failed},
+    payload = json.dumps({"generated_at": stamp, "entries": entries, "failed": failed},
                          ensure_ascii=False)
     # 防止 JSON 里的 </script> 提前闭合脚本标签
     payload = payload.replace("</", "<\\/")
     out = (shell.replace("__DATA__", payload)
                 .replace("__COUNT__", str(len(entries)))
-                .replace("__GENERATED__", now))
+                .replace("__GENERATED__", stamp))
     gdir = lib / "gallery"
     gdir.mkdir(parents=True, exist_ok=True)
     (gdir / "index.html").write_text(out, encoding="utf-8")
 
     print(f"index.json        条目 {len(entries)}  未入库 {len(failed)}")
-    print(f"gallery/index.html 已重建 @ {now}")
+    print(f"gallery/index.html 已重建  运行 {now}"
+          + ("  (内容无变化，时间戳沿用)" if stamp != now else "  (内容有变更)"))
     for f in failed:
         print(f"  ! 未入库 {f['dir']}: {f['reason']}")
     return 0
