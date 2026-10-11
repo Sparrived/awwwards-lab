@@ -1,12 +1,32 @@
 {
-  "generated_at": "2026-10-11T12:34:00+08:00",
+  "schema_version": 2,
+  "generated_at": "2026-10-11T14:40:40+08:00",
   "generator": "scripts/build_gallery.py",
   "count": 3,
   "entries": [
     {
       "id": "2026-10-11-staggered-cell-reveal",
       "date": "2026-10-11",
+      "schema_version": 1,
+      "verification_tier": "legacy-self-report",
       "category": "motion",
+      "source": {
+        "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
+        "live_url": "https://ownitt.fr/",
+        "title": "Ownitt",
+        "author": "",
+        "award_date": "",
+        "tags": [
+          "animation",
+          "transitions",
+          "scrolling",
+          "storytelling",
+          "gestures-interaction",
+          "gsap",
+          "react",
+          "next-js"
+        ]
+      },
       "title": "Ownitt",
       "author": "",
       "tags": [
@@ -22,13 +42,18 @@
       "dir": "entries/2026-10-11-staggered-cell-reveal",
       "demo": "../entries/2026-10-11-staggered-cell-reveal/demo/index.html",
       "readme": "../entries/2026-10-11-staggered-cell-reveal/README.md",
+      "spec": "../entries/2026-10-11-staggered-cell-reveal/SPEC.json",
       "source_url": "https://ownitt.fr/",
       "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
-      "shot": "../entries/2026-10-11-staggered-cell-reveal/shots/original-site.png",
+      "shot": "../entries/2026-10-11-staggered-cell-reveal/shots/demo.png",
+      "shot_kind": "demo",
       "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。",
       "strength": "scene-choreography",
       "expression": "原站真正的看家本领是**整段首屏入场编排**，不是某一个动效——实测同时运行 65 个动画、24 组互不相同的动效，由一套编排把它们串成 3 秒左右的开场：先 30 格图片瓦片逐格揭示（每 3 格叠一次 3D 翻转），再左右门帘合拢又打开，Logo 描线绘制、标语淡入上浮，随后内容才接管。所有循环动效（marquee、旋转、脉冲）都带负延迟或超长时长（marquee 380s/400s/440s、wallSpin 90s），目的是让页面在任何时刻被截屏都是「动着的构图」而不是静止画面。本条只抽取了其中一片（瓦片揭示），其余在 motion_catalog 里备查。",
       "composition": "实测：入场 overlay 为 5 列 × 6 行共 30 个瓦片（__cell），网格 5 列各 228.34px、gap 8.96px（= clamp(5px,0.7vw,10px) @1280）、宽 1177.59px（= min(92vw,1260px)）、高 520px（= min(46vw,520px)）；页面共 2081 个元素；入场 overlay 播完即从 DOM 卸载，并由 sessionStorage['ownitt_intro_seen'] 门控（首访才播）。",
+      "highlights": [],
+      "selected_fragment": {},
+      "evidence": [],
       "motion_catalog": [
         {
           "name": "IntroAnimation__cellReveal",
@@ -238,7 +263,31 @@
     {
       "id": "2026-10-11-paper-ink-catalog",
       "date": "2026-10-11",
+      "schema_version": 1,
+      "verification_tier": "legacy-self-report",
       "category": "theme",
+      "source": {
+        "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
+        "live_url": "https://metic.studio/en",
+        "title": "metic. – Take a closer look",
+        "author": "",
+        "award_date": "",
+        "tags": [
+          "minimal",
+          "typography",
+          "design-agencies",
+          "interaction-design",
+          "microinteractions",
+          "business-corporate",
+          "animation",
+          "sound-audio",
+          "three-js",
+          "webgl",
+          "next-js",
+          "web-interactive",
+          "nominees"
+        ]
+      },
       "title": "metic. – Take a closer look",
       "author": "",
       "tags": [
@@ -259,13 +308,18 @@
       "dir": "entries/2026-10-11-paper-ink-catalog",
       "demo": "../entries/2026-10-11-paper-ink-catalog/demo/index.html",
       "readme": "../entries/2026-10-11-paper-ink-catalog/README.md",
+      "spec": "../entries/2026-10-11-paper-ink-catalog/SPEC.json",
       "source_url": "https://metic.studio/en",
       "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
-      "shot": "../entries/2026-10-11-paper-ink-catalog/shots/original-site.png",
+      "shot": "../entries/2026-10-11-paper-ink-catalog/shots/demo.png",
+      "shot_kind": "demo",
       "summary": "暖纸底 + 近墨色 + 细线分隔 + 单一强调色的「纸墨编目」主题：靠极端字号差与收紧字距建立秩序，卡片平面无投影，用暗底当作展品框。",
       "strength": "tone-system",
       "expression": "它出众的不是某个零件，而是一整套「克制」的取舍：只用两级明度（纸 #F4F4F2 / 墨 #121214）承载全部内容，用 1px 低对比细线（实测 42 处）替代投影与卡片浮起，把唯一的彩色（#FF3E3E）严格限制在「需要指向」的位置（分类标签、链接悬停、焦点环、选中文字，实测四个属性各 44~47 处），其余对比全靠排印——display 与正文约 5.4 倍字号差，字距随字号收紧（display -0.035em、h3 -0.02em），标签一律 12px 大写字距 0.06em。结果是页面没有任何装饰元素，却没有一处显得空。",
       "composition": "实测（视口 1280）：外壳 1560px 居中 + clamp(20px,3.4vw,56px) 内边距；12 栏网格 gap 40px（次级 32px / 8px）；区段纵向 padding 160px（部分 128px）；圆角只有两档（卡片 12px、药丸 999px）；细线 1px rgba(18,18,20,0.12) 共 42 处，加重变体 1px rgb(98,98,106) 13 处；字号档位 92.16 / 30.72 / 17 / 14 / 12px，比值约 5.4 : 1.8 : 1。",
+      "highlights": [],
+      "selected_fragment": {},
+      "evidence": [],
       "motion_catalog": [
         {
           "name": "入场揭示（多组）",
@@ -359,7 +413,25 @@
     {
       "id": "2026-10-11-giant-type-scenes",
       "date": "2026-10-11",
+      "schema_version": 1,
+      "verification_tier": "legacy-self-report",
       "category": "typography",
+      "source": {
+        "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
+        "live_url": "https://ringpopcandy.com/",
+        "title": "Ring Pop® Candy",
+        "author": "",
+        "award_date": "",
+        "tags": [
+          "e-commerce",
+          "colorful",
+          "microinteractions",
+          "scrolling",
+          "storytelling",
+          "shopify",
+          "figma"
+        ]
+      },
       "title": "Ring Pop® Candy",
       "author": "",
       "tags": [
@@ -374,13 +446,18 @@
       "dir": "entries/2026-10-11-giant-type-scenes",
       "demo": "../entries/2026-10-11-giant-type-scenes/demo/index.html",
       "readme": "../entries/2026-10-11-giant-type-scenes/README.md",
+      "spec": "../entries/2026-10-11-giant-type-scenes/SPEC.json",
       "source_url": "https://ringpopcandy.com/",
       "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
-      "shot": "../entries/2026-10-11-giant-type-scenes/shots/original-site.png",
+      "shot": "../entries/2026-10-11-giant-type-scenes/shots/demo.png",
+      "shot_kind": "demo",
       "summary": "巨字 × 满幅图分幕：底色恒定（奶油 #FFF7E9），每幕一张满幅产品图当色场，巨字压在图上面；字色跟着图挑（粉字配桃底、萤光黄配蓝底）。文字本身带三层效果：逐词遮罩上抽的揭示、词级局部换色、画出来的下划线。",
       "strength": "type-as-image",
       "expression": "三层叠起来才是它的看点。①**字压图**：标题不是摆在图旁边，而是**压在图上面**——实测标题中心点调用 document.elementsFromPoint 命中的最上层是 picture.mfr-responsive-image，即产品图就是字的底。所以「配色方案」这个说法是偏的：全站底色恒定为 rgb(255,247,233) 不变，每幕的「色」来自那张满幅产品图（实测宽 1278px ≈ 视口宽，高 863~1490px），**真正逐幕变化的是字色，而字色是跟着图挑的**（粉 #E8588A 配桃底、萤光黄 #E0FF18 配蓝底、柠檬 #64F525、黄 #FFF200）。②**文字效果**（静态首屏量不到）：标题被拆成**逐词块**——div.split-text > span.split-text__inner，外层 overflow:hidden 当遮罩，未进入视口时 opacity:0 + transform:translateY(min(100%,80px))，JS 加上 .is-inview 后归位 → 巨型词块**逐词从下往上抽出来**，天然可逐词错峰；标题内可**局部换色**（.section-title .highlighted / b / strong → color: var(--highlight-color)，另有 .has-gradient-highlight 渐变）；**下划线是画出来的小条**而不是 border（strong::after { height: 0.025em; background: var(--underline-color) }）。③**层级靠极端对比**：kicker 16px 与巨字 250px = 15.6 倍字号差，同一色系里做极小+极大；分幕之间用 box-shadow: 0 -30px 40px 制造层叠感（.as-stacking-section--shadow）。",
       "composition": "实测（视口 1280×577）：body 底色 rgb(255,247,233) 全站恒定；14 个 section，10 个 .section-title（其中 5 个带 .as-stacking-section，高度 863 / 882 / 942 / 839 / 859px）；字号 250px（6 段）/ 160 / 128 / 120 / 102px；行高比 0.680~0.852（250/170、250/205、250/213、120/100、102/86、128/107、160/115）；字距 -0.02em；全大写；真实 h1 为 visually-hidden。满幅图宽 1278px（= 视口宽）、高 863~1490px。kicker（.small-title）16px。页面总高 11047px。",
+      "highlights": [],
+      "selected_fragment": {},
+      "evidence": [],
       "motion_catalog": [
         {
           "name": "split-text 逐词遮罩揭示",
