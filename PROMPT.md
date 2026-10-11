@@ -86,6 +86,13 @@ D:\Code\awwwards-lab\
      具体参数从元素上读（`animationDuration` / `transitionTimingFunction`）；
    - 有 `<canvas>` 的站是 WebGL 类，萃取时要降级为可在无 GPU 环境复现的等价效果；
    - 站点打不开或需登录/付费：放弃换一个，**不要猜**。
+   - **取证记录里写完整选择器**（含 CSS-modules 前缀，如
+     `.IntroAnimation-module__HH0i_W__cell`）；只写 `.cell` / `.__cell` 这种简写，
+     复核者在站上查不到，会被误判成编造。
+   - **一次性动效要记门控键**：入场 overlay 常由 `sessionStorage` / `localStorage`
+     门控（如 `ownitt_intro_seen`），且播完即从 DOM 移除。必须把键名写进 README，
+     复核时先清 storage 再访问，否则会看到「机制不存在」的假象。
+   - **色值若做过 rgb() → hex 归一化必须注明**，否则复核者拿实测 `rgb()` 对不上会误判。
    - 注意：`document.title` 可能被浏览器工具加前缀（实测出现 `🐴` 前缀），
      **上报站名以 awwwards 列表页的标题为准**，不要用 title 当证据。
 4. **萃取**：每条只沉淀 **1 个**机制（一个动效配方 / 一套主题 token / 一个布局系统 / 一个组件）。
@@ -97,9 +104,15 @@ D:\Code\awwwards-lab\
    (a) 在 `SPEC.deps` 登记库名 + 版本 + 用途；
    (b) 断网时 demo 仍能打开，并降级为静态可读状态；
    (c) 单条 demo 最多 1 个外部库。
-6. **自检（硬门槛）**：用浏览器打开每条 demo，确认渲染成功、控制台 0 报错、关键动效确实在动
-   （截图对比或 JS 读取属性变化）。通过才写 `rendered_ok: true`。
-   失败的条目**不进** `index.json`，标记 FAILED 并写原因。
+6. **自检（硬门槛）**：用浏览器打开每条 demo，确认渲染成功、控制台 0 报错、关键动效确实在动。
+   通过才写 `rendered_ok: true`；失败的条目**不进** `index.json`，标记 FAILED 并写原因。
+   **动效必须用 seek 法验，不能只看动画条数**：
+   `document.getAnimations().forEach(a => { a.pause(); a.currentTime = t; })` 后读计算样式，
+   比对关键帧在 t=0 / 中点 / 结束时刻的取值。
+   标签页不可见时（`document.visibilityState === 'hidden'`、`document.timeline.currentTime` 恒为 0）
+   动画时钟不推进，但 `playState` 仍报 `running`、属性值冻结在初始态——
+   只看 `getAnimations().length > 0` 会把「没在动」误判成「在动」。
+   遇到 timeline 恒 0 就改用 seek 法，并在 README 注明用的是 seek 法。
 7. **重建索引**：运行 `scripts/build_gallery.py` 重新生成 `index.json` 与 `gallery/index.html`。
    **禁止手写/手改这两个文件。**
 8. **收尾**：
@@ -121,6 +134,9 @@ D:\Code\awwwards-lab\
 
 ## 变更记录
 
+- v5 2026-10-11 首条实测复核后修订：自检改用 seek 法（标签页 hidden 时
+  `playState=running` 但时钟恒 0，只看动画条数会误判）；取证须写完整选择器
+  （含 CSS-modules 前缀）；一次性动效须记录 storage 门控键；rgb→hex 归一化须注明。
 - v4 2026-10-11 补齐三处缺口：类别轮换明确为「当日项 + 次日项」；
   收尾新增 seen.json 落库（含被拒候选）；周期参数固定（每天 08:30）。
 - v3 2026-10-11 补截图覆盖陷阱（`capture_screenshot()` 固定写同一路径，须即时另存）。

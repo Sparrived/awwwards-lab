@@ -3,6 +3,7 @@
    机制：网格里每个瓦片用 clip-path: inset(50% → 0) + 轻微上移 +
    opacity 0→1 逐格揭示；每格 animation-delay = 序号 × 固定步长。
    数值来源：ownitt.fr 的 CSS 规则（见 README 取证记录），非推测。
+   原站实现位于 IntroAnimation-module__HH0i_W__* （CSS modules，类名有前缀）。
    ============================================================ */
 
 :root {
@@ -11,7 +12,7 @@
   --sgr-ease:       cubic-bezier(0.65, 0, 0.35, 1);   /* .cell animation-timing-function */
   --sgr-stagger:    75ms;                             /* delay = var(--i) * 75ms */
   --sgr-rise:       14px;                             /* 关键帧起始 translateY */
-  /* —— 每 3 格附加 3D 翻转（关键帧为等效重建，见 README [未验证]） —— */
+  /* —— 每 3 格附加 3D 翻转（关键帧实测自原站 @keyframes cellFlip） —— */
   --sgr-flip-dur:   1000ms;
   --sgr-flip-ease:  cubic-bezier(0.77, 0, 0.175, 1);
   /* —— 网格容器（实测） —— */
@@ -63,9 +64,11 @@
   100% { clip-path: inset(0);   opacity: 1; transform: translateY(0); }
 }
 
-/* 等效重建：原站 cellFlip 关键帧内容未取证，此处用 rotateY 近似 */
+/* 关键帧：实测自 ownitt.fr @keyframes cellFlip（逐字对应：
+   0% rotateY(0) → 50% rotateY(90deg) → 100% rotateY(0)，故是"翻一半再翻回"的闪动） */
 @keyframes sgr-flip {
-  0%   { transform: rotateY(85deg); }
+  0%   { transform: rotateY(0deg); }
+  50%  { transform: rotateY(90deg); }
   100% { transform: rotateY(0deg); }
 }
 

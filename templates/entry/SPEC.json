@@ -34,6 +34,7 @@
   ],
   "deps": [],
   "reuse_hints": "什么场景该用它，什么场景别用。",
+  "repro_notes": "复核者复现本条取证时必须知道的事：完整选择器（含 CSS-modules 前缀）、一次性动效的 storage 门控键、色值是否做过 rgb→hex 归一化、动效是否用 seek 法验证。写不清楚会让复核者误判为编造。",
   "verification": {
     "rendered_ok": false,
     "console_errors": null,

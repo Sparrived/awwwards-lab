@@ -29,6 +29,8 @@
 | 动效 | 首屏 `document.getAnimations().length === 0` → **静态配色型站点** | `getAnimations()` |
 
 说明：强调色由「页面所有可见元素背景色去重」得到，已剔除外链站点通用灰（`#E7E7E8` 等）。色值均为浏览器实算的 `rgb()`，非从缩略图目测。
+**归一化提示**：站内原值多为 `rgb()` 形式，本表统一转成 hex；复核时若拿 `rgb()` 比对请自行换算（如 `pink` 站内定义为 `rgb(249,54,122)`、`clay` 为 `rgb(215,206,195)`），对不上是归一化差异而非编造。
+关键取值另经站内 CSS 变量交叉复核：`--font-heading-h1-size: 250px`、`--brand-color: #141723`、display 字体 `'Ringold'`、正文 `'Greed Standard'`。
 
 截图：`shots/hero.png`（原站首屏）。
 

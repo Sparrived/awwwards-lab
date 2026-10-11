@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T10:22:09+08:00",
+  "generated_at": "2026-10-11T10:27:15+08:00",
   "generator": "scripts/build_gallery.py",
   "count": 2,
   "entries": [
@@ -26,15 +26,15 @@
       "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
       "shot": "../entries/2026-10-11-staggered-cell-reveal/shots/hero.png",
       "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。",
-      "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转做节奏变化。",
+      "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转（rotateY 0→90→0）做节奏变化。",
       "tokens": {
         "colors": {},
         "typography": {},
         "spacing": {},
         "motion": {
-          "duration": "900ms（reveal）；flip 1000ms；grain 1800ms",
-          "easing": "cubic-bezier(0.65, 0, 0.35, 1)（reveal）；flip cubic-bezier(0.77, 0, 0.175, 1)",
-          "trigger": "load（一次性入场，animation-fill-mode: forwards）；错峰 delay = index × 75ms"
+          "duration": "900ms（reveal）；cellFlip 1s；grain 1800ms",
+          "easing": "cubic-bezier(0.65, 0, 0.35, 1)（reveal）；cellFlip cubic-bezier(0.77, 0, 0.175, 1)",
+          "trigger": "load 一次性入场（animation-fill-mode: forwards），由 sessionStorage['ownitt_intro_seen'] 门控（首访播放、复访不挂载）；错峰 delay = index × 75ms；cellFlip 复用同一 75ms 错峰"
         }
       },
       "api": "CSS：容器加 class=\"sgr-grid\" 与 data-sgr，子元素 class=\"sgr-cell\"（用 style=\"--i:N\" 指定序号，或由 JS 自动编号），可选 data-flip=\"on\" 开启 3n 翻转，--sgr-cols 控制列数。JS：window.StaggerReveal.replay(gridEl) 重放；window.StaggerReveal.init(root) 手动初始化。",
@@ -49,13 +49,14 @@
       ],
       "deps": [],
       "reuse_hints": "适合：作品集/品牌站首屏入场、图库或栏目卡的批量出现、内容段的节奏型揭示。别用：需要被反复触发的交互反馈（本条是一次性入场）；已内置 prefers-reduced-motion 降级为瞬时呈现。",
+      "repro_notes": "原站类名带 CSS modules 前缀 IntroAnimation-module__HH0i_W__（__cell / __cellInner / __grid）；复核时必须先清 sessionStorage（门控键 ownitt_intro_seen），否则 overlay 不挂载、DOM 里查不到 __cell，会被误判为机制不存在。入场 overlay 播完即从 DOM 移除，只能截到入场结束态。自检动效要用 seek 法（pause + currentTime），标签页 hidden 时动画时钟恒为 0 但 playState 仍是 running。",
       "variant_of": null,
       "verification": {
         "rendered_ok": true,
         "console_errors": 0,
         "screenshot": "shots/hero.png",
-        "checked_at": "2026-10-11T10:21:48+08:00",
-        "note": "file:// 打开 demo：10 格，getAnimations() 显示 sgr-reveal 与 sgr-flip 在跑，clip-path 由 inset(4.6%) 收敛到 inset(0%)，控制台 0 报错"
+        "checked_at": "2026-10-11T10:40:00+08:00",
+        "note": "file:// 打开 demo：10 格，sgr-reveal 三格 delay 实测 0/75/150ms；seek 法实测 t=0 → clip-path inset(50%)/opacity 0/translateY(14px)、t=900 → inset(0%)/opacity 1/translateY(0)，与原站 @keyframes cellReveal 逐字一致；sgr-flip 已按原站 @keyframes cellFlip 改为 rotateY 0→90→0；控制台 0 报错、无外部请求。"
       }
     },
     {
@@ -126,13 +127,14 @@
       ],
       "deps": [],
       "reuse_hints": "适合：食品/糖果/玩具/儿童等需要「庆祝感 + 高能量」的品牌落地页、活动页、电商首屏；也适合作为深色/中性 UI 的强调色来源。别用：需要克制、专业、金融/医疗气质的界面（高饱和撞色会显轻浮）；大量正文场景需降低强调色占比。",
+      "repro_notes": "色板值的取法：在站内 CSS / 计算样式里采集到的原值多为 rgb() 形式，本条统一归一化成 hex，复核时用 rgb() 比对可能对不上（如 pink 实测到的是 rgb(249,54,122) 形式的定义，clay 为 rgb(215,206,195)）——这是归一化差异，不是编造。关键取值另经站内 CSS 变量复核：--font-heading-h1-size: 250px、--brand-color: #141723、display 字体 'Ringold'、正文 'Greed Standard'（均实测命中）。ground/ink 与 h1 的 250px/213px/-5px/400 可直接用 getComputedStyle 复现。",
       "variant_of": null,
       "verification": {
         "rendered_ok": true,
         "console_errors": 0,
         "screenshot": "shots/hero.png",
-        "checked_at": "2026-10-11T10:21:48+08:00",
-        "note": "file:// 打开 demo：body 底色 rgb(255,247,233)、墨色 rgb(20,23,35)、display 250px/ls -5px/lh 212.5px、11 色板 + 8 色块渲染正常，控制台 0 报错"
+        "checked_at": "2026-10-11T10:40:00+08:00",
+        "note": "file:// 打开 demo：body 底色 rgb(255,247,233)、墨色 rgb(20,23,35)、display 250px/ls -5px/lh 212.5px、11 色板 + 8 色块渲染正常，控制台 0 报错、无外部请求。独立复核：原站实测 bodyBg rgb(255,247,233)/color rgb(20,23,35)/body 20px/h1 250px·213px·-5px·400/主按钮 24px·23px 40px·16px/getAnimations()=0 全部吻合。"
       }
     }
   ],

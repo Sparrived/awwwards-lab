@@ -97,6 +97,7 @@ def load_entries(lib: pathlib.Path) -> tuple[list[dict], list[dict]]:
             "files": spec.get("files", []) or [],
             "deps": spec.get("deps", []) or [],
             "reuse_hints": spec.get("reuse_hints", ""),
+            "repro_notes": spec.get("repro_notes", ""),
             "variant_of": spec.get("variant_of"),
             "verification": ver,
         })

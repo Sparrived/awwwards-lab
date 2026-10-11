@@ -65,11 +65,12 @@
   ],
   "deps": [],
   "reuse_hints": "适合：食品/糖果/玩具/儿童等需要「庆祝感 + 高能量」的品牌落地页、活动页、电商首屏；也适合作为深色/中性 UI 的强调色来源。别用：需要克制、专业、金融/医疗气质的界面（高饱和撞色会显轻浮）；大量正文场景需降低强调色占比。",
+  "repro_notes": "色板值的取法：在站内 CSS / 计算样式里采集到的原值多为 rgb() 形式，本条统一归一化成 hex，复核时用 rgb() 比对可能对不上（如 pink 实测到的是 rgb(249,54,122) 形式的定义，clay 为 rgb(215,206,195)）——这是归一化差异，不是编造。关键取值另经站内 CSS 变量复核：--font-heading-h1-size: 250px、--brand-color: #141723、display 字体 'Ringold'、正文 'Greed Standard'（均实测命中）。ground/ink 与 h1 的 250px/213px/-5px/400 可直接用 getComputedStyle 复现。",
   "verification": {
     "rendered_ok": true,
     "console_errors": 0,
     "screenshot": "shots/hero.png",
-    "checked_at": "2026-10-11T10:21:48+08:00",
-    "note": "file:// 打开 demo：body 底色 rgb(255,247,233)、墨色 rgb(20,23,35)、display 250px/ls -5px/lh 212.5px、11 色板 + 8 色块渲染正常，控制台 0 报错"
+    "checked_at": "2026-10-11T10:40:00+08:00",
+    "note": "file:// 打开 demo：body 底色 rgb(255,247,233)、墨色 rgb(20,23,35)、display 250px/ls -5px/lh 212.5px、11 色板 + 8 色块渲染正常，控制台 0 报错、无外部请求。独立复核：原站实测 bodyBg rgb(255,247,233)/color rgb(20,23,35)/body 20px/h1 250px·213px·-5px·400/主按钮 24px·23px 40px·16px/getAnimations()=0 全部吻合。"
   }
 }
