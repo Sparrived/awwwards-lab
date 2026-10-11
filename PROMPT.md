@@ -64,7 +64,9 @@ D:\Code\awwwards-lab\
    `web_extract` / `curl` 取 HTML。列表页 HTML 里**同时含** `/sites/<slug>` 详情页链接
    和获奖**原站真实外链**，够用，不必进浏览器。
    按星期轮换类别以保证多样性（一 动效 / 二 排版 / 三 电商 / 四 作品集 / 五 导航交互 /
-   六 WebGL-3D / 日 配色主题）。今天收 2 条，**必须跨 2 个不同类别**。候选必须满足：
+   六 WebGL-3D / 日 配色主题）。**今天收 2 条，必须跨 2 个不同类别：主类别取当日轮换项，
+   第二条取次日轮换项**（例：周日 = 配色主题 + 动效），避免两天重复同一类别。
+   候选必须满足：
    公开可访问、无登录、桌面端可复现、能萃取出**一个明确机制**、且不与库内重复
    （同时查 `source_url` 和机制标签）。若只是已有机制的变体，做成「variant + 差异说明」，
    不要新增重复条目。
@@ -100,8 +102,12 @@ D:\Code\awwwards-lab\
    失败的条目**不进** `index.json`，标记 FAILED 并写原因。
 7. **重建索引**：运行 `scripts/build_gallery.py` 重新生成 `index.json` 与 `gallery/index.html`。
    **禁止手写/手改这两个文件。**
-8. **收尾**：`git add/commit/push`（含 `index.json`、`gallery/`，Pages 才能更新）。
-   输出 ≤300 字中文日报：今天收了什么 / 萃取了什么机制 / 库总数 / 从哪个文件看效果。
+8. **收尾**：
+   a. 把本次**看过的所有** awwwards 条目追加进 `seen.json`（包含放弃与被拒的候选，
+      每条记 `{date, awwwards_url, live_url, title, decision: accepted|rejected, reason}`），
+      供以后去重——**不要只记入库的**，否则每天都会重新评估同一批被否决的站；
+   b. `git add/commit/push`（含 `index.json`、`gallery/`、`seen.json`，Pages 才能更新）；
+   c. 输出 ≤300 字中文日报：今天收了什么 / 萃取了什么机制 / 库总数 / 从哪个文件看效果。
 
 ## 三、纪律
 
@@ -115,6 +121,8 @@ D:\Code\awwwards-lab\
 
 ## 变更记录
 
+- v4 2026-10-11 补齐三处缺口：类别轮换明确为「当日项 + 次日项」；
+  收尾新增 seen.json 落库（含被拒候选）；周期参数固定（每天 08:30）。
 - v3 2026-10-11 补截图覆盖陷阱（`capture_screenshot()` 固定写同一路径，须即时另存）。
 - v2 2026-10-11 首轮实测后修订：查证 awwwards 对无头浏览器 403 / 对 curl UA 200，
   发现环节改走 `web_extract`/`curl`；补截图超时降级、`document.title` 前缀陷阱、
