@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>可抛掷糖环页脚 · GLOSSLOOP（原创 demo）</title>
+<!-- 组件样式与行为都在 src/ 里，demo 只提供上下文与调参面板 -->
+<link rel="stylesheet" href="../src/throwable-sweets.css">
+<style>
+  /* 以下只是 demo 页的上下文排版，不属于被萃取的组件 */
+  :root { --lede-bg: #fff7e9; --lede-ink: #141723; }
+  html, body { margin: 0; }
+  body { background: var(--lede-bg); color: var(--lede-ink);
+    font-family: "DejaVu Sans", "Segoe UI", Arial, sans-serif; }
+  .lede { max-width: 1080px; margin: 0 auto; padding: 14vh 24px 16vh; }
+  .lede__eyebrow { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+    color: #6d6250; margin: 0 0 1.2em; }
+  .lede h1 { font-family: "Trebuchet MS", "DejaVu Sans", sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.4rem); letter-spacing: -.04em; line-height: .95;
+    margin: 0 0 .5em; text-transform: uppercase; }
+  .lede p { max-width: 46ch; line-height: 1.7; color: #453f36; margin: 0 0 1em; }
+  .lede__hint { display: inline-block; border: 1px solid #141723; border-radius: 999px;
+    padding: .5em 1em; font-size: .82rem; }
+  .lede__note { font-size: .78rem; color: #7a7160; }
+</style>
+</head>
+<body>
+
+<!-- ===== 上方上下文（不属于组件）：让页脚色场需要滚动才会进入视口 ===== -->
+<section class="lede">
+  <p class="lede__eyebrow">GLOSSLOOP · 可穿戴糖环 · 独立原创 demo</p>
+  <h1>戴上甜味，随手一抛</h1>
+  <p>GLOSSLOOP 只做一件事：把一圈能戴在手指上的糖做得好玩。下面这块色场是我们所有庆祝场景的收尾，
+     糖环会自己掉进来，你也能随手把它们抛出去。</p>
+  <p class="lede__hint">↓ 滚到色场：抓一颗糖环，拖起来再松手</p>
+  <p class="lede__note">本页为机制片段的独立实现，品牌、文案、图形均为原创虚构，与任何真实品牌无关。</p>
+</section>
+
+<!-- ===== 被萃取的片段：色场页脚 + 可抛掷糖环 ===== -->
+<footer class="sweets-band" id="glossloop-band" data-sweets-band>
+  <div class="sweets-band__inner">
+    <div>
+      <p class="sweets-band__small">Glossloop · est. 2026</p>
+      <h2 class="sweets-band__mark">Loops<br>you wear</h2>
+    </div>
+
+    <nav class="sweets-menu" aria-label="页脚导航">
+      <div>
+        <h3>口味</h3>
+        <ul>
+          <li><a href="#glossloop-band">浆果红</a></li>
+          <li><a href="#glossloop-band">芒果橙</a></li>
+          <li><a href="#glossloop-band">青柠绿</a></li>
+          <li><a href="#glossloop-band">蜜桃粉</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>场合</h3>
+        <ul>
+          <li><a href="#glossloop-band">生日派对</a></li>
+          <li><a href="#glossloop-band">毕业典礼</a></li>
+          <li><a href="#glossloop-band">婚礼答谢</a></li>
+          <li><a href="#glossloop-band">主场日</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>关于</h3>
+        <ul>
+          <li><a href="#glossloop-band">我们怎么做糖</a></li>
+          <li><a href="#glossloop-band">门店与批发</a></li>
+          <li><a href="#glossloop-band">联络</a></li>
+          <li><a href="#glossloop-band">加入我们</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="sweets-band__legal">
+      <span>© 2026 GLOSSLOOP（虚构品牌）</span>
+      <a href="#glossloop-band">服务条款</a>
+      <a href="#glossloop-band">隐私</a>
+      <span>糖环图形为原创 SVG，可自由替换成你的素材</span>
+    </div>
+  </div>
+
+  <!-- 糖环对象层：铺满色场并被色场裁切；只有对象本身吃指针 -->
+  <div class="sweets-field" data-sweets-field aria-label="可抛掷糖环区">
+        <button class="sweet" type="button" data-sweet data-flavour="berry"
+                style="--x:4%;--w:24%;--r:-18deg"
+                aria-label="浆果红糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw0-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8A79"/><stop offset="0.45" stop-color="#C7221B"/><stop offset="1" stop-color="#9E1B14"/></linearGradient><radialGradient id="sw0-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#FFB4A6"/><stop offset="0.5" stop-color="#E8352B"/><stop offset="1" stop-color="#9E1B14"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw0-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#FF8A79" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw0-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><path d="M87.8 69.6 L120 13.4 L152.2 69.6" fill="none" stroke="#9E1B14" stroke-opacity="0.30" stroke-width="3" stroke-linejoin="round"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+        <button class="sweet" type="button" data-sweet data-flavour="mango"
+                style="--x:22%;--w:17%;--r:26deg"
+                aria-label="芒果橙糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw1-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFCF7A"/><stop offset="0.45" stop-color="#D07F1B"/><stop offset="1" stop-color="#A9631A"/></linearGradient><radialGradient id="sw1-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#FFE0A8"/><stop offset="0.5" stop-color="#F2A02E"/><stop offset="1" stop-color="#A9631A"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw1-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#FFCF7A" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw1-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><ellipse cx="120" cy="54" rx="32.2" ry="15.6" fill="none" stroke="#A9631A" stroke-opacity="0.26" stroke-width="3"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+        <button class="sweet" type="button" data-sweet data-flavour="lime"
+                style="--x:41%;--w:21%;--r:-8deg"
+                aria-label="青柠绿糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw2-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6F58A"/><stop offset="0.45" stop-color="#82B424"/><stop offset="1" stop-color="#5F8D17"/></linearGradient><radialGradient id="sw2-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#E8FFB8"/><stop offset="0.5" stop-color="#A8E23A"/><stop offset="1" stop-color="#5F8D17"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw2-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#D6F58A" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw2-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><path d="M94.0 48.8 Q120 82.6 146.0 48.8" fill="none" stroke="#5F8D17" stroke-opacity="0.28" stroke-width="3"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+        <button class="sweet" type="button" data-sweet data-flavour="blush"
+                style="--x:62%;--w:15%;--r:34deg"
+                aria-label="蜜桃粉糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw3-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA8CB"/><stop offset="0.45" stop-color="#CE4A82"/><stop offset="1" stop-color="#A62F60"/></linearGradient><radialGradient id="sw3-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#FFC6DE"/><stop offset="0.5" stop-color="#F0629E"/><stop offset="1" stop-color="#A62F60"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw3-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#FFA8CB" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw3-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><path d="M87.8 69.6 L120 13.4 L152.2 69.6" fill="none" stroke="#A62F60" stroke-opacity="0.30" stroke-width="3" stroke-linejoin="round"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+        <button class="sweet" type="button" data-sweet data-flavour="aqua"
+                style="--x:76%;--w:22%;--r:-27deg"
+                aria-label="汽水青糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw4-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FF0E6"/><stop offset="0.45" stop-color="#22A79C"/><stop offset="1" stop-color="#12837A"/></linearGradient><radialGradient id="sw4-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#B4FFF7"/><stop offset="0.5" stop-color="#2ED3C6"/><stop offset="1" stop-color="#12837A"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw4-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#8FF0E6" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw4-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><ellipse cx="120" cy="54" rx="32.2" ry="15.6" fill="none" stroke="#12837A" stroke-opacity="0.26" stroke-width="3"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+        <button class="sweet" type="button" data-sweet data-flavour="grape"
+                style="--x:33%;--w:16%;--r:12deg"
+                aria-label="葡萄紫糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw5-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B994F5"/><stop offset="0.45" stop-color="#6A34BC"/><stop offset="1" stop-color="#4F2394"/></linearGradient><radialGradient id="sw5-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#D6BCFF"/><stop offset="0.5" stop-color="#8A4BE8"/><stop offset="1" stop-color="#4F2394"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw5-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#B994F5" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw5-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><path d="M94.0 48.8 Q120 82.6 146.0 48.8" fill="none" stroke="#4F2394" stroke-opacity="0.28" stroke-width="3"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+        <button class="sweet" type="button" data-sweet data-flavour="lemon"
+                style="--x:54%;--w:19%;--r:-36deg"
+                aria-label="柠檬黄糖环，可拖拽或用方向键移动"><svg class="sweet__art" viewBox="0 0 240 210" role="img" aria-hidden="true" focusable="false"><defs><linearGradient id="sw6-band" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEF8A"/><stop offset="0.45" stop-color="#CFBB24"/><stop offset="1" stop-color="#A89317"/></linearGradient><radialGradient id="sw6-gem" cx="0.38" cy="0.30" r="0.85"><stop offset="0" stop-color="#FFF8C2"/><stop offset="0.5" stop-color="#F7E13C"/><stop offset="1" stop-color="#A89317"/></radialGradient></defs><path fill-rule="evenodd" fill="url(#sw6-band)" d="M120 74 A86 58 0 1 0 120 190 A86 58 0 1 0 120 74 Z M120 104 A52 30 0 1 0 120 164 A52 30 0 1 0 120 104 Z"/><path d="M46 100 A86 58 0 0 1 194 100" fill="none" stroke="#FFEF8A" stroke-opacity="0.55" stroke-width="7" stroke-linecap="round"/><path fill="url(#sw6-gem)" d="M120 4 C160 4 186 34 186 66 C186 100 156 122 120 122 C84 122 54 100 54 66 C54 34 80 4 120 4 Z"/><path d="M87.8 69.6 L120 13.4 L152.2 69.6" fill="none" stroke="#A89317" stroke-opacity="0.30" stroke-width="3" stroke-linejoin="round"/><ellipse cx="96" cy="40" rx="20" ry="13" fill="#ffffff" fill-opacity="0.42" transform="rotate(-22 96 40)"/><ellipse cx="150" cy="92" rx="9" ry="5" fill="#ffffff" fill-opacity="0.22" transform="rotate(18 150 92)"/></svg></button>
+  </div>
+
+  <!-- 调参 / 测量放在旁侧折叠区，不占主画面 -->
+  <details class="sweets-panel">
+    <summary>物理参数与测量</summary>
+    <div class="sweets-panel__body">
+      <p class="sweets-panel__read" data-sweets-read>读取中…</p>
+      <label>重力 <input type="range" data-sweets-opt="gravity" min="0.1" max="1.2" step="0.05" value="0.55"><output>0.55</output></label>
+      <label>恢复 <input type="range" data-sweets-opt="bounce" min="0" max="0.9" step="0.02" value="0.38"><output>0.38</output></label>
+      <div style="display:flex;gap:.5em;flex-wrap:wrap">
+        <button type="button" data-sweets-reset>再投放一次</button>
+        <button type="button" data-sweets-settle>立即静置</button>
+      </div>
+    </div>
+  </details>
+</footer>
+
+<script src="../src/throwable-sweets.js"></script>
+</body>
+</html>

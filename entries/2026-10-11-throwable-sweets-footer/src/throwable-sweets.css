@@ -1,0 +1,179 @@
+/* throwable-sweets.css — 「可抛掷糖环页脚」片段
+ * 机制：全幅色场页脚 + 一组原创糖环对象，入场重力下落、落地互撞堆叠、
+ *       可抓取拖拽并带惯性抛掷后回落静置。
+ * 命名空间 .sweets-* / .sweet，避免污染复用者的全局样式。
+ * 可调参数集中在 :root 与各对象的内联 --w（相对尺度）上。
+ */
+:root {
+  /* colors —— 本片段实测到的色场（见 SPEC.tokens.colors） */
+  --sweets-band-bg: #3b1fa8;
+  --sweets-band-ink: #ffffff;
+  --sweets-band-ink-dim: rgba(255, 255, 255, 0.62);
+  --sweets-band-rule: rgba(255, 255, 255, 0.22);
+
+  /* typography —— 无来源字体可用，按性格替代（见 README「素材替代」） */
+  --sweets-font-display: "Trebuchet MS", "Verdana", "DejaVu Sans", sans-serif;
+  --sweets-font-body: "DejaVu Sans", "Segoe UI", Arial, sans-serif;
+  --sweets-display-size: clamp(2rem, 6vw, 4.2rem);
+  --sweets-display-track: -0.045em;
+  --sweets-small-track: 0.18em;
+
+  /* spacing */
+  --sweets-band-min-h: 88vh;
+  --sweets-pad: clamp(20px, 3.4vw, 52px);
+
+  /* motion —— 重力/弹性等数值见 src/throwable-sweets.js 的 CFG，可运行时覆盖 */
+  --sweets-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sweets-settle-ms: 320ms;
+}
+
+.sweets-band {
+  position: relative;
+  overflow: hidden;                 /* 对象被色场裁切：不越出色场边界 */
+  min-height: var(--sweets-band-min-h);
+  background: var(--sweets-band-bg);
+  color: var(--sweets-band-ink);
+  font-family: var(--sweets-font-body);
+}
+
+.sweets-band__inner {
+  position: relative;
+  z-index: 1;                       /* 文案层 */
+  display: grid;
+  gap: var(--sweets-pad);
+  padding: var(--sweets-pad);
+  min-height: var(--sweets-band-min-h);
+  align-content: space-between;
+}
+
+.sweets-band__mark {
+  font-family: var(--sweets-font-display);
+  font-size: var(--sweets-display-size);
+  letter-spacing: var(--sweets-display-track);
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.sweets-band__small {
+  font-size: 0.75rem;
+  letter-spacing: var(--sweets-small-track);
+  text-transform: uppercase;
+  color: var(--sweets-band-ink-dim);
+  margin: 0 0 0.6em;
+}
+
+.sweets-menu {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sweets-pad);
+  border-top: 1px solid var(--sweets-band-rule);
+  padding-top: 1.4em;
+}
+.sweets-menu h3 {
+  font-family: var(--sweets-font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.7em;
+}
+.sweets-menu ul { list-style: none; margin: 0; padding: 0; }
+.sweets-menu li { margin: 0 0 0.5em; }
+.sweets-menu a {
+  color: var(--sweets-band-ink-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.sweets-menu a:hover,
+.sweets-menu a:focus-visible { color: var(--sweets-band-ink); text-decoration: underline; }
+
+.sweets-band__legal {
+  border-top: 1px solid var(--sweets-band-rule);
+  padding-top: 1em;
+  font-size: 0.72rem;
+  color: var(--sweets-band-ink-dim);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.2em;
+}
+
+/* ---- 对象层：铺满色场、裁切、默认不吃指针，只有对象本身可抓 ---- */
+.sweets-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;                       /* 对象在文案之上（命中测试先命中对象） */
+  overflow: hidden;
+  pointer-events: none;             /* 空白处点击穿透到页脚文案 */
+}
+
+.sweet {
+  position: absolute;
+  left: var(--x, 10%);
+  bottom: 0;                        /* 无 JS 时：底边贴住色场地板，直接呈现静置态 */
+  width: var(--w, 20%);             /* 相对尺度：占色场宽度 15%–24% */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+  /* 无 JS 时以「未旋转的静置态」贴在色场底边：不会被色场裁角，基础内容默认可见。
+     旋转、重力、拖拽都由 src/throwable-sweets.js 渐进增强。 */
+  will-change: transform;
+}
+.sweet.is-dragging { cursor: grabbing; }
+.sweet:focus-visible { outline: 2px dashed var(--sweets-band-ink); outline-offset: 6px; }
+.sweet__art { display: block; width: 100%; height: auto; pointer-events: none; }
+
+/* 抓取时轻微抬起，给出「拿起来了」的反馈 */
+.sweet.is-dragging .sweet__art {
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.35));
+}
+
+/* 静置后轻微回弹的收尾（不是关键帧动效，只做落地后的一个状态过渡） */
+.sweet.is-settled .sweet__art { transition: filter var(--sweets-settle-ms) var(--sweets-ease); }
+
+/* ---- 旁侧调参/测量面板：不占主画面 ---- */
+.sweets-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: min(280px, 78vw);
+  font-size: 0.78rem;
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid var(--sweets-band-rule);
+  border-radius: 10px;
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+.sweets-panel > summary {
+  cursor: pointer;
+  padding: 0.6em 0.8em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sweets-panel__body { padding: 0 0.8em 0.9em; display: grid; gap: 0.55em; }
+.sweets-panel label { display: grid; grid-template-columns: 5.2em 1fr 3.2em; align-items: center; gap: 0.5em; }
+.sweets-panel input[type="range"] { width: 100%; accent-color: #fff; }
+.sweets-panel output { text-align: right; font-variant-numeric: tabular-nums; }
+.sweets-panel button {
+  font: inherit;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--sweets-band-rule);
+  border-radius: 999px;
+  padding: 0.4em 0.9em;
+  cursor: pointer;
+}
+.sweets-panel__read { font-variant-numeric: tabular-nums; color: var(--sweets-band-ink-dim); }
+
+/* ---- 降级 ---- */
+@media (max-width: 860px) {
+  .sweets-menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* 直接呈现终态：不做入场下落，拖动也只做直接跟随（不再抛掷） */
+  .sweet { transition: none; }
+  .sweet__art { transition: none; }
+}

@@ -1,0 +1,283 @@
+/* ORVE · 滚动消费的封面 → 深色章节（换幕）
+ * 独立实现：只保留「浅色封面被滚动擦洗、主体标记放大吞屏、幕布落下并换幕」的设计关系，
+ * 不搬运原站 HTML/CSS/JS/关键帧/图片/字体。
+ * 所有可调参数集中在 :root，便于复用者覆盖。
+ */
+:root {
+  /* colors */
+  --orve-cream: #f1ede2;
+  --orve-ink: #0b0b0c;
+  --orve-dark: #0b0b0c;
+  --orve-dark-ink: #efece4;
+  --orve-line: rgba(11, 11, 12, 0.22);
+  --orve-line-strong: rgba(11, 11, 12, 0.55);
+
+  /* typography（封面用高对比衬线，性格靠字面与斜体对比，不靠字号堆叠） */
+  --orve-display: "Orve Display", "Playfair Display", Georgia, "Times New Roman", serif;
+  --orve-ui: system-ui, "Noto Sans SC", "Segoe UI", sans-serif;
+  --orve-tagline-size: 0.94rem;     /* ≈15px */
+  --orve-accent-size: 2.16rem;      /* ≈35px 斜体强调 */
+  --orve-ticker-size: 1.395rem;     /* ≈22px */
+  --orve-ticker-lh: 2.5rem;         /* ≈40px 行高 */
+  --orve-hint-size: 0.5625rem;      /* 9px 极小字 + 大字距 */
+
+  /* spacing */
+  --orve-stack-gap: 2.5rem;
+  --orve-ticker-window: calc(var(--orve-ticker-lh) * 3.6);
+  --orve-column: 21.5rem;
+
+  /* motion（由滚动位置驱动，不写死时长；仅换幕收束用一次短过渡） */
+  --orve-mark-scale-max: 31;        /* 封面结束时标记相对初始的放大倍数 */
+  --orve-mark-onset: 0.26;          /* 进度到该点前标记不放大 */
+  --orve-mark-accel: 2.4;           /* 放大曲线的加速指数 */
+  --orve-hint-fade: 0.34;           /* 滚动提示淡出用掉的封面进度 */
+  --orve-veil-onset: 0.86;          /* 幕布开始落下的进度 */
+  --orve-settle: 240ms;
+}
+
+/* ---------- 封面（前幕） ---------- */
+.orve-cover {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  background: var(--orve-cream);
+  color: var(--orve-ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+.orve-cover.is-consumed { display: none; }
+/* 有 JS 时封面钉在视口上：滚动推进擦洗，但封面本身不随滚动滑走（滚满一屏才换幕）。
+   这是脚本启用后才加上的行为；无 JS 时封面按普通区块正常滚走。 */
+.orve-cover.is-live {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.orve-cover__stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--orve-stack-gap);
+  padding-block: 4vh;
+}
+
+/* 字标：先绘制，标记放大时会被覆盖 */
+.orve-cover__wordmark {
+  font-family: var(--orve-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: 0.06em;
+  text-indent: 0.06em;
+}
+
+/* 主体标记：径向对称的品牌火花；居中锚点放大 */
+.orve-cover__mark {
+  position: relative;
+  z-index: 1;                 /* 压在字标之上、说明行之下 */
+  width: 3.0625rem;           /* 初始 ≈49px */
+  height: 3.0625rem;
+  color: var(--orve-ink);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.orve-cover__mark svg { display: block; width: 100%; height: 100%; }
+
+/* 说明行 + 纵向列表：DOM 在标记之后，因此绘制在放大后的标记之上 */
+.orve-cover__below {
+  position: relative;
+  z-index: 2;                 /* 与标记同属定位层，且在其之上：放大后的标记不会盖住说明行 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  width: var(--orve-column);
+  text-align: center;
+}
+.orve-cover__tagline {
+  margin: 0;
+  font-family: var(--orve-display);
+  font-size: var(--orve-tagline-size);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+.orve-cover__tagline .accent {
+  display: block;
+  margin-top: 0.35em;
+  font-size: var(--orve-accent-size);
+  font-style: italic;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* 纵向标签窗：固定高度窗口内擦洗一条列表 */
+.orve-cover__ticker {
+  height: var(--orve-ticker-window);
+  width: 100%;
+  overflow: hidden;
+}
+.orve-cover__track {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  will-change: transform;
+}
+.orve-cover__track li {
+  font-family: var(--orve-display);
+  font-size: var(--orve-ticker-size);
+  line-height: var(--orve-ticker-lh);
+  letter-spacing: 0.02em;
+}
+
+/* 滚动提示：极小字 + 长线段 + 走动的小点 */
+.orve-cover__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 6.5vh;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  will-change: opacity;
+}
+.orve-cover__hint .label {
+  font-family: var(--orve-ui);
+  font-size: var(--orve-hint-size);
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  opacity: 0.55;
+}
+.orve-cover__hint .line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 3.25rem;
+  background: var(--orve-line-strong);
+}
+.orve-cover__hint .dot {
+  position: absolute;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  margin-left: -1.5px;
+  background: var(--orve-ink);
+  animation: orve-dot-travel 2.4s ease-in-out infinite;
+}
+@keyframes orve-dot-travel {
+  0%   { top: 0; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { top: calc(100% - 3px); opacity: 0; }
+}
+
+/* 幕布：整屏墨色，换幕时落下 */
+.orve-cover__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: var(--orve-dark);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* ---------- 深色章节（后幕） ---------- */
+.orve-chapter {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: var(--orve-dark);
+  color: var(--orve-dark-ink);
+  padding: 0 6vw 12vh;
+}
+.orve-chapter__bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.25rem 0;
+  border-bottom: 1px solid rgba(239, 236, 228, 0.18);
+}
+.orve-chapter__brand {
+  font-family: var(--orve-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.orve-chapter__nav { display: flex; gap: 1.25rem; font-family: var(--orve-ui); font-size: 0.8rem; }
+.orve-chapter__nav a { color: inherit; text-decoration: none; opacity: 0.72; }
+.orve-chapter__nav a:hover { opacity: 1; }
+.orve-chapter__body { max-width: 46rem; margin-top: 16vh; }
+.orve-chapter h1 {
+  margin: 0 0 1.5rem;
+  font-family: var(--orve-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  line-height: 1.1;
+}
+.orve-chapter h1 em { font-style: italic; }
+.orve-chapter p { margin: 0 0 1rem; font-family: var(--orve-ui); line-height: 1.7; opacity: 0.82; max-width: 38rem; }
+
+/* ---------- 旁侧面板（参数/说明/测量，不属于片段本身） ---------- */
+.orve-panel {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 40;
+  max-width: min(21rem, 78vw);
+  font-family: var(--orve-ui);
+  font-size: 0.72rem;
+  color: #e9e6de;
+  background: rgba(20, 20, 22, 0.92);
+  border: 1px solid rgba(233, 230, 222, 0.25);
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+}
+.orve-panel summary { cursor: pointer; letter-spacing: 0.02em; }
+.orve-panel dl { margin: 0.6rem 0 0; display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.6rem; }
+.orve-panel dt { opacity: 0.6; }
+.orve-panel dd { margin: 0; }
+.orve-panel button {
+  margin-top: 0.6rem;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid rgba(233, 230, 222, 0.45);
+  border-radius: 4px;
+  padding: 0.28rem 0.6rem;
+  cursor: pointer;
+}
+.orve-panel button:hover { border-color: #fff; }
+
+/* ---------- 降级 ---------- */
+/* 无 JS / 关掉动效：封面保持静态、正常滚走，不做换幕 */
+@media (prefers-reduced-motion: reduce) {
+  .orve-cover__hint .dot { animation: none; top: 0; }
+  .orve-cover__mark { transform: none !important; }
+  .orve-cover__track { transform: none !important; }
+  .orve-cover__veil { display: none; }
+  .orve-cover__hint { opacity: 1 !important; }
+}
+html.orve-reduced .orve-cover { height: auto; min-height: 100svh; }
+html.orve-reduced .orve-cover__stage { position: static; padding-block: 18vh 12vh; }
+
+@media (max-width: 40rem) {
+  :root {
+    --orve-tagline-size: 0.8rem;
+    --orve-accent-size: 1.6rem;
+    --orve-ticker-size: 1.05rem;
+    --orve-ticker-lh: 1.875rem;
+    --orve-column: 17rem;
+    --orve-stack-gap: 1.75rem;
+  }
+  .orve-cover__mark { width: 1.75rem; height: 1.75rem; }
+  .orve-chapter__body { margin-top: 12vh; }
+}

@@ -1,632 +1,1544 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-11T14:40:40+08:00",
+  "generated_at": "2026-10-13T13:55:45+08:00",
   "generator": "scripts/build_gallery.py",
   "count": 3,
   "entries": [
     {
-      "id": "2026-10-11-staggered-cell-reveal",
+      "id": "2026-10-11-throwable-sweets-footer",
       "date": "2026-10-11",
-      "schema_version": 1,
-      "verification_tier": "legacy-self-report",
+      "schema_version": 2,
+      "verification_tier": "v2-reviewed",
+      "category": "theme",
+      "source": {
+        "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
+        "live_url": "https://ringpopcandy.com/",
+        "title": "Ring Pop® Candy",
+        "author": "Manufactur",
+        "award_date": "",
+        "tags": [
+          "E-Commerce",
+          "Web & Interactive",
+          "Colorful",
+          "Responsive Design",
+          "Scrolling",
+          "Photography",
+          "Storytelling",
+          "Shopify",
+          "Microinteractions",
+          "Footer Design",
+          "Figma"
+        ],
+        "observed_at": "2026-10-11 15:57–16:20 (CST, UTC+08:00)",
+        "route": "https://ringpopcandy.com/ 首页（桌面 1440x900、窄屏 390x844）；Awwwards 详情页经 HTTP 抓取"
+      },
+      "title": "Ring Pop® Candy",
+      "author": "Manufactur",
+      "tags": [
+        "E-Commerce",
+        "Web & Interactive",
+        "Colorful",
+        "Responsive Design",
+        "Scrolling",
+        "Photography",
+        "Storytelling",
+        "Shopify",
+        "Microinteractions",
+        "Footer Design",
+        "Figma"
+      ],
+      "dir": "entries/2026-10-11-throwable-sweets-footer",
+      "demo": "../entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+      "readme": "../entries/2026-10-11-throwable-sweets-footer/README.md",
+      "spec": "../entries/2026-10-11-throwable-sweets-footer/SPEC.json",
+      "source_url": "https://ringpopcandy.com/",
+      "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
+      "shot": "../entries/2026-10-11-throwable-sweets-footer/shots/demo.png",
+      "shot_kind": "demo",
+      "summary": "一个把「可穿戴糖果」当玩具来收尾的页脚：全幅饱和色场里，一组糖环从色场上方落下、落地互撞叠放并静置，用户可随时抓起抛掷再让它落回；本片段用原创糖环 SVG 与自写重力/碰撞/拖拽积分，在没有 3D 与外部动画库的前提下实现这条完整链路。",
+      "strength": "motion-recipe",
+      "expression": "为什么有效（设计判断）：Ring Pop 的产品承诺是「可以戴在手上的糖」，网站把这句话的最强落点放在页脚——不是再摆一排商品图，而是让糖环像真的掉进盒子里一样坠落、堆叠、可被随手抛掷。重力与惯性让静止的位图获得了「这是实体糖」的暗示，也在电商页脚这块最容易敷衍的位置制造了最后一个记忆点，与整站的派对语气一致。判断依据与观察事实分开：颜色鲜艳、字号大是观察事实；「玩具感支撑了品牌承诺」是解释。需要说明的是，该条目的 Awwwards 状态是 Nominee（收录于 2026-09-29），并非获奖或 Site of the Day，本条目按 nominee 记录，不写作获奖。",
+      "composition": "页脚是一整块饱和色场（实测 #2b6ffc，白字），色场内部左侧/中部是品牌字标与三列菜单，底部是法务行；糖环对象层绝对定位铺满色场、被色场 overflow:hidden 裁切，7 件对象尺寸 216–351px（占色场宽 15%–24%），互相压叠后落在色场地板线上，视觉重心集中在色场下三分之一，菜单文字在其上方被部分遮挡而仍可点击空白处。断点变化：页脚本身不分栏重排，窄屏 390 宽时对象等比缩小、仍为 7 件。",
+      "highlights": [
+        {
+          "id": "h1",
+          "rank": 1,
+          "name": "可抛掷的糖环页脚（物理玩具式收尾）",
+          "why_it_matters": "7 个糖环对象从色场上方画外受重力落下、与地板和彼此碰撞后静置，并长期保持可抓取、可拖动、可带惯性抛掷，落回后再次静置。它把品牌「可以戴在手上的糖」翻译成可操作的物理反馈，是整站唯一让产品本身变成玩具的地方；移除这套物理（只留静态糖环图）后，页脚立刻退化为普通电商页脚。",
+          "dependencies": [
+            "页脚必须是一整块饱和色场且 overflow:hidden（对象被裁切在色场内）",
+            "对象要有环状轮廓 + 顶端主体的独立剪影与透明背景，才能互相遮挡",
+            "对象尺寸需占色场宽 15%–24%，太大就互相顶飞、太小就失去体积暗示",
+            "对象层要盖在文案之上但空白处不吃指针",
+            "逐帧积分（重力/空气阻尼/恢复系数/地面摩擦）与拖拽速度采样缺一不可"
+          ],
+          "evidence_ids": [
+            "ev1",
+            "ev2",
+            "ev6"
+          ]
+        },
+        {
+          "id": "h2",
+          "rank": 2,
+          "name": "全幅收藏面板的堆叠换幕",
+          "why_it_matters": "首页连续的 5 块全幅收藏面板（Party Pack / Wedding / Originals / Colorfest / Seasonal）中前 4 块被 pin 住，下一块自下而上覆盖前一块，接缝处带出向上阴影，z-index 递增决定覆盖顺序。这是首页的叙事骨架：每一块都是一个高饱和「世界」，滚动等于换幕，配合 250px 的巨型标题把「一种口味一个场合」讲完。移除堆叠（面板只做普通滚动）后，视觉身份还在，但首页失去换幕节奏。",
+          "dependencies": [
+            "至少 2 块、通常 4–5 块连续同构面板",
+            "pinSpacing:false 才能不留空隙地让后块盖住前块",
+            "接缝阴影（rgba(0,0,0,.25) 0 -30px 40px）是「谁盖住谁」的读数",
+            "超大字号 + 负字距的展示字体承担面板主体",
+            "主题图形带 ±25% 的纵向视差"
+          ],
+          "evidence_ids": [
+            "ev3",
+            "ev4"
+          ]
+        },
+        {
+          "id": "h3",
+          "rank": 3,
+          "name": "场合词横向循环带",
+          "why_it_matters": "首屏之下的横向循环带以「A RING FOR EVERY THING.」起头，后面无限滚动场合词（OPENING NIGHT / SCHOOL SPIRIT / WEDDINGS / CHAMPIONSHIPS…），把产品从「糖」扩写成「任何值得庆祝的场合」，是首页从品牌主张过渡到商品列表的桥梁。它更像节奏铺垫而非主关系，因此排在第三。",
+          "dependencies": [
+            "Flickity 的 wrapAround 与轨道克隆提供无缝循环",
+            "恒定速度的 rAF 步进（scrollSpeed 1px/帧）",
+            "指针按下即暂停，避免与用户拖拽抢控制权"
+          ],
+          "evidence_ids": [
+            "ev5"
+          ]
+        }
+      ],
+      "selected_fragment": {
+        "highlight_id": "h1",
+        "scope": "一个完整的「色场页脚 + 可抛掷糖环」片段：整块饱和色场页脚（品牌字标、三列菜单、法务行）＋ 7 个原创糖环对象层，包含①进入视口后自色场上方画外下落、②落地回弹与互相碰撞形成的压叠静置堆叠、③抓取—拖动—带惯性抛掷—被重力拉回—再次静置的完整反馈闭环，以及④reduce-motion / 无 JS / 窄屏 / 隐藏标签页的降级与暂停。不含首页其余区块。",
+        "rationale": "与 h2（堆叠换幕）相比，h1 在移除检验下更不可替代：h2 移除堆叠后仍留下高饱和面板与巨型标题（视觉身份尚存），而 h1 移除物理后页脚只剩静态图片，品牌「可穿戴的玩具」这一核心承诺失去唯一落点；同时 Awwwards 列出的 Elements 把 Draggable Candy Footer 放在第一位。选它还有一个实现层面的理由：本片段的核心是对象形态与物理反馈，可以用原创 SVG 精确保留轮廓/体积/透明/遮挡等设计角色，而 h2 的核心是 250px 展示字体，本机无可用同性格字体，硬替会变成「拿 system-ui 当等价替代」。",
+        "invariants": [
+          {
+            "id": "inv1",
+            "description": "对象只存在于页脚色场内并被色场裁切（对象层铺满色场且 overflow:hidden），不会越出色场边界"
+          },
+          {
+            "id": "inv2",
+            "description": "7 件糖环各有「环形带 + 顶端主体」的独立剪影、透明背景与不同色族，尺寸与朝向不一，不是通用占位图形"
+          },
+          {
+            "id": "inv3",
+            "description": "进入色场视口后对象自色场上方画外下落，落在色场地板上并互相碰撞、压叠、遮挡后静置"
+          },
+          {
+            "id": "inv4",
+            "description": "每件对象可被抓取举起、拖动跟随指针，释放后保留抛出速度（惯性）、被重力拉回并再次静置"
+          },
+          {
+            "id": "inv5",
+            "description": "静置不是终点：对象可被反复再次抓取；对象位于页脚文案之上（命中测试先命中对象），而空白处点击仍可落到菜单"
+          }
+        ],
+        "omitted": [
+          "首页其余区块（hero 轮播、巨幅文案、testimonials、newsletter、品牌时间线）",
+          "原站的 GSAP / ScrollTrigger / Draggable / InertiaPlugin / Flickity 依赖，本片段改为零依赖自写积分",
+          "原站糖环的位图照片与自定义字体（Ringold / Greed Standard）",
+          "原站对象之间按旋转包围盒计算的高级边界与堆叠回弹收敛细节（本片段用圆形近似 + 睡眠机制）"
+        ],
+        "asset_substitutions": [
+          {
+            "role": "糖环主体（原站 7 张透明位图糖环照片）",
+            "substitute": "原创 SVG 糖环：椭圆环带 + 顶端水滴宝石 + 高光/切面，7 组色族",
+            "kept": "环形轮廓、上下方向、圆润体积、透明背景、视觉重心偏下、单件占色场宽 15%–24%、可互相遮挡",
+            "loss": "原站是真实摄影（塑料质感、真实高光），本片段是矢量插画，材质细节更平；宝石切面样式为自制，与原站造型不同"
+          },
+          {
+            "role": "展示字体（Ringold 展示体 / Greed Standard 正文体）",
+            "substitute": "Trebuchet MS / DejaVu Sans 等系统字体，按字重与换行关系调整字号与字距",
+            "kept": "仅保留字重层级与行宽/换行关系",
+            "loss": "字形（圆角、字面率）与负字距的展示感无法等价复现，故片段的核心不放在排版上；不把系统字体当作等价替代"
+          },
+          {
+            "role": "页脚色场色与文案",
+            "substitute": "新品牌 GLOSSLOOP 与自拟文案；色场用紫罗兰 #3b1fa8（替换原站 #2b6ffc）",
+            "kept": "整块饱和色场的对比与「白字压色场」的层级关系",
+            "loss": "无（本就要求换主题、换文案）"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "id": "ev1",
+          "claim": "原站页脚 7 个糖环对象在页脚进入视口后从色场上方画外下落，逐帧 y 从 -385/-563 增大到 546 附近后停止并保持静置。",
+          "status": "observed",
+          "method": "真实浏览器打开原站，滚到页脚，间隔 ~0.28s 连续读取 7 个 [data-candy-item] 的 getComputedStyle().transform 平移分量；另用 CDP Input.dispatchMouseEvent 做真实交互。",
+          "route": "https://ringpopcandy.com/ 首页，滚动到 scrollY≈11250（页脚）",
+          "target": "footer .footer__candies__inner 内的 7 个 [data-candy-item]",
+          "action": "从页首按正常速度滚到页脚并停住，连续采样下落过程与最终位置",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-focus-before.png",
+            "shots/private/original-focus-after-rest.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev2",
+          "claim": "原站单件糖环可被抓取拖动，释放后保留抛掷速度继续位移，再被重力拉回并重新静置：candy#1 从 (507,546) 被拖到 (232,152)，松开瞬间 (184,94)，最终回到 (73,546)。",
+          "status": "observed",
+          "method": "CDP Input.dispatchMouseEvent 依次派发 mousePressed / 12×mouseMoved / mouseReleased，逐步读取 transform 平移分量与命中结果。",
+          "route": "https://ringpopcandy.com/ 首页页脚",
+          "target": "第 1 个 [data-candy-item]（页脚糖环）",
+          "action": "在对象中心按下 → 向左上拖动 → 松开 → 等待静置",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-focus-mid.png",
+            "shots/private/original-focus-after-drag.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev3",
+          "claim": "原站首页连续 5 块收藏面板中前 4 块被 pin（滚动到 scrollY=1900–5400 期间 top 稳定在 -19 / -36 / -104 / 65），第 5 块不 pin；覆盖进行时外层获得 as-stacking-section--shadow，计算样式为 rgba(0,0,0,0.25) 0px -30px 40px 0px，且各面板 z-index 依次为 1..5。",
+          "status": "observed",
+          "method": "在 1440x900 下分段滚动并读取每个 section.as-stacking-section 的 getBoundingClientRect().top、外层 classList、boxShadow 与 style.zIndex；并用 gsap.core.globals().ScrollTrigger.getAll() 读出 4 个 pin 触发器。",
+          "route": "https://ringpopcandy.com/ 首页，scrollY 1500→5700",
+          "target": "#MainContent 内连续的 5 个 section.as-stacking-section（外层 .shopify-section / .pin-spacer）",
+          "action": "分段采用即时滚动（window.scrollTo({behavior:'instant'})）并在每个位置读取几何与样式",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-stacking-mid.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev4",
+          "claim": "站方公开脚本显示堆叠机制由 GSAP ScrollTrigger 建立：先给连续段内各 section 设 zIndex=index+1，再对除最后一块外的每块创建 {pin:true, pinSpacing:false, start: 高于视口?'bottom bottom':'top top+=headerHeight', end: stackDistance}；对除第一块外的每块用 toggleClass 加 as-stacking-section--shadow；另对 [data-stacking-section-icon-parallax] 做 yPercent 25→-25 的 scrub 视差。",
+          "status": "source-supported",
+          "method": "HTTP 取回 https://ringpopcandy.com/cdn/shop/t/12/assets/mfr-stacking-sections.min.js 并阅读；同时读出页面内 ScrollTrigger 实例的 pin/start/end 数值交叉核对。",
+          "route": "/cdn/shop/t/12/assets/mfr-stacking-sections.min.js",
+          "target": "-",
+          "action": "HTTP GET 公开脚本（未执行其中任何指令，仅作为机制证据阅读）",
+          "viewport": "-",
+          "artifacts": [],
+          "publishable": false
+        },
+        {
+          "id": "ev5",
+          "claim": "场合词循环带由 Flickity 的 wrapAround + 轨道克隆构成，并用 rAF 以常量 scrollSpeed（默认 1）推进 x，指针按下时暂停（.paused）、移出后恢复；页面上该轨道的 transform 平移量为矩阵非零值，说明轨道已被偏移。",
+          "status": "source-supported",
+          "method": "HTTP 取回 mfr-component__MFRCarouselMarquee.min.js 阅读；在页面内读取 .mfr-core__scrolling-bar/.flickity-slider 的结构与 transform 并截图。未持续采样其位移，故只记为源码支持。",
+          "route": "https://ringpopcandy.com/ 首页 scrollY≈1200",
+          "target": ".mfr-core__scrolling-bar 与其内 .flickity-slider",
+          "action": "滚到循环带位置并读取 DOM/计算样式，截图留证",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-marquee.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev6",
+          "claim": "原站页脚糖环的物理参数取自公开脚本 mfr-component__MFRFooterCandiesV3.min.js：重力 G=0.55、空气阻尼 AIR=0.985、恢复系数 E=0.38、地面摩擦 FLOOR_F=0.6、滑移摩擦 SLIDE_FRICTION=0.85、单帧最大步长 MAX_STEP=18，并用 Draggable + InertiaPlugin 实现拖拽与惯性；对象在页脚进入视口后由 IntersectionObserver 延迟 300ms 启动。",
+          "status": "source-supported",
+          "method": "HTTP 取回该 Alpine 组件脚本并阅读其常量与初始化流程；与 ev1/ev2 的实际观察互相印证。",
+          "route": "/cdn/shop/t/12/assets/mfr-component__MFRFooterCandiesV3.min.js",
+          "target": "-",
+          "action": "HTTP GET 公开脚本（仅阅读，未执行）",
+          "viewport": "-",
+          "artifacts": [],
+          "publishable": false
+        },
+        {
+          "id": "ev7",
+          "claim": "窄屏 390x844 下同一批面板高度降到 784–811px（小于视口高），pin 起点由桌面端的 'bottom bottom' 切换为 'top top+=headerHeight'；巨型标题从 250px 降到 64px、H1 从 250px 降到 100px；页脚糖环仍为 7 件、容器高 1045px。",
+          "status": "observed",
+          "method": "CDP Emulation.setDeviceMetricsOverride 切到 390x844（mobile）后重新加载，读取 gsap ScrollTrigger 的 pin 数量、逐块高度与计算字号，并截图。",
+          "route": "https://ringpopcandy.com/ 首页（窄屏）",
+          "target": "section.as-stacking-section 群组、h1/h2.section-title、.footer__candies__inner",
+          "action": "切换视口后重新加载并读取几何与样式",
+          "viewport": "390x844",
+          "artifacts": [
+            "shots/private/original-narrow.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev8",
+          "claim": "本片段 demo 在 1440x900 下：进入色场后 7 件糖环自上方画外下落（连续采样 y≈84→482→968→1094 后收敛），最终 7/7 全部静置，且部分对象停在地板上、部分被别的对象托住（压叠）。",
+          "status": "observed",
+          "method": "file:// 打开 demo，滚到色场，按 ~0.22s 间隔连续读取 7 个 [data-sweet] 的 transform 与 is-settled 类；读取旁侧面板的运行时读数。",
+          "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+          "target": ".sweets-field 内的 7 个 [data-sweet]",
+          "action": "滚到页脚色场并等待约 4 秒",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/demo-before.png",
+            "shots/demo.png"
+          ],
+          "publishable": true
+        },
+        {
+          "id": "ev9",
+          "claim": "本片段 demo 中抓取「芒果橙」被举起（transform 由 (314,636) 变为 (224,402)、is-dragging 为真），松开后惯性位移、随后被重力拉回地板并重新静置（回到 (254,625)，is-settled 恢复）。",
+          "status": "observed",
+          "method": "CDP Input.dispatchMouseEvent 派发 mousePressed → 9×mouseMoved → mouseReleased，逐步读取 transform 与 classList。",
+          "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+          "target": "[data-sweet][data-flavour=\"mango\"]",
+          "action": "在对象中心按下 → 向左上拖动 90/234px → 截图 → 松开 → 等待静置",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/demo-mid.png",
+            "shots/demo-after.png"
+          ],
+          "publishable": true
+        },
+        {
+          "id": "ev10",
+          "claim": "本片段 demo 在窄屏 390x844 下 7 件对象仍全部静置于色场内（色场 390x783），页面无横向溢出（body.scrollWidth 等于 innerWidth），对象宽度 74–114px（占色场宽 19%–29% 的等比缩放）。",
+          "status": "observed",
+          "method": "CDP 切到 390x844 后滚到底部，读取色场尺寸、逐件几何、body.scrollWidth 与 innerWidth 并截图。",
+          "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+          "target": ".sweets-field 与 7 个 [data-sweet]",
+          "action": "切换窄屏视口后滚动到色场底部",
+          "viewport": "390x844",
+          "artifacts": [
+            "shots/demo-narrow.png"
+          ],
+          "publishable": true
+        },
+        {
+          "id": "ev11",
+          "claim": "本片段 demo 在 prefers-reduced-motion: reduce 下不启动 rAF（state.running 为 false），7 件对象直接以静置位呈现，读数标注 reduce-motion。",
+          "status": "observed",
+          "method": "CDP Emulation.setEmulatedMedia 设置 prefers-reduced-motion=reduce 后重新加载，读取 matchMedia 结果、7 件对象位置、is-settled 与实例 state.running，并截图。",
+          "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+          "target": "实例 state 与 7 个 [data-sweet]",
+          "action": "模拟系统减弱动态后重新加载并滚到色场",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/demo-reduced.png"
+          ],
+          "publishable": true
+        },
+        {
+          "id": "ev12",
+          "claim": "本片段 demo 在关闭脚本执行时仍静态可读：页脚文案、三列菜单与 7 件糖环 SVG 全部可见，糖环以未旋转的静置态贴住色场底边。",
+          "status": "observed",
+          "method": "CDP Emulation.setScriptExecutionDisabled(true) 后重新加载，统计 [data-sweet] 与 .sweet__art 数量并读取几何与截图。",
+          "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+          "target": "7 个 [data-sweet] 与 .sweet__art",
+          "action": "禁用脚本后重新加载并滚到色场",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/demo-nojs.png"
+          ],
+          "publishable": true
+        }
+      ],
+      "motion_catalog": [
+        {
+          "name": "糖环入场下落与静置",
+          "target": "页脚色场内的 7 个糖环对象",
+          "trigger": "页脚进入视口（IntersectionObserver，threshold 0.15，延迟 300ms 启动）",
+          "driver": "rAF 逐帧积分（自写：重力 + 空气阻尼 + 地板恢复系数/摩擦 + 逐对圆近似碰撞），非 CSS 关键帧、非 WAAPI",
+          "duration": null,
+          "easing": null,
+          "delay": 300,
+          "states": [
+            {
+              "name": "before",
+              "description": "对象位于色场上方画外（y 为负，被色场裁切不可见），速度为 0"
+            },
+            {
+              "name": "after",
+              "description": "对象落在地板线上、按恢复系数回弹衰减后停止，被彼此压叠的物件托住，标记为静置"
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev1",
+            "ev8"
+          ]
+        },
+        {
+          "name": "抓取—拖动—惯性抛掷—回落静置",
+          "target": "单个糖环对象",
+          "trigger": "在对象上 pointerdown → pointermove → pointerup（触屏/鼠标/笔同一条指针事件链）",
+          "driver": "指针事件 + 最近若干帧位移采样换算速度；原站用 GSAP Draggable + InertiaPlugin，本片段自写",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "对象静置在地板线上，速度为 0"
+            },
+            {
+              "name": "mid",
+              "description": "对象跟随指针被举起（原站实测从 y=546 抬到 y=152），带抓取高亮"
+            },
+            {
+              "name": "after",
+              "description": "松开后保留抛掷速度继续位移（原站实测 y=94），随后被重力拉回地板并再次静置（实测回到 y=546）"
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev2",
+            "ev9"
+          ]
+        },
+        {
+          "name": "收藏面板堆叠换幕",
+          "target": "#MainContent 内连续成段的 section.as-stacking-section（外层 .shopify-section）",
+          "trigger": "连续滚动",
+          "driver": "GSAP ScrollTrigger：pin:true + pinSpacing:false，z-index 递增，滚动区间内 toggleClass 接缝阴影；主题图形另有一层 scrub 视差",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "前一块面板被 pin 在视口内（因高于视口，锚点为 bottom bottom，实测 top=-19），后一块自下方进入"
+            },
+            {
+              "name": "after",
+              "description": "后一块覆盖前一块，外层获得 as-stacking-section--shadow，box-shadow 实测 rgba(0,0,0,0.25) 0px -30px 40px 0px"
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev3",
+            "ev4"
+          ]
+        },
+        {
+          "name": "场合词横向循环",
+          "target": ".mfr-core__scrolling-bar 内的 Flickity 轨道",
+          "trigger": "页面加载后自动循环；指针按下暂停",
+          "driver": "Flickity（wrapAround + 轨道克隆）+ rAF 常量步进 scrollSpeed=1px/帧",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "轨道以恒定速度向左平移，越界项由克隆项接续"
+            },
+            {
+              "name": "after",
+              "description": "指针按下时轨道暂停（.paused），鼠标移出或释放后继续"
+            }
+          ],
+          "status": "source-supported",
+          "evidence_ids": [
+            "ev5"
+          ]
+        }
+      ],
+      "extracted_mechanism": "一个「色场 + 可抛掷对象」的物理收尾片段：色场是一块被裁切的绝对定位舞台，对象层铺满舞台并只让对象本身吃指针；每个对象是有独立剪影与透明背景的实体，进入视口后从舞台上方画外按固定步长做重力积分下落，触地按恢复系数回弹、按地面摩擦减速，对象两两用圆近似做接触（软位置修正 + 法向冲量 + 切向自转），接近静止的接触转为阻尼并计入静置计时，稳定后进入睡眠不再参与积分；指针按下即举起对象并按最近采样换算抛出速度，松开后继续积分直到再次睡眠；睡眠对象只在有明显运动的邻居接触时被唤醒。整条链路的可复用点是：舞台裁切 + 实体对象 + 睡眠式接触求解 + 指针速度采样，而不是某个 CSS 关键帧。",
+      "dont_copy": "适用边界与取舍：①来源站把 7 张真实糖环摄影当对象，本条目用原创 SVG 替代，材质细节必然更平，不宜宣称「复刻质感」；②来源站对象之间按旋转包围盒计算落地留边，本片段用圆形近似 + 睡眠机制，压叠时的间隙分布与原站不完全一致，属于可接受近似；③来源站对象层会整体盖住页脚菜单并吃掉指针（在其上无法点菜单），本片段让对象层空白处指针穿透，是对可用性的主动改良，不是照抄缺点；④重力/阻尼/恢复系数等常量沿用其公开脚本中可读到的一组数值以便对照，但积分与拖拽全部自写；⑤未做性能与无障碍的对照测试，因此不评价原站在这些维度是否失败，只记录本片段自身在 1440x900 / 390x844 下的表现。",
+      "tokens": {
+        "colors": {
+          "band_bg": "#2b6ffc",
+          "band_ink": "#ffffff",
+          "band_ink_dim": "rgba(255,255,255,0.4)",
+          "page_bg_context": "#fff7e9",
+          "object_colors": null,
+          "note": "band_* 为原站页脚色场实测值（CSS 变量 --footer-background / --footer-text-alpha）。原站糖环是 7 张透明位图照片，没有可提取的单一色值，故 object_colors 记 null，本片段改用 src/sweet-shapes.js 中的 7 组原创色族。"
+        },
+        "typography": {
+          "original_family": "\"Greed Standard\", Helvetica, Arial, sans-serif（正文）；Ringold, Helvetica, Arial, sans-serif（展示，250px/负字距）",
+          "footer_menu_size_mobile": "24px",
+          "footer_menu_size_desktop": "22px",
+          "footer_heading_size_mobile": "40px",
+          "footer_heading_size_desktop": "30px",
+          "footer_heading_tracking": "-0.8px",
+          "substitute_note": "自定义字体文件不可得也不可搬运；本片段用系统字体替代并只保留字重层级与换行关系，不声称字形等价，因此片段核心不依赖排版性格。"
+        },
+        "spacing": {
+          "footer_height_desktop": "821px（原站 1440 宽实测）",
+          "object_zone": "对象层绝对定位铺满色场（inset:0）并被色场裁切，高度 = 色场高",
+          "object_size_range": "216–351px 宽（原站），约占色场宽 15%–24%",
+          "demo_band_min_height": "88vh（本片段）"
+        },
+        "motion": {
+          "gravity": 0.55,
+          "air_drag": 0.985,
+          "restitution": 0.38,
+          "floor_friction": 0.6,
+          "slide_friction": 0.85,
+          "max_step": 18,
+          "max_angular": 6,
+          "drop_delay_ms": 300,
+          "settle_rule": "速度 < 0.6px/帧且已有支承（地板或接触）持续 24 帧 → 睡眠（本片段参数）",
+          "seam_shadow": "rgba(0,0,0,0.25) 0px -30px 40px 0px（原站堆叠面板接缝阴影，属 h2 证据）"
+        }
+      },
+      "api": "window.ThrowableSweets = { mount(rootEl, options) → instance, autoMount(scope) → instance[], defaults, instances }。mount 会挂载 rootEl（如 <footer class=\"sweets-band\" data-sweets-band>）内的 [data-sweets-field] 与 [data-sweet]；instance 暴露 reset()（重新投放）、settleNow()（立即静置）、setOptions({gravity,bounce,...})、readout()（件数/静置数/色场尺寸）、destroy()、items 与 state（运行时只读参考）。页面带 data-sweets-band 时无需手动调用：脚本自动挂载并在 DOMContentLoaded 后生效。调参控件与读数按约定用 [data-sweets-opt]、[data-sweets-read]、[data-sweets-reset]、[data-sweets-settle] 自动接线。",
+      "entrypoints": [
+        "src/throwable-sweets.js",
+        "src/throwable-sweets.css",
+        "src/sweet-shapes.js"
+      ],
+      "files": [
+        "demo/index.html",
+        "src/throwable-sweets.js",
+        "src/throwable-sweets.css",
+        "src/sweet-shapes.js"
+      ],
+      "deps": [],
+      "reuse_hints": "适用任务：需要给落地页/电商页脚或任何「收尾区块」加一个可玩的物理层，且已有明确的实体主体（糖、球、扭蛋、贴纸、筹码等）。必要输入：一个被裁切的色场容器（position:relative + overflow:hidden）＋ 一组带透明背景与独立剪影的对象；对象相对容器宽度最好落在 15%–25%，否则会互相顶飞或失去体积感。迁移时把 src/throwable-sweets.css 的 --sweets-* 变量换成本站色与字体，把 demo 里 7 个内联 SVG 换成自己的素材（保持环形/实体轮廓与透明背景），然后用 ThrowableSweets.mount() 挂载并把重力/弹性调到与素材体量匹配。不适用场景：对象本身是细长文字或线条（圆形近似会失真）、页脚下方没有足够画外空间（下落起点会被裁掉看不见）、或页面已有一套滚动劫持（同一 rAF 里并存需自行调度）。",
+      "repro_notes": "操作路径（原站）：HTTP 抓取 Awwwards 详情页与站方公开脚本 → 真实浏览器打开 https://ringpopcandy.com/ 在 1440x900 下从页首滚到页脚 → 用 CDP Input.dispatchMouseEvent 做真实拖拽 → 切 390x844 复看 → 全程用 getComputedStyle/transform/getBoundingClientRect/ScrollTrigger 实例读数，不依赖看图。重置方式：原站每次重新加载即重放；本片段 demo 内「再投放一次」调用 instance.reset()。环境与测量差异：①本机浏览器窗口实际高度有限，超过约 900px 的模拟视口收不到真实输入事件，因此拖拽测试统一在 1440x900 且滚到页面底部进行；②原站的 pin 需要等 GSAP 的 ScrollTrigger.refresh() 之后再读，滚动初期读数会偏；③原站页脚对象层会吃掉指针，拖拽测试必须点在对象中心；④Awwwards 详情页对无头浏览器返回 403，列表与详情一律用 HTTP/web_extract 抓取，浏览器只用于原站与 demo。已验证：标签页隐藏时暂停、恢复时继续（visibilitychange）；键盘方向键可微调对象（ArrowLeft 使 x 从 422→410）。体量说明：src 手写核心共 794 行（throwable-sweets.js 524 / throwable-sweets.css 179 / sweet-shapes.js 91），超出 PROMPT 的 400–600 行提示；多出的部分全部是自写逐帧物理求解（重力、圆近似接触、睡眠与唤醒）、指针速度采样和四类降级路径，没有用大段生成素材或压缩代码掩盖复杂度。未验证项：原站循环带的速度连续性（只做了源码支持与静态读数）、原站糖环之间旋转包围盒级的堆叠细节、任何性能/无障碍对照，以及本片段 IntersectionObserver 的「离开视口即暂停」分支——本 demo 的页脚恒占视口 15% 以上，无法自然触发，故该分支只有代码层面的实现而没有实际操作证据。",
+      "variant_of": null,
+      "verification": {
+        "rendered_ok": true,
+        "console_errors": 0,
+        "screenshot": "shots/demo.png",
+        "checked_at": "2026-10-11T16:35 (CST, UTC+08:00) · 独立复核",
+        "source_observed": true,
+        "mechanism_preserved": true,
+        "user_review": {
+          "passed": true,
+          "reviewer": "未参与实现的独立复核子代理（Hermes · deepseek-v4.1-flash）",
+          "cases": [
+            {
+              "invariant_id": "inv1",
+              "action": "读对象层/色场计算样式；触发「再投放」并在下落中段取帧；再把一件对象拖到色场左上极限；逐件读 getBoundingClientRect 与色场边界比对（1440x900）",
+              "observation": "色场 .sweets-band 与对象层 .sweets-field 计算样式均为 overflow:hidden；静置后 7 件对象 AABB 底边全部=色场底边(1496) 且左右不越界（visuallyOutside=[]）；下落中对象 y 为负、色场顶边上方 15px 处 elementsFromPoint 返回 section.lede（上方部分被裁切、不可见也点不到）；拖到极限后仍留在色场内 (x=116,y=165)，右/下边界由 boundsFor 夹紧。",
+              "viewport": "1440x900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-review-inv1-clip-boundary.png",
+                "shots/demo-review-inv1-midfall-clip.png"
+              ]
+            },
+            {
+              "invariant_id": "inv2",
+              "action": "把 7 个 .sweet__art 逐个序列化光栅化到 240x210 canvas，采样环内孔/宝石中心像素、统计不透明占比与主色；并读 7 件的 --w 与旋转（1440x900）",
+              "observation": "7 件全部 环内孔 alpha=0（是真环而非实心块/甜甜圈）、宝石中心 alpha=255、不透明占比≈0.406；宝石实测色明显分属 红/橙/绿/粉/青/紫/黄 七个色族；布局宽占色场宽 15%–24%、旋转 −36°…34° 互不相同；每件轮廓均为「椭圆环带+顶端水滴宝石」。",
+              "viewport": "1440x900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-review-desktop-settled.png"
+              ]
+            },
+            {
+              "invariant_id": "inv3",
+              "action": "注入逐帧记录器后触发「再投放」，采样 7 件 y 直到静置；静置后逐件在其自身中心做 elementsFromPoint，并对照原站页脚（1440x900）",
+              "observation": "进场后 7 件 y 从 −721/−649/… 一路单调增大（−604→−441→…→468），落到 531/638/578/661/545/686/628 后收敛为 7/7 is-settled；静置帧 6/7 对象在自身中心是最上层、blush 中心被别的对象盖住，说明落地后互相压叠/遮挡；落地帧底部贴住色场底线。原站同视口页脚色场同为白字蓝底、糖环自上方下落并互相压叠、底边被裁切（我方实拍私存）。",
+              "viewport": "1440x900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-review-inv3-occlusion.png"
+              ]
+            },
+            {
+              "invariant_id": "inv4",
+              "action": "CDP 真实指针事件在「浆果红」中心 mousePressed→多次 mouseMoved（向左上）→mouseReleased，随后按 ~0.12s 采样位移（1440x900）",
+              "observation": "按下即 is-dragging 且去掉 is-settled，拖动时对象跟随到 (195,294)；松开瞬间保留抛出速度 vx=7.73、vy=−11.82，之后仍继续位移到 y≈97（惯性），再被重力拉回 130→182→…→453、回弹，最后回落并恢复 is-settled（y≈514）。",
+              "viewport": "1440x900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-review-inv4-drag-mid.png",
+                "shots/demo-review-inv4-after-release.png"
+              ]
+            },
+            {
+              "invariant_id": "inv5",
+              "action": "读色场/文案 z-index 与 pointer-events；在菜单链接与对象中心分别做 elementsFromPoint，并对菜单链接派发真实点击；静置后把「浆果红」连续再次抓取两次（1440x900）",
+              "observation": "对象层 z-index:2 > 文案层 z-index:1，命中测试先命中对象（对象中心 stack[0]=button.sweet）；对象层空白处 pointer-events:none，菜单链接处 elementsFromPoint=…a 且真实点击触发该链接（window.__clicked=true）；静置的「浆果红」被连续再次抓取两次并重新 is-settled，证明静置不是终点。",
+              "viewport": "1440x900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-review-inv5-hittest.png"
+              ]
+            },
+            {
+              "invariant_id": "inv3",
+              "action": "390x844 窄屏重新加载并滚到色场，采样 7 件位置、色场尺寸与 body.scrollWidth（第二视口复核）",
+              "observation": "窄屏下 7 件仍全部静置于色场（色场 390x783），无横向溢出（body.scrollWidth=innerWidth=390），对象宽 72–121px 等比缩小；窄屏下抓取—抛出—回落同样可用（一件从 (33,680) 拖到 (73,600)，松开后回落到 679 并 is-settled）。",
+              "viewport": "390x844",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-review-narrow.png"
+              ]
+            }
+          ]
+        },
+        "note": "运行检查（实现者）＋独立用户操作复核（未参与实现的子代理，2026-10-11 16:35，1440x900 与 390x844）。五个核心不变量逐条以独立操作 case 实测 pass，每条配本人实拍 demo 帧。复核另做：移除检验（setOptions({gravity:0}) 后再投放 → 7 件停在色场上方画外、0 可见，页脚退化为纯色场纯文案，说明物理层就是该片段的身份）；降级路径（prefers-reduced-motion:reduce → running=false、7 件直接静置；禁用脚本 → 文案与 7 件 SVG 仍静态可读；document.hidden=true 派发 visibilitychange → running 由 true 变 false 暂停）。console 错误独立复测：5 次前台重载均 0 条。独立对照：亲自打开 https://ringpopcandy.com/ ，处理后 cookie 条，在 1440x900 与 390x844 采页脚色场（实测原站页脚底色 rgb(43,111,252)=#2b6ffc，本 demo 用自定的 #3b1fa8），原站页脚同样白字、糖环自上方下落并互相压叠、底边被裁切。"
+      }
+    },
+    {
+      "id": "2026-10-11-scroll-cover-swap",
+      "date": "2026-10-11",
+      "schema_version": 2,
+      "verification_tier": "v2-reviewed",
       "category": "motion",
       "source": {
         "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
         "live_url": "https://ownitt.fr/",
         "title": "Ownitt",
-        "author": "",
+        "author": "Ownitt",
         "award_date": "",
         "tags": [
+          "design agencies",
+          "web & interactive",
           "animation",
-          "transitions",
+          "portfolio",
           "scrolling",
+          "transitions",
           "storytelling",
-          "gestures-interaction",
           "gsap",
           "react",
-          "next-js"
-        ]
+          "next.js"
+        ],
+        "observed_at": "2026-10-11 16:00 (CST, UTC+08:00)",
+        "route": "https://ownitt.fr/ 首页根路由；首访（localStorage.ownitt_intro_seen 未设置）时首屏为浅色「品牌印章」封面，重复访问会跳过该封面直接进深色首屏；本轮所有观察均在首访封面状态下取样"
       },
       "title": "Ownitt",
-      "author": "",
+      "author": "Ownitt",
       "tags": [
+        "design agencies",
+        "web & interactive",
         "animation",
-        "transitions",
+        "portfolio",
         "scrolling",
+        "transitions",
         "storytelling",
-        "gestures-interaction",
         "gsap",
         "react",
-        "next-js"
+        "next.js"
       ],
-      "dir": "entries/2026-10-11-staggered-cell-reveal",
-      "demo": "../entries/2026-10-11-staggered-cell-reveal/demo/index.html",
-      "readme": "../entries/2026-10-11-staggered-cell-reveal/README.md",
-      "spec": "../entries/2026-10-11-staggered-cell-reveal/SPEC.json",
+      "dir": "entries/2026-10-11-scroll-cover-swap",
+      "demo": "../entries/2026-10-11-scroll-cover-swap/demo/index.html",
+      "readme": "../entries/2026-10-11-scroll-cover-swap/README.md",
+      "spec": "../entries/2026-10-11-scroll-cover-swap/SPEC.json",
       "source_url": "https://ownitt.fr/",
       "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
-      "shot": "../entries/2026-10-11-staggered-cell-reveal/shots/demo.png",
+      "shot": "../entries/2026-10-11-scroll-cover-swap/shots/demo.png",
       "shot_kind": "demo",
-      "summary": "网格瓦片错峰揭示的入场动效：每格以 clip-path 从中心展开、轻微上移并淡入，逐格延迟 75ms。",
+      "summary": "浅色品牌封面在滚动中被消费：主体标记绕固定中心放大到吞满视口，纵向标签列表是持续自走的循环带、滚动提示在前段淡出，最后一段滚动落下整屏幕布，滚满一屏后封面退出文档流、深色章节接管并把滚动基点拉回顶部。本次实现这个「封面 → 换幕」的最小完整体验片段，前幕与后幕两个状态都在。",
       "strength": "scene-choreography",
-      "expression": "原站真正的看家本领是**整段首屏入场编排**，不是某一个动效——实测同时运行 65 个动画、24 组互不相同的动效，由一套编排把它们串成 3 秒左右的开场：先 30 格图片瓦片逐格揭示（每 3 格叠一次 3D 翻转），再左右门帘合拢又打开，Logo 描线绘制、标语淡入上浮，随后内容才接管。所有循环动效（marquee、旋转、脉冲）都带负延迟或超长时长（marquee 380s/400s/440s、wallSpin 90s），目的是让页面在任何时刻被截屏都是「动着的构图」而不是静止画面。本条只抽取了其中一片（瓦片揭示），其余在 motion_catalog 里备查。",
-      "composition": "实测：入场 overlay 为 5 列 × 6 行共 30 个瓦片（__cell），网格 5 列各 228.34px、gap 8.96px（= clamp(5px,0.7vw,10px) @1280）、宽 1177.59px（= min(92vw,1260px)）、高 520px（= min(46vw,520px)）；页面共 2081 个元素；入场 overlay 播完即从 DOM 卸载，并由 sessionStorage['ownitt_intro_seen'] 门控（首访才播）。",
-      "highlights": [],
-      "selected_fragment": {},
-      "evidence": [],
-      "motion_catalog": [
+      "expression": "这个关系有效的理由不是「动效炫」，而是它把品牌自证浓缩成一次空间事件：首屏只有品牌记号、字标、一句定位与一串地名，用户在原地不动的情况下看见记号从一个小徽记长大到吞掉整屏——尺度变化本身承担了「Ownitt 无处不在」这句品牌主张的信息层级，而不是靠额外文案去说。第二层判断是节奏控制：滚动提示在封面早期就退场、幕布在尾段落下、滚满一屏即换幕，于是「还有多少」被这两个信号量化。需要把事实与判断分开：**标签列表并不承担这个量化**——它在零输入时也以约 12.9px/s 匀速自走，与滚动位置无关，是持续的环境带，不是进度指示。（初稿曾把它读作「滚动擦洗到末行夹紧」，第 1 轮独立复核在零输入下实测证伪，见 repro_notes 与 README 复核节。）需要区分事实与解释：实测到的是尺度、位置与透明度的连续映射（见 evidence）；「尺度变化=品牌主张」「节奏让用户预期换幕」是我的设计判断，不是转化率事实。",
+      "composition": "前幕：整屏浅色纸（#F4F1EA），单一居中纵列，视觉重心压在纵列中段，四周留白均匀；自下而上依次为字标（先绘制，会被放大的标记覆盖）、品牌记号（相对定位并压在其上）、说明行（小字距大写 + 一行大号斜体强调）、固定高度标签窗。层叠由 DOM 顺序与定位层决定，实测命中顺序：字标最下 → 标记 → 说明行/标签窗 → 滚动提示 → 幕布（整屏最上）。标记是径向对称的单色记号，放大约 31 倍后其可见范围覆盖整屏上下缘，仍以自身中心为锚点，因此放大过程不会把构图重心甩出画面。后幕：整屏墨色（#0A0A0B），大号衬线标题 + 灰白正文，横向留白明显小于前幕，形成「纸 → 幕」的对比。断点：窄屏（390×844）下纵列宽度收窄、字号与记号的初始尺寸按比例缩小，堆叠顺序与「标记绕中心放大」的关系不变，实测无横向溢出。",
+      "highlights": [
         {
-          "name": "IntroAnimation__cellReveal",
-          "duration": "0.9s",
-          "easing": "cubic-bezier(0.65, 0, 0.35, 1)",
-          "delay": "calc(var(--i) * 75ms)",
-          "trigger": "load 一次性（overlay 播完卸载）"
+          "id": "h1",
+          "rank": 1,
+          "name": "滚满一屏即被消费的封面（换幕）：记号放大吞屏 + 幕布落下 + 滚动基点回顶",
+          "why_it_matters": "首屏的辨识度全部押在这一次空间事件上：不做就地淡出或位移，而是让品牌记号在缩放中吞掉画面、由落下的幕布收束，并把整块封面从文档流里撤走。移除这个关系（只留颜色和字号），首屏就退化成一个静态徽记页——用户第一眼读不到「这是一个把记号当主角的品牌」，这是该作品最不可替代的萃取点。",
+          "dependencies": [
+            "径向对称的单色品牌记号（可无级放大且不失去轮廓）",
+            "固定中心锚点：放大时重心不漂移",
+            "封面高度=一屏，使「换幕阈值」可被直觉量化",
+            "浅色纸与深色幕的高对比，让落幕后不会出现亮度跳变",
+            "滚动提示的早期退场，给放大过程让出注意力"
+          ],
+          "evidence_ids": [
+            "ev1",
+            "ev2",
+            "ev3",
+            "ev4"
+          ]
         },
         {
-          "name": "IntroAnimation__cellFlip",
-          "duration": "1s",
-          "easing": "cubic-bezier(0.77, 0, 0.175, 1)",
-          "delay": "calc(var(--i) * 75ms)",
-          "trigger": "nth-child(3n)"
+          "id": "h2",
+          "rank": 2,
+          "name": "钉住的文本舞台：逐词浮现后按 beat 交叉淡出的滚动擦洗",
+          "why_it_matters": "中段的长文案不靠一次性入场，而是把句子拆成词、把段落拆成 beat，钉住一屏后用滚动量逐词点亮、再交叉淡出到下一段。它让「读一段宣言」变成有进度感的事件，而不是等待打字机结束。作为独立亮点，它证明了同一站里「滚动=时间轴」的一致做法；但它与前一个亮点共享驱动方式而非构图，因此排在 h1 之后。",
+          "dependencies": [
+            "一屏高的舞台 + 数倍于它的滚动占位（pin/lock 场景）",
+            "可逐词寻址的文本结构",
+            "每段文案长度接近，交叉淡出才不会露出空窗"
+          ],
+          "evidence_ids": [
+            "ev5"
+          ]
         },
         {
-          "name": "IntroAnimation__doorLeftSlide / doorRightSlide",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "load：0%→48% 开幕、52%→100% 闭幕（关键帧实测，时长未取证）"
-        },
-        {
-          "name": "AsteriskHero__stampEnter",
-          "duration": "0.95s",
-          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
-          "delay": "0.2s",
-          "trigger": "load，fill forwards"
-        },
-        {
-          "name": "AsteriskHero__fragmentRise",
-          "duration": "0.95s",
-          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
-          "delay": "0.25s / 0.55s",
-          "trigger": "load，逐行错峰"
-        },
-        {
-          "name": "AsteriskHero__fragmentRiseAccent",
-          "duration": "1.05s",
-          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
-          "delay": "0.88s",
-          "trigger": "load"
-        },
-        {
-          "name": "AsteriskHero__spin",
-          "duration": "22s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "AsteriskHero__rollCities",
-          "duration": "18s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "AsteriskHero__dotTravel",
-          "duration": "2.2s",
-          "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "AsteriskHero__grainShift",
-          "duration": "1.6s",
-          "easing": "steps(8)",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "AsteriskHero__kenBurns",
-          "duration": "32s",
-          "easing": "",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "KeywordRotator__keywordRotate",
-          "duration": "20s",
-          "easing": "cubic-bezier(0.76, 0, 0.24, 1)",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "LocalAnchor__anchorAppear / anchorPunch",
-          "duration": "auto（滚动驱动）",
-          "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
-          "delay": "0s",
-          "trigger": "滚动，fill both"
-        },
-        {
-          "name": "Manifesto__spinAst",
-          "duration": "18s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "Manifesto__marquee",
-          "duration": "34s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "ProjectsWall__wallSpin",
-          "duration": "90s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "ProjectsWall__marquee ×3",
-          "duration": "380s / 400s / 440s",
-          "easing": "linear",
-          "delay": "-200s / -30s / -120s",
-          "trigger": "无限循环，负延迟错相位"
-        },
-        {
-          "name": "Services__numPulse ×5",
-          "duration": "2.2s",
-          "easing": "ease-in-out",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "Services__ghostBreath ×5",
-          "duration": "4s",
-          "easing": "ease-in-out",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "Services__wordRoll ×5 / __itemsRoll ×5",
-          "duration": "22s / 28s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "ClientLogos__creditsRoll",
-          "duration": "46s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "SiteFooter__strokeDraw ×7",
-          "duration": "1.7s",
-          "easing": "cubic-bezier(0.77, 0, 0.175, 1)",
-          "delay": "0 / 0.16 / 0.32 / 0.42 / 0.52 / 0.66 / 0.76s",
-          "trigger": "进入视口，逐笔错峰"
-        },
-        {
-          "name": "CookieBanner__bannerReveal / __fadeInUp ×3 / __dotPulse",
-          "duration": "0.75s / 0.5s / 2.4s",
-          "easing": "cubic-bezier(0.16, 1, 0.3, 1) / ease-in-out",
-          "delay": "0.1s / 0.35~0.55s",
-          "trigger": "load"
-        },
-        {
-          "name": "AwwwardsBadge__pillPulse / __starSpin",
-          "duration": "3.5s / 8s",
-          "easing": "ease-in-out / linear",
-          "delay": "0s",
-          "trigger": "无限循环"
+          "id": "h3",
+          "rank": 3,
+          "name": "首屏图的滚动视差 + 固定标签下的纵向滚动关键词",
+          "why_it_matters": "深色首屏用两个小动作维持「页在动」的感觉：背景图以约 0.194 倍速平移形成视差，固定标签旁的纵向关键词轨按行滚动，在有限宽度里塞进一长串业务词。它支撑语气与信息密度，但不改变页面结构，属于可迁移性中等、辨识度最低的辅效，故排第三。",
+          "dependencies": [
+            "可裁切的满幅背景图（视差需要溢出余量）",
+            "固定宽度的标签槽，关键词才不至于推动版式",
+            "关键词长度相近，逐行步进不会跳动"
+          ],
+          "evidence_ids": [
+            "ev6",
+            "ev7"
+          ]
         }
       ],
-      "extracted_mechanism": "staggered cell reveal：N 个网格瓦片共享同一段揭示关键帧（clip-path: inset(50%→0) + translateY(14px→0) + opacity 0→1），用 animation-delay = 序号 × 固定步长（75ms）制造错峰；每 3 格叠加一次 3D 翻转（rotateY 0→90→0）做节奏变化。",
-      "dont_copy": "三条：①**首屏被入场 overlay 劫持**——由 sessionStorage 门控、播完即从 DOM 卸载，首次访客要等 2~3 秒才见到内容，重复访客则完全看不到这段设计；对「内容要立刻可用」的站点是反模式。②**超长循环动画过量**：marquee 380/400/440s、wallSpin 90s、spin 22s、kenBurns 32s 同时常驻，在低端设备上持续占用合成器与 GPU，且部分动画在滚动中无法暂停。③**依赖重**：整站建立在 Next.js + GSAP 之上，本条虽以原生等价复刻，但要复现整段编排就不是轻量方案了。",
+      "selected_fragment": {
+        "highlight_id": "h1",
+        "scope": "只做「封面 → 换幕」这一段：一屏浅色品牌封面（字标 / 径向记号 / 说明行 / 固定高度标签窗 / 滚动提示 / 整屏幕布），加上它下面的深色章节当作后幕。实现封面内的三条滚动映射（记号放大、提示淡出、幕布落下）与一条与滚动位置无关的自走循环带（纵向标签列表）与滚满一屏后的消费：封面退出文档流、滚动基点回到章节顶部。不做原站的长页面其余区块、不做钉住的文本舞台、不做首屏视差与关键词轨。",
+        "rationale": "换幕这个关系是整站辨识度的入口，而且天然含「前幕/后幕」两个状态与「滚满一屏」的明确触发，正好构成一个最小完整体验片段；它依赖的素材全部可以原创（记号是几何图形、文案是自拟），不需要搬运原站的摄影、字体或代码；实现上用一个滚动进度映射 + 一次消费收束即可，符合小而完整的预算。",
+        "invariants": [
+          {
+            "id": "inv1",
+            "description": "封面是一屏浅色纸上的单一居中纵列：品牌记号、字标、说明行、纵向标签窗、滚动提示自上而下叠放（字标→记号→说明行→纵向标签窗→滚动提示），深色墨压在浅色纸上（纸/墨/幕的高对比是构图前提）。"
+          },
+          {
+            "id": "inv2",
+            "description": "品牌记号在滚动中绕自身中心连续放大，从约 49px 长到吞满视口（近指数加速、约 31 倍），放大过程中其中心锚点不漂移。"
+          },
+          {
+            "id": "inv3",
+            "description": "纵向标签列表在固定高度窗口内是一台持续自走的循环带：不做任何滚动输入时也以约 12.9px/s 匀速推进（原站 1440×900 无输入实测 12.85px/s）；原站以整份列表两拷贝实现无缝回绕；它的位移与滚动位置无关。"
+          },
+          {
+            "id": "inv4",
+            "description": "滚动提示在封面早期（约前三分之一行程）就淡出，不贯穿整个封面。"
+          },
+          {
+            "id": "inv5",
+            "description": "滚满一屏后封面被消费：整屏幕布先落满，随后封面移出文档流，后幕（深色章节）接管并把滚动基点回到章节顶部；换幕后继续上滚也不会让封面复活。"
+          }
+        ],
+        "omitted": [
+          "原站首页除封面之外的其余区块（本地锚点、钉住的文本舞台、项目墙、服务、客户墙、博客、页脚）",
+          "原站的入场动画（门扇 / 颗粒遮罩 / 字标入场）",
+          "首屏摄影、品牌字体文件、原站字标 SVG 与任何原站文案",
+          "原站「封面只出现一次、之后永久跳过」的持久化策略（demo 改为进程内一次性 + 可复位，见 dont_copy / repro_notes）",
+          "原站标签窗的竖向渐隐遮罩（mask-image: linear-gradient(transparent 0%, #000 32%, #000 68%, transparent 100%)）；demo 只有 overflow:hidden"
+        ],
+        "asset_substitutions": [
+          {
+            "role": "品牌记号（径向对称单色徽记，需能放大到满屏）",
+            "substitute": "自写原创 SVG：8 支由中心收细到尖端的火花臂，viewBox 100×100，单色 currentColor",
+            "kept": "径向对称、单色、中心锚点、可无级放大且轮廓不糊",
+            "loss": "原站记号的字符细节与字标锁定关系不同；不声称造型等价"
+          },
+          {
+            "role": "字标（原站为自有 SVG 字标）",
+            "substitute": "原创文字字标 ORVE，用替代衬线排版",
+            "kept": "占据纵列顶部、先绘制会被放大记号覆盖的层级",
+            "loss": "不是定制字形，字面宽度与原站不同"
+          },
+          {
+            "role": "高对比商业衬线（原站 IvyPresto Display）",
+            "substitute": "Orve Display = Playfair Display（SIL OFL 1.1，已本地打包，见 src/fonts/OFL.txt）",
+            "kept": "高对比衬线性格、斜体与原体的反差、字面率偏大",
+            "loss": "字重曲线与字距不同，行末断行位置不同；不声称等价替代"
+          },
+          {
+            "role": "纵向地名列表",
+            "substitute": "自拟的六个专业词列表（Typographie / Mouvement / Systèmes / Éditions / Signalétique / Interface）",
+            "kept": "固定高度窗口内的纵向短标签列表，自走循环推进并与滚动位置无关",
+            "loss": "语义从地名变为业务词，长度分布更均匀；原站为自走循环带，本次已按实测改正（初稿曾误读为滚动擦洗）"
+          },
+          {
+            "role": "后幕（深色章节）",
+            "substitute": "自拟标题与正文的深色章节",
+            "kept": "整屏墨色、大号衬线标题 + 正文、与前幕的纸/幕对比",
+            "loss": "不使用原站首屏摄影，后幕的视觉密度低于原站"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "id": "ev1",
+          "claim": "首访首页首屏是一屏浅色「品牌印章」：纸色实测 rgb(244,241,234)，墨色 rgb(10,10,11)，纵列自下而上为字标、径向记号、说明行（小字距大写 + 大号斜体强调）、固定高度标签窗、滚动提示；封面高度等于一屏。",
+          "status": "observed",
+          "method": "浏览器在 1440×900 下直接打开原站（清掉 localStorage.ownitt_intro_seen 以复现首访封面），等入场动画结束稳定后读取 getBoundingClientRect 与 getComputedStyle",
+          "route": "https://ownitt.fr/",
+          "target": "[class*=AsteriskHero][class*=creamSection] 及其字标/记号/说明行/标签窗/滚动提示/幕布子元素",
+          "action": "直接打开并等待入场结束（约 9s）；滚动保持在 0",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-site.png",
+            "shots/private/original-focus-before.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev2",
+          "claim": "封面内的滚动映射实测：记号组宽度 49px → 1514px（≈31×，非匀速、中段起加速，组中心始终固定在视口同一高度）；滚动提示不透明度 1 → 0（约前 1/3 行程）；标签列表在不发出任何滚动输入、scrollY 恒为 0 时仍以约 12.9px/s 连续自走（自走循环带，不是滚动位置映射）。",
+          "status": "observed",
+          "method": "首访状态（清 localStorage.ownitt_intro_seen，等入场约 9s 结束）×1440×900；滚动逐档读记号组包围盒与中心；再保持 scrollY=0、零输入连续采样标签轨 transform 4s（复核者 4s、修复者 4s 各一轮，结论一致）",
+          "route": "https://ownitt.fr/",
+          "target": "封面记号组、标签轨、滚动提示、幕布",
+          "action": "把页面滚动从 0 逐档推进到一屏，记录每档的几何与不透明度",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-focus-mid.png",
+            "shots/private/reviewer-original-mid-1440.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev3",
+          "claim": "换幕真实发生：滚动到达约一屏（≈900px）时封面包裹与其中元素从 DOM 消失，文档高度 32000 → 30200，window.scrollY 在同一帧被重置为 0，深色章节成为首屏。",
+          "status": "observed",
+          "method": "同一滚动扫描中对比相邻档位的 document.documentElement.scrollHeight、scrollY 与封面元素是否仍存在",
+          "route": "https://ownitt.fr/",
+          "target": "封面容器（卸载）与 documentElement（高度/滚动位置）",
+          "action": "把滚动推进过一屏阈值，逐档读取高度、滚动位置与元素存在性",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-focus-after.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev4",
+          "claim": "窄视口 390×844 下封面仍是同一套居中纵列（字标 218×120、记号 28×28、说明行 284×54、标签窗 220×108），字号按断点缩小（标签行 17px），无横向溢出（scrollWidth−innerWidth=0）。",
+          "status": "observed",
+          "method": "CDP 覆盖设备尺寸为 390×844 后重载页面，读取各元素矩形与文档宽度差",
+          "route": "https://ownitt.fr/",
+          "target": "封面纵列各元素与 documentElement",
+          "action": "在窄视口重载并读取几何",
+          "viewport": "390x844",
+          "artifacts": [
+            "shots/private/original-cover-narrow.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev5",
+          "claim": "深色章节中的宣言场景被钉住：滚动进入后舞台 computed position 由 relative 变为 fixed 并保持（滚动 4100–6500 区间），句首各词的不透明度随滚动逐词爬升（例如 4400 时为 0.95/0.90/0.81/0.68/0.47/0.19），随后相邻文本块以交叉淡出切换（beat 不透明度 1→0 与 0→1）。",
+          "status": "observed",
+          "method": "逐档滚动后读取舞台的 computed position 与各词/各文本块的不透明度",
+          "route": "https://ownitt.fr/",
+          "target": "[class*=Manifesto] 舞台、句首词、beat 块",
+          "action": "把页面滚动从 3800 推进到 6800（步长 300），逐档读取",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-manifesto-pinned.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev6",
+          "claim": "深色首屏：背景图容器随滚动平移（imageParallax 位移 0 → 174.96px，对应滚动 0 → 900px，约 0.194 倍）并在行程末夹紧；同区块的纵向关键词轨以 27px（一行）为步进跳进。",
+          "status": "observed",
+          "method": "逐档滚动读取背景图容器与关键词轨的 computed transform",
+          "route": "https://ownitt.fr/",
+          "target": "[class*=heroSection] 的 imageParallax 与关键词轨",
+          "action": "把页面滚动 0 → 1100（步长 100）并观察 transform 变化；另在不滚动时按 1.2s 间隔采样关键词轨确认逐行步进",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/original-hero-parallax.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev7",
+          "claim": "深色首屏里存在一组「标签不变、尾部词语切换」的文本：固定标签 + 纵向关键词轨，另有一份初始不透明度为 0、位置偏移的备选文本（正文为一句品牌释义）。",
+          "status": "source-supported",
+          "method": "读取这些元素的 DOM 结构、computed opacity 与 transform；用合成 MouseEvent 与 CDP 真实鼠标移动分别尝试触发切换均未观察到不透明度变化，故只记为源码支持",
+          "route": "https://ownitt.fr/",
+          "target": "[class*=agence] 下的固定标签、关键词轨与备选文本块",
+          "action": "读取结构；尝试悬停触发切换（未成功）",
+          "viewport": "1440x900",
+          "artifacts": [],
+          "publishable": false
+        }
+      ],
+      "motion_catalog": [
+        {
+          "name": "品牌记号随滚动放大吞屏",
+          "target": "封面纵列中的径向品牌记号",
+          "trigger": "页面滚动（进度 = scrollY / 封面高度）",
+          "driver": "滚动位置映射；rAF 节流读取 scrollY，映射为 transform: scale()，约 31 倍、近指数加速",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "scrollY=0：记号约 49px，居中静置在字标下方，视觉上是徽记尺度"
+            },
+            {
+              "name": "after",
+              "description": "原站在 scrollY≈600px 时记号组 1514px（scale≈31）、到 899px 时包围盒已达 6186px（matrix 反推 scale≈91.7，另叠加约 170° 自转），中心始终固定；demo 上限固定 31×、不自转"
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev2"
+          ]
+        },
+        {
+          "name": "纵向标签列表持续自走（循环带）",
+          "target": "封面固定高度标签窗内的纵向轨",
+          "trigger": "页面加载后常驻运行；滚动与指针都不触发它",
+          "driver": "常驻 rAF 循环，按实测速度（tickerSpeed 12.9px/s）累加 translate3d，到循环长度（不重复行数×行高）无缝回绕",
+          "duration": null,
+          "easing": "linear（匀速；原站实测匀速，非缓动）",
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "位移 0，列表停在轨首"
+            },
+            {
+              "name": "after",
+              "description": "位移推进到一个循环长度后回到轨首，视觉上无缝衔接（无夹紧/停顿）"
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev2"
+          ]
+        },
+        {
+          "name": "幕布落下与封面消费（换幕）",
+          "target": "整屏幕布 + 封面容器 + 深色章节",
+          "trigger": "滚动到封面底部（scrollY ≥ 一屏）",
+          "driver": "滚动进度映射（幕布不透明度）+ 一次收束过渡（消费动作），随后由 JS 把封面移出文档流并把滚动基点设回章节顶部",
+          "duration": 240,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "scrollY 在封面行程内：幕布不透明度 0 → 1（最后约 14% 行程），封面仍在文档流中并钉在视口上"
+            },
+            {
+              "name": "after",
+              "description": "scrollY 达到一屏：封面容器 display:none、移出文档流，深色章节成为首屏，滚动基点回到章节顶部，文档高度随之缩短"
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev2",
+            "ev3"
+          ]
+        }
+      ],
+      "extracted_mechanism": "把「一屏封面」当成一个有行程的舞台，而不是一张静态首图：封面高度即行程总长，滚动位置 p 驱动三条互不干扰的映射——主体记号绕固定中心近指数放大（尺度承担品牌主张）、滚动提示在前段退场（把注意力让给放大）、整屏幕布在尾段落满（收束）；另有一条**与滚动位置无关**的持续自走带（纵向标签列表，约 12.9px/s 匀速循环），它提供的是持续的环境动势而不是行程量化。p 到 1 时触发一次消费：封面退出文档流、后幕接管、滚动基点回到顶部，于是「翻过封面」成为一个不可回退的空间事件而不是一次可逆的滚动。复用要点：行程长度 = 一屏；四条映射各有独立区间不叠加；消费动作要么一次性要么可复位，不能让封面在半途复活造成滚动抖动。",
+      "dont_copy": "1) 「封面只出现一次、之后永久跳过」的持久化选择（原站用本地存储记住），适合真实访客的耐心假设，但会让 demo 复核、A/B 与截图脚本在下一次打开时看不到片段——本次实现改为进程内一次性并配复位按钮，这是取舍不是评判。2) 封面的行程长度被写死为正好一屏，使换幕阈值与视口高度绑定；内容更长或更短时这套量化感会失真，复用时应把行程长度参数化。3) 放大倍数到 31 倍时记号边缘会有明显的缩放采样痕迹（部分浏览器），属于放大策略的副产品，不是可复用优点。4) 未验证项：未测该段落在低端设备上的帧率与无障碍对比度，也未验证原站是否对 reduced-motion 做降级。 ④ 本条目初稿把该纵向列表读作「滚动擦洗 + 末行夹紧」，独立复核在零输入下实测到持续自走并证伪；已按实测重写不变量并改正 demo。复用该列表时注意它是自走循环带——不要描述成滚动映射，也不要拿它当可用滚动控制的进度指示。",
       "tokens": {
-        "colors": {},
-        "typography": {},
-        "spacing": {},
+        "colors": {
+          "paper": "#F4F1EA",
+          "ink": "#0A0A0B",
+          "veil": "#0A0A0B",
+          "heroImageOverlay": "rgba(10, 10, 11, 0.34)",
+          "grainOverlay": "约 0.14 不透明度的颗粒层（深色首屏）"
+        },
+        "typography": {
+          "sourceFamilies": "封面正文/标题实测栈为 IvyPresto Display（商业衬线）+ 站点自有回落族；另加载 elza-condensed",
+          "tickerItem": "22.32px / line-height 40px / letter-spacing 0.02em，衬线",
+          "taglineMain": "15.84px / letter-spacing 2.85px(≈0.18em) / 大写",
+          "italicAccent": "34.56px 斜体衬线，紧接说明行",
+          "scrollLabel": "9px / weight 500 / letter-spacing 3.42px(≈0.38em)",
+          "stackBase": "封面容器 computed font-size 16px（用作 rem 基准）"
+        },
+        "spacing": {
+          "coverHeight": "一屏（1440×900 实测 900px；换幕阈值同为 900px）",
+          "centerColumn": "纵列宽度 ≈317–346px（标签窗 317、说明行 346）",
+          "stackGaps": "字标底 386 → 记号顶 426（≈40px）；记号底 475 → 说明行 514（≈39px）；说明行底 592 → 标签窗 620（≈28px）",
+          "tickerWindow": "窗口高 144px（≈3.6 行），轨总高 480px"
+        },
         "motion": {
-          "duration": "900ms（reveal）；cellFlip 1s；grain 1800ms",
-          "easing": "cubic-bezier(0.65, 0, 0.35, 1)（reveal）；cellFlip cubic-bezier(0.77, 0, 0.175, 1)",
-          "trigger": "load 一次性入场（animation-fill-mode: forwards），由 sessionStorage['ownitt_intro_seen'] 门控（首访播放、复访不挂载）；错峰 delay = index × 75ms；cellFlip 复用同一 75ms 错峰"
+          "markScale": "记号组宽度 49px → 1514px（≈31×）；中心锚点固定在视口同一高度；非匀速，中段起加速",
+          "hintFade": "原站滚动提示不透明度 1 → 0，行程约 0 → 160px（前约 18%；0.527@100 / 0.072@140 / 0@160）；demo 参数 hintFade=0.34（约 306px），淡出晚于原站",
+          "veil": "原站幕布不透明度 0 → 1，行程约 500 → 900px（p≈0.556 起、后半段铺满；逐档实测 500→0.0002 / 600→0.068 / 700→0.258 / 800→0.565 / 875→0.880 / 899→0.995）；demo 参数 veilOnset=0.86（最后约 14%），晚于原站",
+          "swapTrigger": "scrollY ≥ 一屏（900px）时封面卸载、文档高度 32000 → 30200、scrollY 重置为 0",
+          "pinnedStage": "深色章节宣言舞台 position:relative → fixed（滚动约 4100–6500），逐词不透明度爬升 + 文本块交叉淡出",
+          "tickerLoop": "纵向标签列表为自走循环带：原站 1440×900 零输入实测 ≈12.85px/s（4s 采样 −80.2→−131.6）、与滚动位置无关、无夹紧；demo 实现 tickerSpeed=12.9px/s，改后实测 10.32px/0.8s"
         }
       },
-      "api": "CSS：容器加 class=\"sgr-grid\" 与 data-sgr，子元素 class=\"sgr-cell\"（用 style=\"--i:N\" 指定序号，或由 JS 自动编号），可选 data-flip=\"on\" 开启 3n 翻转，--sgr-cols 控制列数。JS：window.StaggerReveal.replay(gridEl) 重放；window.StaggerReveal.init(root) 手动初始化。",
+      "api": "window.OrveCover = { Cover, markSvg, instances }。用法：给封面根元素加 data-orve-cover，并用 data-orve-chapter 指向后幕（默认 #orve-chapitre）；脚本自动在 [data-orve-cover] 上实例化。封面内部需要四个钩子：data-orve-mark（主体记号）、data-orve-ticker 与 data-orve-track（标签窗与轨）、data-orve-hint（滚动提示）、data-orve-veil（幕布）。实例方法：reset() 恢复封面并把滚动带回封面顶部；destroy() 解绑滚动/尺寸/可见性监听并撤销一次性的消费定时器；consume() 手动触发换幕（用于测试）。构造参数覆盖 DEFAULTS：markScaleMax / markOnset / markAccel / tickerSpeed / hintFade / veilOnset / settle。",
       "entrypoints": [
-        "src/component.css",
-        "src/component.js"
+        "src/cover.js",
+        "src/cover.css",
+        "demo/index.html"
       ],
       "files": [
         "demo/index.html",
-        "src/component.css",
-        "src/component.js",
-        "shots/original-site.png",
-        "shots/demo.png"
+        "src/cover.js",
+        "src/cover.css",
+        "src/fonts.css",
+        "src/fonts/PlayfairDisplay-var.ttf",
+        "src/fonts/PlayfairDisplay-Italic-var.ttf",
+        "src/fonts/OFL.txt",
+        "README.md",
+        "SPEC.json"
       ],
       "deps": [],
-      "reuse_hints": "适合：作品集/品牌站首屏入场、图库或栏目卡的批量出现、内容段的节奏型揭示。别用：需要被反复触发的交互反馈（本条是一次性入场）；已内置 prefers-reduced-motion 降级为瞬时呈现。",
-      "repro_notes": "原站类名带 CSS modules 前缀 IntroAnimation-module__HH0i_W__（__cell / __cellInner / __grid）；复核时必须先清 sessionStorage（门控键 ownitt_intro_seen），否则 overlay 不挂载、DOM 里查不到 __cell，会被误判为机制不存在。入场 overlay 播完即从 DOM 移除，只能截到入场结束态。自检动效要用 seek 法（pause + currentTime），标签页 hidden 时动画时钟恒为 0 但 playState 仍是 running。",
+      "reuse_hints": "适用于「首屏需要一个可被翻过去的封面」的场景：品牌站首访、活动页开场、作品集开场、文档站的新版本封面。必要条件：一个可无级放大且轮廓不糊的主体元素（记号/字标/单一图形）、一段可量化的行程（用一屏高度最直觉）、以及与封面形成明暗对比的后幕，否则落幕时会看到亮度跳变。行程内的四条映射要各自占独立区间，不要让同一个进度同时驱动透明度与尺度，否则放大过程会被读成「淡出」。不适用：内容型长页（封面会拦住索引与分享锚点）、需要保留浏览器历史返回语义的页面（消费后回滚不会复原封面）、以及必须打印/静态导出的页面。素材要求：记号必须是矢量或高分辨率（31 倍放大会暴露采样痕迹），标签列表需长度相近以避免逐行步进的跳动。",
+      "repro_notes": "环境与测量：Chromium，1440×900 与 390×844 两个视口，deviceScaleFactor 1。原站观察必须在首访状态（清掉 localStorage 的 ownitt_intro_seen）并等入场动画（约 9s）结束；重复访问会跳过封面，会得到与本条目无关的取样。站点用 Lenis 平滑滚动，扫描时调用其 scrollTo(y,{immediate:true}) 并每档等一帧；后台/隐藏标签页里时间轴会冻结（document.timeline.currentTime 恒为 0），故先把标签页提到前台再取样。原站幕布不透明度在 860–900px 区间有约 0.30–0.84 的档位间波动（采样时机所致），本条目只记录区间不记录精确曲线。demo 复核路径：直接以 file:// 打开 demo/index.html（零构建）→ 从封面顶部按正常速度滚到底（约一屏）→ 观察记号放大、标签擦洗、提示淡出、幕布落下与换幕 → 换幕后上滚确认封面不复活 → 点右下角「复位封面」恢复 → 再把视口缩到 390×844 重复。未验证项：低端设备帧率、无障碍对比度、原站是否存在 reduced-motion 降级；原站换幕后深色章节的首屏摄影在本次片段中未复现。 修订记录（2026-10-11）：第 1 轮独立复核判 inv3 fail——原站在 scrollY 恒 0、无任何输入时citiesTrack 仍以约 12.85px/s 连续自走（复核者 4s 采样 −39.1→−87.3；修复者 4s 采样 −80.2→−131.6），证伪了初稿「滚动擦洗 + 末行夹紧」的读数。据此：① 重写 inv3 为「自走循环带」；② 改写 evidence.ev2 的结论与方法；③ 把 src/cover.js 的轨道从滚动映射改为常驻 rAF 自走循环（tickerSpeed 12.9px/s，轨末重复行做无缝回绕，隐藏标签页/换幕后停帧，reduced-motion 不实例化），改后 1440×900 实测 Δty=10.32px/0.8s=12.9px/s；④ 复核 #1 的 pass/fail 记录与实拍保留在 README 中并标注为已作废。第 2 轮复核待做。 待统一（复核 #1 指出）：幕布 onset 三处口径不一致——tokens.motion.veil 写 860→900px（最后约 5%）、demo 参数 veilOnset=0.86（最后约 14%）、复核者对原站实测 onset≈p 0.6；本轮未重新标定，留给第 2 轮复核。 参数健壮性（复核 #2 指出，未改代码）：veilOnset ≥ 1 时 (p-veilOnset)/(1-veilOnset) 分母变号、幕布恒为不透明；复用调参需约束取值域。 复核后清理（非行为改动，已自行复测）：demo 侧栏文案「列表擦洗/前 55% 夹紧不循环」改为「列表自走/常驻循环带 12.9px/s」，并删掉 src/cover.css 中已无引用的 --orve-ticker-span；因此复核帧里的侧栏文字是旧文案，但不变量相关行为（记号/提示/幕布/消费/自走）未变。",
       "variant_of": null,
       "verification": {
         "rendered_ok": true,
         "console_errors": 0,
         "screenshot": "shots/demo.png",
-        "checked_at": "2026-10-11T10:40:00+08:00",
-        "note": "file:// 打开 demo：10 格，sgr-reveal 三格 delay 实测 0/75/150ms；seek 法实测 t=0 → clip-path inset(50%)/opacity 0/translateY(14px)、t=900 → inset(0%)/opacity 1/translateY(0)，与原站 @keyframes cellReveal 逐字一致；sgr-flip 已按原站 @keyframes cellFlip 改为 rotateY 0→90→0；控制台 0 报错、无外部请求。"
+        "checked_at": "2026-10-13T13:46:35+08:00",
+        "source_observed": true,
+        "mechanism_preserved": true,
+        "user_review": {
+          "passed": true,
+          "reviewer": "Hermes 独立复核子代理（第 2 轮；未参与本条目实现，也未参与第 1 轮修订；2026-10-13 CST；方式：直接 file:// 打开 demo，并自行首访原站重测）",
+          "cases": [
+            {
+              "invariant_id": "inv1",
+              "action": "以 file:// 直接打开 demo（1440×900，先 CDP 转前台让 rAF 运行）读首屏纵列几何、三色与 elementsFromPoint 命中顺序；再滚到 550/700/800 复测命中顺序以验证记号放大后的层序；窄屏 390×844 重复；随后自行首访原站（清 localStorage.ownitt_intro_seen 与 sessionStorage 后重载、等入场约 11s）在 1440×900 与 390×844 读同一批几何与色值对照",
+              "observation": "demo：封面是整屏浅色纸（rgb(241,237,226)）上的单一居中纵列，字标/记号/说明行/标签窗/滚动提示的 cx 全 = 712.5（窄屏 195）；墨 rgb(11,11,12)、幕布 rgb(11,11,12)；z 序 记号 1 < 说明行 2 < 提示 6 < 幕布 10（幕布 pointer-events:none）。命中顺序：字标→记号→说明行/标签窗→提示→幕布；记号放大到 296px/673px/1044px 时，在字标中心命中返回记号本身、在说明行与标签窗中心仍返回说明行/标签窗，说明放大后的记号压在字标之上却在说明行之下。原站同视口同构：纸 rgb(244,241,234)=#F4F1EA、墨 rgb(10,10,11)、纵列 317–346px、记号初始 49×49、标签窗 144px、滚动提示贴在列底；窄屏 390×844 记号 28×28、无横向溢出。",
+              "viewport": "1440x900（+390x844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv1-before.png",
+                "shots/demo-r2-narrow-inv1-before.png"
+              ]
+            },
+            {
+              "invariant_id": "inv2",
+              "action": "demo：用真实滚轮（CDP Input.dispatchMouseEvent mouseWheel，本环境实测可用）9×110px 逐段推到底，并在中途反向滚轮回滚；另用 window.scrollTo 逐档 0→899 读 [data-orve-mark] 的包围盒与中心；窄屏 390×844 重复。原站：同样逐档 0→899 读 [class*=asteriskGroup] 的包围盒与 computed matrix（反推 scale 与旋转角）",
+              "observation": "demo：记号 49px→1519px（=31×）连续单调、后段近指数加速；中心恒 (712.5,364.7) 不漂移（窄屏 28→861.6px，中心恒 (195,336.6)）；真实滚轮回滚可逆（scrollY 550/440/330/220 对应 294.6/137/63.1/49px，中心不动）。原站：记号组 49px→6186px 包围盒，computed matrix 反推 scale≈91.7（并叠加约 170° 自转），中心恒 (715,450)——同为绕固定中心连续放大直至吞满视口；差别只在倍率（原站终值大于 demo 的 31×）与是否叠加自转。",
+              "viewport": "1440x900（+390x844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv2-mid450.png",
+                "shots/demo-r2-inv2-mid700.png",
+                "shots/demo-r2-inv2-nearfull830.png",
+                "shots/demo-r2-inv2-realwheel-mid.png",
+                "shots/demo-r2-inv2-realwheel-rollback.png",
+                "shots/demo-r2-inv2-realwheel-late.png"
+              ]
+            },
+            {
+              "invariant_id": "inv3",
+              "action": "demo：保持 scrollY=0、不做任何输入（不滚不点不悬停），每 0.25s 采样 [data-orve-track] 的 style.transform 连续 4s；再在 scrollY 恒定 400 与 800 各采样 2s；再做 0↔899 跳滚读位移连续性；另把运行时 trackY 设为 233（逼近循环长度 240）观察回绕；窄屏重复。原站（复核者自行首访）：零输入、scrollY 恒 0 每 0.5s 采样 [class*=citiesTrack] 的 computed transform 连续 12s；再在 scrollY 恒定 400 与 800 各采样 3s；并在 0/400/800 之间跳滚，读位移是否随滚动位置偏移",
+              "observation": "demo：scrollY 恒 0 时轨位移 −11.82→−60.63px（4s，12.89px/s）持续匀速；scrollY=400 与 800 时同为 12.88/12.89px/s；0↔899 跳滚下位移只随时间推进、无按滚动量的跳变；trackY 越过 240 循环长度时由 −239.24 回到 −0.96 继续推进，无夹紧/停顿，回绕瞬间标签窗顶部仍是重复行的 Typographie（无缝）；窄屏 12.92px/s。原站独立复测：scrollY 恒 0 时 citiesTrack 每 0.5s 稳定推进 −6.666/−6.667px，即 13.33px/s（12s 共 −64.6→−223.1px）；scrollY=400/800 时同为 13.33px/s，跳滚瞬间位移连续、不随滚动位置偏移；轨在约 −240px 处回绕（轨内 12 行 = 6 城 ×2 份拷贝）后继续推进、无夹紧。→ 原站确为持续自走的循环带而非滚动擦洗，第 1 轮的证伪结论本轮独立复现；demo 的常驻 rAF 自走实现与该关系一致。",
+              "viewport": "1440x900（+390x844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv3-selfrun-a.png",
+                "shots/demo-r2-inv3-selfrun-b.png"
+              ]
+            },
+            {
+              "invariant_id": "inv4",
+              "action": "demo：真实滚轮逐段推进读 [data-orve-hint] 的 computed opacity，并用逐档 scrollTo 读 0→899 的完整曲线；上滚复测可逆性；窄屏重复。原站：同视口逐档 0→300（步长 20）读 [class*=scrollHint] 的 computed opacity",
+              "observation": "demo：提示 opacity 1@0 → 0.673@100 → 0.346@200 → 0.02@300 → 0@306，并保持 0 到封面结束（在一屏约 34% 行程处淡完，不贯穿封面）；真实滚轮下 0.641@110 → 0.281@220 → 0@330，上滚回到 0.641/1；窄屏 0@287。原站：1@0 → 0.527@100 → 0.318@120 → 0.072@140 → 0@160（约前 18% 行程）。两侧都在封面早期退场、都不贯穿全程 → 关系保留；demo 淡出略晚于原站（34% vs 18%）。",
+              "viewport": "1440x900（+390x844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv4-hintfading270.png"
+              ]
+            },
+            {
+              "invariant_id": "inv5",
+              "action": "demo：用真实滚轮连胜 9×110px 推到封面底部触发换幕，读封面 display、documentElement.scrollHeight 与 scrollY；换幕后分别用真实滚轮上滚 −500、window.scrollBy(0,-400)、手动派发 scroll 事件确认封面是否复活；再点旁侧面板的复位按钮确认恢复；窄屏 390×844 重复同样路径。原站：逐档推到 900px 读封面包裹是否仍在 DOM、scrollHeight 与 scrollY",
+              "observation": "demo：p≥1 时幕布先满（880px 时 opacity 0.841，换幕瞬间置 1），随后封面 display:none 移出文档流、文档高度 1908→1008、scrollY 同帧被设回 0、深色章节成为首屏；换幕后真实滚轮上滚、scrollBy(-400) 与合成 scroll 事件下封面始终 display:none 不复活；复位按钮恢复封面（display block、docH 1908、自走带重新运行）。窄屏同样成立（封面 844、docH 1789→945、scrollY 0）。原站：滚到约 900px 时封面包裹与其中元素从 DOM 消失、scrollHeight 32000→30200、scrollY 被重置为 0、深色 hero 成为首屏。",
+              "viewport": "1440x900（+390x844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv5-after.png",
+                "shots/demo-r2-inv5-reset.png",
+                "shots/demo-r2-narrow-inv5-after.png"
+              ]
+            }
+          ]
+        },
+        "note": "第 2 轮（未参与实现的独立复核，2026-10-13）：5 条不变量全部实测 pass（含复核者自己到原站重测纵向列表那条关系），据此 user_review.passed 与 rendered_ok 置 true。复核条件：CDP 转前台使 rAF 运行；本环境 CDP mouseWheel 实测可用，真实滚轮路径已覆盖。遗留待修正（不影响不变量判定，详见 README「独立复核」节）：tokens.motion.veil 的「860→900px（最后约 5%）」、tokens.motion.hintFade 的「0→320px」、motion_catalog 首条 after 状态的「scrollY≈一屏 1514px（≈31×）」三处对原站的读数与复核者实测不符；另 demo 侧面板仍写「列表擦洗 前 55% 进度，夹紧不循环」、src/cover.css 的 --orve-ticker-span 已无用，需实现者清理。"
       }
     },
     {
-      "id": "2026-10-11-paper-ink-catalog",
+      "id": "2026-10-11-loupe-hidden-ink",
       "date": "2026-10-11",
-      "schema_version": 1,
-      "verification_tier": "legacy-self-report",
+      "schema_version": 2,
+      "verification_tier": "v2-reviewed",
       "category": "theme",
       "source": {
         "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
         "live_url": "https://metic.studio/en",
         "title": "metic. – Take a closer look",
-        "author": "",
-        "award_date": "",
+        "author": "Manuel Mayrhofer",
+        "award_date": "Nominee – 2026-10-10",
         "tags": [
-          "minimal",
+          "theme",
+          "studio",
           "typography",
-          "design-agencies",
-          "interaction-design",
-          "microinteractions",
-          "business-corporate",
-          "animation",
-          "sound-audio",
-          "three-js",
-          "webgl",
-          "next-js",
-          "web-interactive",
-          "nominees"
-        ]
+          "interaction",
+          "paper-ink",
+          "loupe"
+        ],
+        "observed_at": "2026-10-11T15:53:00+08:00",
+        "route": "https://metic.studio/en (English route; also / and /de exist) — observed live at 1440x900 and 390x844 on 2026-10-11 15:53–16:02 +08:00"
       },
       "title": "metic. – Take a closer look",
-      "author": "",
+      "author": "Manuel Mayrhofer",
       "tags": [
-        "minimal",
+        "theme",
+        "studio",
         "typography",
-        "design-agencies",
-        "interaction-design",
-        "microinteractions",
-        "business-corporate",
-        "animation",
-        "sound-audio",
-        "three-js",
-        "webgl",
-        "next-js",
-        "web-interactive",
-        "nominees"
+        "interaction",
+        "paper-ink",
+        "loupe"
       ],
-      "dir": "entries/2026-10-11-paper-ink-catalog",
-      "demo": "../entries/2026-10-11-paper-ink-catalog/demo/index.html",
-      "readme": "../entries/2026-10-11-paper-ink-catalog/README.md",
-      "spec": "../entries/2026-10-11-paper-ink-catalog/SPEC.json",
+      "dir": "entries/2026-10-11-loupe-hidden-ink",
+      "demo": "../entries/2026-10-11-loupe-hidden-ink/demo/index.html",
+      "readme": "../entries/2026-10-11-loupe-hidden-ink/README.md",
+      "spec": "../entries/2026-10-11-loupe-hidden-ink/SPEC.json",
       "source_url": "https://metic.studio/en",
       "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
-      "shot": "../entries/2026-10-11-paper-ink-catalog/shots/demo.png",
+      "shot": "../entries/2026-10-11-loupe-hidden-ink/shots/demo.png",
       "shot_kind": "demo",
-      "summary": "暖纸底 + 近墨色 + 细线分隔 + 单一强调色的「纸墨编目」主题：靠极端字号差与收紧字距建立秩序，卡片平面无投影，用暗底当作展品框。",
-      "strength": "tone-system",
-      "expression": "它出众的不是某个零件，而是一整套「克制」的取舍：只用两级明度（纸 #F4F4F2 / 墨 #121214）承载全部内容，用 1px 低对比细线（实测 42 处）替代投影与卡片浮起，把唯一的彩色（#FF3E3E）严格限制在「需要指向」的位置（分类标签、链接悬停、焦点环、选中文字，实测四个属性各 44~47 处），其余对比全靠排印——display 与正文约 5.4 倍字号差，字距随字号收紧（display -0.035em、h3 -0.02em），标签一律 12px 大写字距 0.06em。结果是页面没有任何装饰元素，却没有一处显得空。",
-      "composition": "实测（视口 1280）：外壳 1560px 居中 + clamp(20px,3.4vw,56px) 内边距；12 栏网格 gap 40px（次级 32px / 8px）；区段纵向 padding 160px（部分 128px）；圆角只有两档（卡片 12px、药丸 999px）；细线 1px rgba(18,18,20,0.12) 共 42 处，加重变体 1px rgb(98,98,106) 13 处；字号档位 92.16 / 30.72 / 17 / 14 / 12px，比值约 5.4 : 1.8 : 1。",
-      "highlights": [],
-      "selected_fragment": {},
-      "evidence": [],
-      "motion_catalog": [
+      "summary": "A studio site whose whole argument is \"look closer\": a docked circular lens that, while held, magnifies the sheet 1.6x about the pointer and unmasks a handwritten red ink layer that is otherwise invisible; this entry re-implements that lens-and-hidden-ink fragment on a new printed specimen sheet (Halbton.), and leaves the site's scroll narrative and X-ray toggle as analysed-but-unbuilt highlights.",
+      "strength": "material-light",
+      "expression": "The product claim is precision down to the detail (the name reads as 'meticulous'), so the page needs a way to make 'the detail' literally present rather than merely asserted. The lens does that: the reward for the extra gesture is content that cannot be obtained any other way — handwritten notes the visitor would never read by scrolling. Design judgement: this turns a claim about craft into a task the visitor performs, and it keeps the sheet itself calm and legible for everyone who never lifts the lens. Observation, not judgement: while held, the sheet copy is transformed by translate3d(-(zoom-1)*pointer, 0) scale(1.6) and the ink layer's mask radius measures 95.8px against a 121px lens.",
+      "composition": "Layers, bottom to top: a 16px dot-grid substrate on the sheet (the printing guides), then the printed content (micro measure row, wordmark, one display headline, a lede and three specimen rows), then the invisible red ink layer pinned over the specimens, then the lens as a fixed circular window, with the docked handle and the hint/legend micro-type as chrome. Visual weight is a single column of measure-led rows with the display headline as the one large mass; the ink layer is deliberately the smallest and most peripheral type on the page, so reading it feels like discovering evidence rather than reading copy. Spacing is a single clamp() shell (1.25rem–5rem) with 2.5rem/14rem/1fr/10rem specimen columns. Below 640px the specimen row collapses to three columns and the value drops to its own line; the lens radius falls from ~121px to ~89px and the dock stays top-right. The lens is the only element that moves; the sheet never reflows while it is held.",
+      "highlights": [
         {
-          "name": "入场揭示（多组）",
-          "duration": "1050ms",
-          "easing": "linear",
-          "delay": "120 / 210 / 300ms（步长 90ms）",
-          "trigger": "load"
+          "id": "h1",
+          "rank": 1,
+          "name": "Hold to lift the lens: magnify the sheet and unmask the ink beneath it",
+          "why_it_matters": "It is the brand argument performed instead of stated — 'take a closer look' is only meaningful if looking closer actually yields something. The lens is the only way to reach the notes, so curiosity is rewarded with content, and the sheet stays a clean, readable editorial page for anyone who never lifts it.",
+          "dependencies": [
+            "paper/ink/one-red palette and a measure micro-type for the chrome",
+            "a second content layer (handwritten notes) that is genuinely hidden, not decorative",
+            "duplication of the page and a single shared transform origin so the copy can be scaled about the pointer",
+            "a radial mask on the ink layer driven by the lens centre and radius",
+            "a visible dock plus hold-and-release, with a non-lens path so the notes are never unreachable"
+          ],
+          "evidence_ids": [
+            "ev1",
+            "ev2",
+            "ev3",
+            "ev7"
+          ]
         },
         {
-          "name": "入场揭示（负延迟组）",
-          "duration": "1050ms",
-          "easing": "linear",
-          "delay": "-400 / -550 / -750ms",
-          "trigger": "load，错相位"
+          "id": "h2",
+          "rank": 2,
+          "name": "Scroll becomes a blueprint: a pinned stage, a dot grid and a 000–100% build counter",
+          "why_it_matters": "It makes the studio's process the main content rather than a services list: the argument is paced from scaffold to finished button, and the dot grid is literally the 'guides' the captions name, so the form demonstrates the craft claim it is making.",
+          "dependencies": [
+            "a long scroll segment (480vh) so the pinned stage has room",
+            "a sticky stage with a dot-grid substrate whose opacity is bound to scroll",
+            "eight caption blocks that cross-fade with a small translate and blur",
+            "a numeric counter and an escape control for people who do not want the tour"
+          ],
+          "evidence_ids": [
+            "ev4"
+          ]
         },
         {
-          "name": "循环动效",
-          "duration": "6000ms",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环"
-        },
-        {
-          "name": "次级揭示",
-          "duration": "1100ms",
-          "easing": "linear",
-          "delay": "120 / 210 / 300ms",
-          "trigger": "load"
+          "id": "h3",
+          "rank": 3,
+          "name": "X-ray: re-map the palette and annotate how every element was built",
+          "why_it_matters": "It turns measurement rules that would otherwise be invisible craft-talk ('30 characters per line', 'at least 44 pixels tall') into something the visitor can inspect on the live page, which is the same promise as the lens expressed as documentation.",
+          "dependencies": [
+            "a role-based colour system (paper/ink/line resolved from an x-ray palette) rather than hard-coded hexes",
+            "per-element rationale annotations (label plus note) that are hidden by default",
+            "desaturation of imagery so the annotations stay legible"
+          ],
+          "evidence_ids": [
+            "ev5"
+          ]
         }
       ],
-      "extracted_mechanism": "paper-ink tone system：两级明度（暖纸底 + 近墨字）承载全部内容、1px 低对比细线替代一切投影与浮起、唯一强调色只用于「指向」类元素；层级完全由排印建立——约 5.4 倍的字号差 + 随字号收紧的字距 + 12px 大写字距 0.06em 的标签。",
-      "dont_copy": "三条：①**单一强调色的上限**——全站只有一个彩色，遇到需要多主色区分（多品牌、多状态、数据可视化）的场景不够用，必须自行扩变量。②**次要灰接近对比度下限**——#62626A 放在 12px 小字上约 4.6:1，堪堪过 AA，长文或弱视用户偏吃力；我们保留该实测值以维持与原站一致，但复用时应按场景调深。③**依赖免费字体的现场安装**——原站用 Bricolage Grotesque / Space Grotesk（免费但需联网加载），本主题为离线优先只声明字体名，未安装时回退 system-ui，观感会退化。",
-      "tokens": {
-        "colors": {
-          "paper": "#F4F4F2",
-          "paper-2": "#E9E9E6",
-          "ink": "#121214",
-          "ink-soft": "#62626A",
-          "accent": "#FF3E3E",
-          "dark": "#0B0C10"
-        },
-        "typography": {
-          "displayFont": "原站 Bricolage Grotesque（免费）→ 声明字体名 + system-ui 回退",
-          "displaySize": "92.16px（clamp 后 46→92.16px）",
-          "displayLineHeight": "0.96（88.47px ÷ 92.16px）",
-          "displayLetterSpacing": "-0.035em（-3.2256px @ 92.16px）",
-          "displayWeight": "500",
-          "h3Size": "30.72px · line-height 1.12 · letter-spacing -0.02em · weight 500",
-          "bodyFont": "原站 Space Grotesk（免费）→ 命名 + 回退",
-          "bodySize": "17px / line-height 1.55（26.35px）",
-          "smallSize": "14px / line-height 1.43（20px）",
-          "labelSize": "12px 大写 / letter-spacing 0.06em（0.72px）",
-          "monoFont": "ui-monospace 系统等宽（用于色值/时长等 token 展示）"
-        },
-        "spacing": {
-          "sectionY": "160px（部分区段 128px），clamp 后 64→160px",
-          "gridGap": "40px（栏间距）/ 32px / 8px",
-          "hairline": "1px solid rgba(18,18,20,0.12)（加重变体 rgb(98,98,106)）",
-          "radius": "卡片 12px / 药丸 999px / 极小元素 3px",
-          "maxWidth": "1560px 外壳 + clamp(20px,3.4vw,56px) 左右内边距"
-        },
-        "motion": {
-          "duration": "1050ms（入场）/ 另有 1100ms 与 6000ms 循环",
-          "easing": "linear（关键帧线性，节奏靠错峰而非缓动）",
-          "trigger": "load 入场 + 循环滚动；错峰 120/210/300ms（步长 90ms），另有 -400/-750/-550ms 负延迟组"
-        }
-      },
-      "api": "引入 src/theme.css 即得全部 token 与组件类。排版原语：.display / .h2 / .h3 / .lede / .small / .label / .mono。外壳：.shell（1560px 居中 + 响应式内边距）、.top（扁平吸顶纸面栏）、.filters/.search/.chip、.hero/.stats、.foot。编目：.catalog（自适应网格）、.plate（展品卡，用 --pi 序号驱动错峰入场）、.plate__media/.plate__idx/.plate__head/.plate__title/.meta/.meta__row/.swatches/.sw/.tag/.plate__foot。换肤只需覆盖 :root 里的 --paper/--ink/--accent/--dark/--fs-*/--gap/--dur-reveal/--stagger。",
-      "entrypoints": [
-        "src/theme.css"
-      ],
-      "files": [
-        "demo/index.html",
-        "src/theme.css",
-        "shots/original-site.png",
-        "shots/demo.png",
-        "shots/catalog-in-use.png"
-      ],
-      "deps": [],
-      "reuse_hints": "适合：内容索引/编目/作品集/文档/杂志类界面，以及任何「内容比装饰重要」的展示页——本项目自身的画廊页就复用了它（gallery/index.html 直接 link 本条的 src/theme.css，是库内第一条被自己消费的条目）。别用：需要沉浸暗色、强科技感、游戏化或高饱和品牌表达的产品界面（纸墨底色会压制这类气质）；强调色只有一个，若项目需要多主色需自行扩展变量。",
-      "repro_notes": "全部数值取自 https://metic.studio/en 的浏览器计算样式（getComputedStyle / document.getAnimations），非目测。复核要点：①颜色直接读 body 与元素的 backgroundColor/color 出现频次（纸底 rgb(244,244,242) 出现 152 次、墨 rgb(18,18,20) 726 次、次要 rgb(98,98,106) 305 次、强调 rgb(255,62,62) 88 次）；②强调色用途可用「统计所有元素里等于 rgb(255,62,62) 的 color/backgroundColor/borderColor/outlineColor」复核，实测各有 44~47 处；③细线是 1px rgba(18,18,20,0.12)，实测 42 处，另有 1px rgb(98,98,106) 13 处作加重变体；④区段纵向 padding 实测 160px（部分 128px），12 栏网格 gap 40px；⑤动效实测 1050ms linear，错峰 120/210/300ms（步长 90ms）以及 -400/-750/-550ms 的负延迟组。字体：原站 Bricolage Grotesque + Space Grotesk（均为免费字体），本主题为「零外网依赖」只在 font-family 里声明字体名 + 系统回退，不引 CDN；本地装了这两款免费字体即自动生效。",
-      "variant_of": null,
-      "verification": {
-        "rendered_ok": true,
-        "console_errors": 0,
-        "screenshot": "shots/demo.png",
-        "checked_at": "2026-10-11T11:05:00+08:00",
-        "note": "file:// 打开 demo 与 gallery/index.html 均实测：控制台 0 报错、0 个外部网络请求；gallery 复用本条 theme.css 渲染出抬头/统计/筛选/展品卡；字体在未安装 Bricolage/Space Grotesk 的环境下按预期回退 system-ui，结构不变；prefers-reduced-motion 降级为瞬时。"
-      }
-    },
-    {
-      "id": "2026-10-11-giant-type-scenes",
-      "date": "2026-10-11",
-      "schema_version": 1,
-      "verification_tier": "legacy-self-report",
-      "category": "typography",
-      "source": {
-        "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
-        "live_url": "https://ringpopcandy.com/",
-        "title": "Ring Pop® Candy",
-        "author": "",
-        "award_date": "",
-        "tags": [
-          "e-commerce",
-          "colorful",
-          "microinteractions",
-          "scrolling",
-          "storytelling",
-          "shopify",
-          "figma"
+      "selected_fragment": {
+        "highlight_id": "h1",
+        "scope": "One screen-high printed specimen sheet plus a circular lens docked top-right. Press and hold on the sheet, or drag the dock, to lift the lens: the sheet under it is scaled 1.6x about the pointer, and only inside the lens circle does the handwritten ink layer surface; releasing parks the lens back at the dock and hides the ink again. Notes examined through the lens are ticked in a small legend. The fragment includes the paper substrate, the measure micro-type and the three specimen rows that the notes annotate; the copy, name and type are new.",
+        "rationale": "Removal test: strip the lens and the site is still a well-set editorial studio page — the palette, the grid and the type all survive. What disappears is the identity: the hidden notes, the 'look closer' promise and the reason the sheet is worth a second pass. So the lens is the primary extraction, not a decorative overlay. It was also chosen over the scroll narrative because the lens is the relation a visitor performs with their own hand, and because its mechanism (pointer-anchored magnification plus a masked second layer) transfers to any surface that has something underneath.",
+        "invariants": [
+          {
+            "id": "inv1",
+            "description": "Hold lifts, release drops: at rest the lens is parked on its dock with no magnification and no ink visible; while held it follows the pointer; on release it returns to the dock and the ink hides again."
+          },
+          {
+            "id": "inv2",
+            "description": "Magnification is anchored at the pointer: what sits under the lens centre is the sheet scaled 1.6x about that exact point, so the detail under the lens does not slide as the lens moves."
+          },
+          {
+            "id": "inv3",
+            "description": "The ink only surfaces inside the lens: outside the lens circle the sheet shows no notes, because the ink layer is masked to a circle tracking the lens centre and the lens itself is a circular window onto a copy of the sheet."
+          },
+          {
+            "id": "inv4",
+            "description": "The lens reads as a ground and the sheet stays put: a circular window with a 1px light rim and a soft inner shade, and moving the lens never moves or reflows the sheet underneath."
+          },
+          {
+            "id": "inv5",
+            "description": "The notes are reachable without the lens: with JS off, with reduced motion, or through the keyboard-accessible reveal-all control, every note becomes readable, and notes examined with the lens are ticked in the legend."
+          }
+        ],
+        "omitted": [
+          "The site's 480vh pinned scroll narrative (the dot-grid blueprint with eight captions and the build counter) — analysed as h2, not built here",
+          "The X-ray toggle that re-maps the palette and overlays design-rationale annotations — analysed as h3, not built here",
+          "The menu overlay, the five-letter hunt, the discovery counter and the sound control",
+          "The dark theme toggle beyond a prefers-color-scheme block, and all of the site's own copy, imagery, fonts and stylesheets"
+        ],
+        "asset_substitutions": [
+          {
+            "role": "The page under the lens (the magnified subject)",
+            "substitute": "An original specimen sheet ('Halbton.', a fictional Leipzig print studio) built from my own markup: dot-grid substrate, measure micro-type, one display headline, a lede and three specimen rows. Preserves the design role of the original's surface: a single reading column, low-contrast paper, one large type mass, small peripheral annotations.",
+            "basis": "original work, written for this entry"
+          },
+          {
+            "role": "The lens itself",
+            "substitute": "A CSS circular window (border-radius 50%, overflow hidden) holding a clone of the sheet, with a box-shadow rim: inset 0 0 0 1px rgba(255,255,255,.35) and inset 0 0 22px rgba(18,18,20,.1).",
+            "basis": "independent implementation of the observed mechanism; the original draws its rim partly on a difference-blend canvas, which is not reproduced"
+          },
+          {
+            "role": "The handwritten ink layer",
+            "substitute": "Three original English notes in a handwritten OFL face (Kalam), red, slightly rotated, pinned over the specimens.",
+            "basis": "original copy; the original's notes are its own brand voice and were not transcribed"
+          },
+          {
+            "role": "Display face (Bricolage Grotesque)",
+            "substitute": "Archivo variable, bundled (SIL OFL 1.1)",
+            "basis": "OFL bundle, licence text in src/fonts/FONTS.md; weight/width/tracking compared against the measured 103.68px/500/-0.035em rather than assumed equal"
+          },
+          {
+            "role": "Text face (Space Grotesk)",
+            "substitute": "Inter variable, bundled (SIL OFL 1.1)",
+            "basis": "OFL bundle; Inter's larger x-height and more neutral skeleton is a documented loss"
+          },
+          {
+            "role": "Measure labels (IBM Plex Mono)",
+            "substitute": "system monospace stack",
+            "basis": "no bundle needed for 10–11px uppercase micro-type; loss is in the terminals, not the fit"
+          }
         ]
       },
-      "title": "Ring Pop® Candy",
-      "author": "",
-      "tags": [
-        "e-commerce",
-        "colorful",
-        "microinteractions",
-        "scrolling",
-        "storytelling",
-        "shopify",
-        "figma"
+      "evidence": [
+        {
+          "id": "ev1",
+          "claim": "Dragging the docked lens lifts it and it follows the pointer; the sheet copy under it is scaled 1.6x about the pointer, verified by transform arithmetic (translate = radius - 1.6*(pointer - sheetOrigin)) rather than by eye.",
+          "status": "observed",
+          "method": "CDP Input.dispatchMouseEvent mousePressed on the dock centre then mouseMoved through four steps while reading .loupe-hit / .loupe-glass rects and .loupe-page inline transform.",
+          "route": "https://metic.studio/en",
+          "target": ".loupe-hit / .loupe-glass / .loupe-page",
+          "action": "press-and-hold the dock handle, drag across the page, read geometry at each step",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/orig-loupe-drag-1440.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev2",
+          "claim": "The hidden ink layer is revealed only inside the lens circle: each .secret-ink carries a radial-gradient mask whose radius and centre are written from the lens, measuring --sr 95.8px against a 121px lens radius, and the rest of the page shows visibility hidden with --sr 0.",
+          "status": "observed",
+          "method": "Held the lens over the display headline and read getComputedStyle(...).getPropertyValue('--sr'/'--sx'/'--sy') and visibility on every .secret-ink while held and after release.",
+          "route": "https://metic.studio/en",
+          "target": ".secret-ink (mask-image radial-gradient driven by --sr/--sx/--sy)",
+          "action": "hold the lens over the headline, sample the ink masks, release and sample again",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/orig-loupe-heading-1440.png",
+            "shots/private/orig-loupe-held-1440.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev3",
+          "claim": "Release drops the lens: .loupe-view opacity falls from 1 to 0, html loses the loupe-held class and the ink masks are cleared, so the sheet returns to a plain printed page.",
+          "status": "observed",
+          "method": "mouseReleased at the held position, then read .loupe-view opacity, html class list and .secret-ink visibility; also captured the at-rest hero for comparison.",
+          "route": "https://metic.studio/en",
+          "target": ".loupe-view / html.loupe-held / .secret-ink",
+          "action": "release the pointer after a hold and observe the return to rest",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/orig-hero-1440.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev4",
+          "claim": "The build section is a 480vh pinned stage: scrolling maps linearly to a --dots progress on the substrate (0 to 1) and to a 000-100% counter, while eight captions cross-fade in order (opacity 1 for the active step, 0 with translate-y-3 and blur(2px) for the others).",
+          "status": "observed",
+          "method": "Page.bringToFront to unfreeze the timeline (document.timeline.currentTime was 0 and requestAnimationFrame did not fire while the tab was hidden), then window.scrollTo across the section reading --dots, the counter text and every caption's opacity.",
+          "route": "https://metic.studio/en",
+          "target": "section.build > .build-stage (sticky, height 480vh)",
+          "action": "scroll the section in 540px steps from 000% to 100% and read the progress variable, counter and caption opacities",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/orig-build-start-1440.png",
+            "shots/private/orig-build-mid-1440.png",
+            "shots/private/orig-build-end-1440.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev5",
+          "claim": "The X-ray button re-maps the palette through role variables and reveals per-element rationale annotations: aria-pressed flips to true, --paper resolves to #0b0c10, --ink to #eeeeea, an overlay canvas at z-index 79 goes to opacity 1 and the data-note annotations become visible for elements in view.",
+          "status": "observed",
+          "method": "clicked the nav button titled 'X-ray: show how the page is built', then read the html class list, aria-pressed, the canvas opacity, the resolved --paper/--ink and the count of data-note elements in view; toggled back and confirmed the class was removed.",
+          "route": "https://metic.studio/en",
+          "target": "html.xray + nav button[aria-pressed] + canvas.z-[79] + [data-note]",
+          "action": "click the X-ray toggle, sample the palette and annotations, click again to restore",
+          "viewport": "1440x900",
+          "artifacts": [
+            "shots/private/orig-xray-1440.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev6",
+          "claim": "At 390x844 the hero reflows to a 44px single-line headline with no horizontal overflow (scrollWidth equals the viewport), and the docked lens is smaller but present; a synthetic touch press-and-hold set the held state but did not move the lens, so the touch half of the documented affordance is unresolved rather than confirmed.",
+          "status": "observed",
+          "method": "Emulation.setDeviceMetricsOverride to 390x844 with touch emulation, measured the h1 and documentElement.scrollWidth, then Input.dispatchTouchEvent touchStart/touchMove/touchEnd while reading .loupe-hit geometry and the loupe classes.",
+          "route": "https://metic.studio/en",
+          "target": "h1, documentElement, .loupe-hit",
+          "action": "resize to a narrow viewport, measure the headline and overflow, then touch-press and drag",
+          "viewport": "390x844",
+          "artifacts": [
+            "shots/private/orig-hero-390.png",
+            "shots/private/orig-loupe-touch-390.png"
+          ],
+          "publishable": false
+        },
+        {
+          "id": "ev7",
+          "claim": "The site documents the lens as the intended gesture and as a hunt: the hint reads 'The lens shows what lies beneath. Hold a finger on the page to look for yourself.', the hidden panel says 13 things are hidden with instructions like 'Press and hold anywhere on the page.' and 'Hold the lens over a heading and read what is underneath.', and there are 15 .secret-ink elements including five letter fragments.",
+          "status": "source-supported",
+          "method": "Read the rendered text of .lens-hint and the hidden #entdeckungen panel, and enumerated .secret-ink and [data-note] elements in the live DOM. This is the site's own description of the interaction, not a substitute for the observed runs above.",
+          "route": "https://metic.studio/en",
+          "target": ".lens-hint, #entdeckungen, .secret-ink, [data-note]",
+          "action": "read the in-page copy and enumerate the hidden-ink nodes (no gesture performed for this claim)",
+          "viewport": "1440x900",
+          "artifacts": [],
+          "publishable": false
+        }
       ],
-      "dir": "entries/2026-10-11-giant-type-scenes",
-      "demo": "../entries/2026-10-11-giant-type-scenes/demo/index.html",
-      "readme": "../entries/2026-10-11-giant-type-scenes/README.md",
-      "spec": "../entries/2026-10-11-giant-type-scenes/SPEC.json",
-      "source_url": "https://ringpopcandy.com/",
-      "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
-      "shot": "../entries/2026-10-11-giant-type-scenes/shots/demo.png",
-      "shot_kind": "demo",
-      "summary": "巨字 × 满幅图分幕：底色恒定（奶油 #FFF7E9），每幕一张满幅产品图当色场，巨字压在图上面；字色跟着图挑（粉字配桃底、萤光黄配蓝底）。文字本身带三层效果：逐词遮罩上抽的揭示、词级局部换色、画出来的下划线。",
-      "strength": "type-as-image",
-      "expression": "三层叠起来才是它的看点。①**字压图**：标题不是摆在图旁边，而是**压在图上面**——实测标题中心点调用 document.elementsFromPoint 命中的最上层是 picture.mfr-responsive-image，即产品图就是字的底。所以「配色方案」这个说法是偏的：全站底色恒定为 rgb(255,247,233) 不变，每幕的「色」来自那张满幅产品图（实测宽 1278px ≈ 视口宽，高 863~1490px），**真正逐幕变化的是字色，而字色是跟着图挑的**（粉 #E8588A 配桃底、萤光黄 #E0FF18 配蓝底、柠檬 #64F525、黄 #FFF200）。②**文字效果**（静态首屏量不到）：标题被拆成**逐词块**——div.split-text > span.split-text__inner，外层 overflow:hidden 当遮罩，未进入视口时 opacity:0 + transform:translateY(min(100%,80px))，JS 加上 .is-inview 后归位 → 巨型词块**逐词从下往上抽出来**，天然可逐词错峰；标题内可**局部换色**（.section-title .highlighted / b / strong → color: var(--highlight-color)，另有 .has-gradient-highlight 渐变）；**下划线是画出来的小条**而不是 border（strong::after { height: 0.025em; background: var(--underline-color) }）。③**层级靠极端对比**：kicker 16px 与巨字 250px = 15.6 倍字号差，同一色系里做极小+极大；分幕之间用 box-shadow: 0 -30px 40px 制造层叠感（.as-stacking-section--shadow）。",
-      "composition": "实测（视口 1280×577）：body 底色 rgb(255,247,233) 全站恒定；14 个 section，10 个 .section-title（其中 5 个带 .as-stacking-section，高度 863 / 882 / 942 / 839 / 859px）；字号 250px（6 段）/ 160 / 128 / 120 / 102px；行高比 0.680~0.852（250/170、250/205、250/213、120/100、102/86、128/107、160/115）；字距 -0.02em；全大写；真实 h1 为 visually-hidden。满幅图宽 1278px（= 视口宽）、高 863~1490px。kicker（.small-title）16px。页面总高 11047px。",
-      "highlights": [],
-      "selected_fragment": {},
-      "evidence": [],
       "motion_catalog": [
         {
-          "name": "split-text 逐词遮罩揭示",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "进入视口时 JS 加 .is-inview（未进入：opacity 0 + translateY(min(100%, 80px))）"
+          "name": "Lens lift, follow and drop",
+          "target": ".hb-glass (fixed circular window) and the sheet clone inside it",
+          "trigger": "pointerdown on the dock handle (immediate) or press-and-hold anywhere on the sheet (after 130ms of stillness); pointerup / pointercancel releases",
+          "driver": "Pointer events; the glass is positioned with translate3d and the clone with translate3d + scale, both written directly on the elements. No rAF loop, so nothing runs when the tab is hidden.",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "Lens parked on the dock, glass opacity 0, no clone; every note reports visibility hidden and --hb-r cleared."
+            },
+            {
+              "name": "mid",
+              "description": "Held: glass opacity 1 with its centre on the pointer; the clone carries translate3d(-(zoom-1)*pointer) scale(1.6) about the sheet origin; the note under the lens has --hb-r = 0.8 x lens radius and is visible, the others are masked away."
+            },
+            {
+              "name": "after",
+              "description": "Released: is-lifting removed, glass parks back on the dock centre and fades to 0, note mask variables are cleared, found notes keep their legend tick."
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev1",
+            "ev2",
+            "ev3"
+          ]
         },
         {
-          "name": "floating",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "无限循环：0% translateY(0) → 65% translateY(15px) → 100% translateY(0)"
+          "name": "Build blueprint scroll mapping",
+          "target": "section.build > .build-stage (sticky, 480vh)",
+          "trigger": "scroll through the section",
+          "driver": "Scroll position mapped to a --dots progress value on the sticky stage (0 to 1), to the eight caption cross-fades and to a numeric build counter. No fixed easing: the mapping is linear in scroll distance.",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "--dots 0, counter 000%, caption 01 'A line.' at opacity 1, the other seven at 0."
+            },
+            {
+              "name": "mid",
+              "description": "--dots 1, counter ~063%, caption 05 at opacity 1 while its neighbours sit at 0 with translate-y-3 and blur(2px)."
+            },
+            {
+              "name": "after",
+              "description": "--dots 1, counter 100%, caption 08 'Your turn.' at opacity 1."
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev4"
+          ]
         },
         {
-          "name": "floating-reverse",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "同上，-15px"
-        },
-        {
-          "name": "shadow-blur",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "无限循环：0% blur(1.3rem) grayscale(1) brightness(0) + scale(1) skew(30deg,-4deg) → 65% blur(0.8rem) + scale(0.85) + 同斜切 → 100% 回位（随悬浮物缩小）"
-        },
-        {
-          "name": "spark",
-          "duration": "3s",
-          "easing": "ease-in-out",
-          "delay": "0s",
-          "trigger": "无限循环：scale 0 → 1 → 0"
-        },
-        {
-          "name": "spark-fast",
-          "duration": "2s",
-          "easing": "ease-in-out",
-          "delay": "0s",
-          "trigger": "同上，更快"
-        },
-        {
-          "name": "rotating",
-          "duration": "26s",
-          "easing": "linear",
-          "delay": "0s",
-          "trigger": "无限循环：rotate 0→360（另有 .rotating-slow）"
-        },
-        {
-          "name": "pulsate",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "无限循环：scale 1 → 0.7 → 1"
-        },
-        {
-          "name": "tada",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "扭动：scaleX(1) → scale3d(0.9,0.9,0.9) rotate(-3deg) → scale3d(1.1,1.1,1.1) rotate(3deg) 交替"
-        },
-        {
-          "name": "flying",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "left -5% → 65% 70% → 110%（横穿）"
-        },
-        {
-          "name": "waveAnimation",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "background-position-x 0 → 200%（背景波）"
-        },
-        {
-          "name": "dash",
-          "duration": "1.4s",
-          "easing": "ease-in-out",
-          "delay": "0s",
-          "trigger": "无限循环：stroke-dashoffset 280 → 75 且 rotate(135deg) → 280 且 rotate(450deg)"
-        },
-        {
-          "name": "arrow-move",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "translate(-100%) → translate(100%)（箭头穿梭）"
-        },
-        {
-          "name": "right-to-left-marquee / left-to-right-marquee",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": "translate(0) ↔ translate(-50%)"
-        },
-        {
-          "name": "animateMenuOpen",
-          "duration": "0.4s",
-          "easing": "cubic-bezier(0.5, 0, 0, 1)",
-          "delay": "0s",
-          "trigger": "点击开菜单"
-        },
-        {
-          "name": "hover 状态（导航/图标）",
-          "duration": "",
-          "easing": "",
-          "delay": "",
-          "trigger": ".header-menu__title:hover span::after { transform: scaleX(1) }（下划线展开）／ .header__search-trigger:hover { transform: scale(1.25); filter: drop-shadow(...) } 且其六边形图标 rotate(180deg)／ .cover-image:hover { scale(1.05) }"
+          "name": "X-ray palette re-map",
+          "target": "html (role colour variables) plus per-element annotation notes",
+          "trigger": "clicking the nav X-ray button",
+          "driver": "Class toggle on the root element; CSS custom properties re-resolve (paper #f4f4f2 to #0b0c10, ink #121214 to #eeeeea, line to #1212146b) and annotation labels become visible. Toggling again restores the light palette.",
+          "duration": null,
+          "easing": null,
+          "delay": null,
+          "states": [
+            {
+              "name": "before",
+              "description": "aria-pressed false; paper #f4f4f2 / ink #121214; annotation notes display none."
+            },
+            {
+              "name": "after",
+              "description": "aria-pressed true; paper #0b0c10 / ink #eeeeea; an overlay canvas at z-index 79 goes from opacity 0 to 1 and the rationale notes for on-screen elements become visible (5 in view at 1440x900)."
+            }
+          ],
+          "status": "observed",
+          "evidence_ids": [
+            "ev5"
+          ]
         }
       ],
-      "extracted_mechanism": "巨字压满幅图的分幕装置：底色恒定不变，每幕用一张满幅图当色场，巨字块直接压在图上层（字色从图里挑）；字块由「逐词拆字 + 外层 overflow:hidden 遮罩」构成，未进入视口时 opacity:0 + translateY(min(100%,80px))，进入后逐词归位形成上抽揭示；层级靠 kicker 16px 与巨字 250px 的 15.6 倍字号差建立；分幕之间以上投影制造层叠感。",
-      "dont_copy": "四条：①**配色本身不精致，别把它的色板当范本**——8 个高饱和原色并置并不好看，它成立是因为色块被放大到满幅、与 250px 巨字并置，靠尺度压住了艳度；抄到小尺寸界面会立刻显廉价。②**全大写 + 强制换行牺牲可读性**：一字母一行只对短英文词成立，中文、德文长词、需要连续阅读的段落都不适用。③**首屏文字全部依赖 JS 揭示**：文字初始 opacity:0，若脚本失败或爬虫/预览不执行 JS，正文是隐形空白的（本 demo 用 html.js 做渐进增强规避，但原站没做）。④**强依赖商用字体与大幅产品摄影**：原站用 Ringold（商用）与大量商品图，代码复刻只能以系统无衬线 + 纯色场替代，观感必然打折。",
+      "extracted_mechanism": "A surface with two layers — a calm, legible printed page and a second, genuinely hidden ink layer. A lens is parked at a dock and is lifted by a hold gesture; while it is held it is a fixed circular window (border-radius 50%, overflow hidden) containing a copy of the surface, transformed about its own top-left origin by translate(r - k*(pointer - surfaceOrigin)) scale(k) with k = 1.6, which is exactly the transform that magnifies the surface about the pointer. Because the window is circular and the copy carries the second layer forced visible, the hidden ink appears only inside the circle; the underlying sheet is additionally masked with radial-gradient(circle r*0.8 at lensCentre) so the same reveal holds on the real layer. Releasing parks the window back on the dock and clears the mask variables. There is no autonomous animation: everything is pointer-driven, so nothing needs pausing when the tab is hidden.",
+      "dont_copy": "The lens is a strong move but a costly one to use twice: a page that hides content behind a gesture needs the non-lens path to be genuinely present (this fragment uses reveal-all, no-JS and reduced-motion fallbacks), otherwise the notes are unreachable for keyboard, touch or reduced-motion users. Two further boundaries from the source: the held lens did not move in my synthetic touch runs, so the touch variant of the affordance is unverified here and should not be copied as a guarantee; and the original draws part of the lens rim on a difference-blend canvas, which is an implementation choice, not a design requirement — a box-shadow rim reads the same. Nothing here suggests the original failed at contrast or accessibility; those were not measured.",
       "tokens": {
         "colors": {
-          "ground": "#FFF7E9",
-          "ink": "#141723",
-          "pink": "#E8588A",
-          "neon": "#E0FF18",
-          "yellow": "#FFF200",
-          "lime": "#64F525",
-          "deep": "#38292B",
-          "field-blue": "#1F5FE0"
+          "paper": "#f4f4f2",
+          "paper_2": "#e9e9e6",
+          "ink": "#121214",
+          "ink_2": "#4a4a50",
+          "line": "rgba(18,18,20,0.12)",
+          "accent_red": "#d8332a",
+          "accent_deep": "#a8241d",
+          "dark_paper": "#0f0f11",
+          "xray_bg": "#0b0c10",
+          "xray_fg": "#eeeeea",
+          "xray_line": "#1212146b",
+          "glass_rim": "inset 0 0 0 1px rgba(255,255,255,0.35)",
+          "glass_inner_shade": "inset 0 0 22px rgba(18,18,20,0.1)"
         },
         "typography": {
-          "sceneTitleSize": "250px / 160px / 128px / 120px / 102px（逐幕变化，实测）",
-          "sceneTitleLineHeight": "170 / 205 / 213px（行高比 0.680 / 0.820 / 0.852，小字号同比）",
-          "sceneTitleLetterSpacing": "-0.02em（-5px @ 250px）",
-          "sceneTitleTransform": "uppercase",
-          "kickerSize": "16px（与巨字 250px 差 15.6 倍）",
-          "highlightColor": "var(--highlight-color)，用于标题内 .highlighted / b / strong 的局部换色",
-          "underline": "strong::after 画出的 0.025em 高小条，色走 var(--underline-color)",
-          "displayFont": "原站 Ringold（商用）→ 免费替代 system-ui / Helvetica Neue"
+          "display_source": "Bricolage Grotesque",
+          "display_substitute": "Archivo (bundled, SIL OFL 1.1)",
+          "h1_measured": {
+            "font-size": "103.68px",
+            "font-weight": 500,
+            "line-height": 0.96,
+            "letter-spacing": "-0.035em"
+          },
+          "text_source": "Space Grotesk",
+          "text_substitute": "Inter (bundled, SIL OFL 1.1)",
+          "hand_source": "Caveat",
+          "hand_substitute": "Kalam (bundled, SIL OFL 1.1)",
+          "mono_source": "IBM Plex Mono",
+          "mono_substitute": "system ui-monospace stack (not bundled)",
+          "fragment_h1": "clamp(2.5rem, 7.2vw, 7rem), weight 500, line-height 0.96, letter-spacing -0.035em",
+          "note_face": "Kalam 700, rotated by a per-note --hb-tilt"
         },
         "spacing": {
-          "sceneHeight": "整屏（实测 839 / 859 / 863 / 882 / 942px）",
-          "fullBleedWidth": "1278px（视口 1280，即满宽）",
-          "stackingShadow": "0 -30px 40px rgba(0,0,0,.25)（分幕层叠感）",
-          "revealOffset": "translateY(min(100%, 80px))"
+          "shell": "clamp(1.25rem, 5vw, 5rem)",
+          "nav_h": "4.5rem",
+          "dot_grid_pitch": "16px",
+          "lens_radius_desktop": "121px measured at 1440x900",
+          "lens_radius_narrow": "89px measured at 390x844",
+          "lens_diameter_measured": "242px 可见玻璃（按住态亮度剖面：内容到 r≈120、圈环 122~134、140 外回纸色；r≈121 与 242px 相容）；原站镜片 canvas 元素本身为 324×324（r=162），两次测量口径不同",
+          "fragment_lens_radius": "clamp(88px, 8.4vw, 128px)",
+          "specimen_columns": "2.5rem minmax(6rem,14rem) 1fr minmax(6rem,10rem)"
         },
         "motion": {
-          "duration": "站点自有 @keyframes 共 25 个；逐个取到时长的 4 个：0.4s / 2.25s / 1.4s / 1s",
-          "easing": "linear、ease-in-out、cubic-bezier(0.5,0,0,1)、step-end",
-          "trigger": "以「进入视口加 .is-inview」与 hover 状态为主，非自动播放"
+          "ease_lens": "cubic-bezier(0.23, 1, 0.32, 1)",
+          "lens_fade_ms": 400,
+          "fragment_lens_park_ms": 420,
+          "zoom": 1.6,
+          "ink_radius_ratio": 0.79,
+          "fragment_ink_radius_ratio": 0.8,
+          "caption_crossfade_ms": 700,
+          "build_scroll_length": "480vh"
         }
       },
-      "api": "引入 src/scenes.css；每幕一个 section.scene + section.scene__field（色场）；标题里**每个词**包一层 .word > .word__in（.word 提供 overflow:hidden 遮罩，故每词独占一行）。变量：--field 场色、color 字色、--fs 字号、--lh 行高比、--highlight-color 局部高亮色、--underline-color 下划线色、--i 词序号（决定错峰延迟）。揭示由 demo 里 12 行脚本加 .is-inview 触发；未启用 JS 时（html 上没有 .js）词直接可见。",
+      "api": "window.HalbtonLens.create(rootEl, options) initialises a lens inside [data-lens-root] and returns an instance; it is also auto-initialised on every [data-lens-root] at DOMContentLoaded. Required markup inside the root: [data-lens-sheet] (the surface to magnify, and the containing block for the notes), [data-lens-glass] containing [data-lens-track], [data-lens-dock], optional [data-lens-count], [data-lens-all] and [data-note-id] elements with matching [data-dot]. Options: { zoom, reveal, holdDelay }. Instance API: revealAll(on) toggles the non-lens path and returns the new state; drop() parks the lens; destroy() removes every listener and the clone. Tune --hb-lens-r, --hb-zoom, --hb-reveal, --hb-drop and --hb-ease on the root.",
       "entrypoints": [
-        "src/scenes.css"
+        "src/lens.css",
+        "src/lens.js"
       ],
       "files": [
         "demo/index.html",
-        "src/scenes.css",
-        "shots/original-site.png",
-        "shots/demo.png"
+        "src/lens.css",
+        "src/lens.js",
+        "src/fonts/FONTS.md",
+        "src/fonts/archivo-0.woff2",
+        "src/fonts/inter-0.woff2",
+        "src/fonts/kalam-0.woff2",
+        "src/fonts/kalam-1.woff2"
       ],
       "deps": [],
-      "reuse_hints": "适合：品牌/活动/电商首屏、需要「一句话当主视觉」的落地页、章节式滚动叙事、展会/菜单/唱片等以文字为主体的场景；尤其适合「有大幅产品图/摄影素材可当色场」的品牌。别用：需要连续阅读的正文页、信息密度高的后台、中文长标题（强制换行对中文不成立）、需要小尺寸呈现的场景（力量全来自尺度）、以及没有 JS 也要保证正文可见的页面（除非照本 demo 做渐进增强）。",
-      "repro_notes": "①本条被复写过三版，v1 误记为「糖果配色主题」、v2 只改了轴与字段、v3（本条）才挖到真机制：原因是我一直在量「好测量的东西」（色值/字号），而它的看点在于**层叠关系与状态**。②**别把满幅图自带的大色块当成站点的配色方案**：全站底色恒为 rgb(255,247,233)，蓝/红等都是产品图自己的底色；取样时要把「图片」与「CSS 背景」分开（可用 document.elementsFromPoint 看字底下压着什么、用 img 的几何尺寸判断是否满幅）。③文字效果只在**状态切换**时可见，必须主动触发：枚举状态类名（.is-inview / .aos-animate / [split-text=\"fadeUp\"]）并对比状态前后的计算样式，静态首屏量不到。④@keyframes 要取**正文**（名字只是索引）：本条已拿到 floating / shadow-blur / spark / tada / flying / waveAnimation / dash / arrow-move / marquee 的关键帧原文；25 个里 2 个（onetrust-fade-in、ot-go-spin）属第三方 OneTrust cookie 组件，不计入。⑤`getAnimations().length === 0` ≠ 静态站点（本条站内有 25 个 keyframes + 147 处 transition）。⑥复刻时踩到两个真坑，都写在了 src/scenes.css 注释里：**容器上的 overflow:hidden 会变成滚动容器，使子元素的 view() 时间线以该容器为 scrollport**（改 overflow:clip）；**IntersectionObserver 对被跳滚跳过的元素不回调**（实测跳到底部只揭开 3/17 个词，改用 rAF 节流的滚动位置检查）。⑦色值由 rgb() 归一化为 hex。",
+      "reuse_hints": "Use it where a surface has a second layer worth earning: spec sheets, annotated drawings, code samples with commentary, product photography with hotspots, maps with notes. Requirements: the base surface must be readable on its own, the hidden layer must be genuinely additive (not the only copy of important text), and the page must be willing to give up 130ms of press before the lens lifts. The clone approach assumes the magnified surface is self-contained — it will not carry fixed or portalled content (overlays, tooltips, canvases drawn in screen space) into the lens, so keep such elements outside [data-lens-sheet]. Not suitable when the page is already scroll-jacked or when the second layer is longer than the lens can show: a lens reveals fragments, so the notes must work as fragments.",
+      "repro_notes": "Open demo/index.html directly from disk (file:// works; the bundled woff2 faces load without errors). At rest the lens sits on the dock at the top-right with glass opacity 0. Drag the dock (pointerdown then move) or press and hold anywhere on the sheet for 130ms; the lens follows the pointer, the sheet under it is magnified 1.6x and the note inside the circle appears. Move over a specimen note to tick it in the legend; release to park. On narrow viewports the fragment is still one screen at 390x844 with no horizontal overflow; the lens radius measures 89px there. Measurements above were taken live with CDP in Chromium at 1440x900 and 390x844 on 2026-10-11; the source tab had to be brought to the front with Page.bringToFront because requestAnimationFrame and document.timeline were frozen while the tab was hidden (the build section stayed at 000% until it was). Not verified: real touch hardware, the source's touch variant of the hold gesture (synthetic touch set the held state but did not move the lens), click-through of the lens on top of interactive elements at very small viewports, and any accessibility tree or contrast measurement of the original. Code budget: ~650 hand-written core lines (src/lens.css 416（复核后清理时加入因果注释块，原记 409）— the four @font-face blocks, the full token block and the no-JS / reduced-motion / dark-scheme fallbacks; src/lens.js 241 including comments). That is slightly over the 400–600 guide; the extra lines are degradation paths and inline documentation rather than hidden complexity. 选择器存疑（复核 #2 指出）：镜片的元素/类名记录（.loupe-hit / .loupe-glass / .loupe-page / .loupe-view）取自当时观察的近似描述；2026-10-13 复核在线上构建中对这些选择器 0 命中，实际镜片是 324×324 CSS px 的 <canvas class=\"pointer-events-none fixed left-0 top-0 z-[105] max-w-none will-change-transform\">，状态类 has-loupe / lens-held / loupe-held / loupe-live 确实存在（loupe-held 命中）。行为结论不受影响：--sr/--sx/--sy 与遮罩实测与记录一致。元素名应视为未定论项。",
       "variant_of": null,
       "verification": {
         "rendered_ok": true,
         "console_errors": 0,
         "screenshot": "shots/demo.png",
-        "checked_at": "2026-10-11T12:45:00+08:00",
-        "note": "demo 在 4 个视口实测（1440×900 / 1280×577 / 1920×1080 / 390×844）：标题零横向溢出、零纵向溢出；控制台 0 报错。揭示机制实测：顶部 1 个词已揭示、其余 16 个 opacity 0 且**视口内无未揭示元素**；直接跳到底部 17/17 全部揭示（跳滚不漏）；缓滚一遍后 17/17 opacity 1；回顶无空白词。floating / shadow-blur / spark 关键帧按原站原文复刻并常驻循环。字号取「宽度约束（最长单词字符数）」与「高度约束（行数 × 行高比）」的较小值，已按实测字形推进 0.588em/字符 反推。"
+        "checked_at": "2026-10-13T13:55:00+08:00",
+        "source_observed": true,
+        "mechanism_preserved": true,
+        "user_review": {
+          "passed": true,
+          "reviewer": "loupe-review-r2 · 独立子代理（Hermes 浏览器会话 Chromium + CDP；未参与本条目实现，也未参与第 1 轮复核与本次修订，未读旧实现）",
+          "cases": [
+            {
+              "invariant_id": "inv1",
+              "action": "file:// 直开 demo（1440×900，未经画廊）。静止读镜片/纸面 rect 与每条批注 visibility → 在镜位按下并拖过 (1100,300)(900,420)(760,470)(430,300) → 释放后 100ms/800ms 各读一次 → 另做三次对照：纸面空白处按住 400ms、纸面空白处 50ms 内单击、纸面空白处按下后 50ms 内拖动。",
+              "observation": "静止：镜心恰为镜位 (1309,116)、opacity 0、DOM 里没有克隆、三条批注 visibility:hidden。按住后 root.is-lifting＋html.hb-held，镜心与指针逐点重合，opacity→1；释放后 100ms 内退类、镜片回镜位、opacity 1→0.32→0，批注重新 hidden 且 --hb-r/--hb-x/--hb-y 被清空。空白处按住 400ms 抬起（镜心=指针）；50ms 内的单击与拖动都不抬起（不被当成按住，滚动安全）。控制台 0 错误。窄屏 390×844 重复按住—释放，同样成立（镜半径 88px，镜心=指针 (178,464)）。",
+              "viewport": "1440×900（并复测 390×844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv1-rest-1440.png",
+                "shots/demo-r2-inv1-held-1440.png",
+                "shots/demo-r2-inv1-released-1440.png",
+                "shots/demo-r2-narrow-rest-390.png",
+                "shots/demo-r2-narrow-held-390.png"
+              ]
+            },
+            {
+              "invariant_id": "inv2",
+              "action": "把镜片停在纸面标题处并缓慢平移：分别在 (712,300)、(760,340)、(900,500)、(940,500) 四个指针位置，读镜心屏幕坐标、纸面与 .hb-clone 中同名元素（标题、引言、样张小字/粗体/数值、顶栏小字）的中心，按 cloneC = 镜心 + 1.6×(纸面C − 镜心) 算预测偏差；再把镜片正对 m1/m2/m3 三条批注各自的真实中心，读克隆内该批注中心到镜心的距离；最后做像素级复核：同一视口先截静止帧，再截镜下帧，对穿镜心的 12 条扫描线用静止帧纸面剖面按候选 k（1.0–1.9，步长 0.05）重采样，与镜下剖面求平均绝对差，取最小者。",
+              "observation": "DOM：4 个指针位置 × 6 个元素，预测与实测最大偏差 0.51px（多数 ≤0.1px），即镜心底下正是该点纸面放大 1.6 倍后的内容；镜片正对 m1/m2/m3 中心时，克隆内对应批注中心距镜心 1.8px / 0.8px / 1.4px（指针取整带来的亚像素差）。纸面侧遮罩中心同步落在该批注自身中心（m2 的 --hb-x/--hb-y = 149.7px/25.1px ≈ 盒宽高的一半）。像素：12 条扫描线的剖面拟合在 k=1.6 时平均绝对差最小（k=1.6 → 10.7~16.5；k=1.5/1.65 → 13.6~19.4；k=1.1 → 53~60），放大倍数与锚点由像素独立确认。快速跳滚到页底再回顶后重测，同一批注仍在镜心 (998,878) 0.8px 内。",
+              "viewport": "1440×900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-lens-rest-1440.png",
+                "shots/demo-r2-lens-held-712-1440.png",
+                "shots/demo-r2-lens-held-760-1440.png",
+                "shots/demo-r2-scrolljump-held-1440.png"
+              ]
+            },
+            {
+              "invariant_id": "inv3",
+              "action": "把镜片正对三条批注各自的真实中心（m1 (606,711)、m2 (998,878)、m3 (785,732)，m3 先滚到可见高度）逐条截图；再用 PIL 统计镜圈（半径 120.95px）内近 #d8332a（容差 ±40，另报 ±12）的像素数。随后把镜片移到远离所有批注处 (250,150) 与拖动途中 (430,300) 重复统计，并在同一坐标的静止帧上统计作为对照。再做移除检验：仅在浏览器里注入 .hb-clone{box-sizing:content-box !important}（不改任何源码文件），在同一位置复测镜像与红墨；随后移除该注入并复测复原。窄屏 390×844 用镜半径 88px 复测一次。",
+              "observation": "镜圈内近 #d8332a 像素：正对 m1 = 1980、m2 = 1805、m3 = 1384（±12 收缩阈值 1487/1362/1122）；同一坐标静止帧 = 0；远离所有批注 = 0；拖动途中 = 0；镜圈外环带（+8px）仅 2~6 像素，是圆形裁剪边缘的抗锯齿。窄屏 390×844：正对 m2 镜圈内 1776，静止帧同区域 0。移除检验：克隆改成 content-box 后克隆盒由 2280×1785.6 变成 2510.4×2131.2，克隆内 m2 中心距镜心由 0.8px 变成 396.5px，镜圈内红墨由 1805 变成 0；去掉注入样式后三项全部复原 —— box-sizing:border-box 正是这条不变量成立的关键，红墨只在镜圈内出现。",
+              "viewport": "1440×900（并复测 390×844）",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv3-note-m1-1440.png",
+                "shots/demo-r2-inv3-note-m2-1440.png",
+                "shots/demo-r2-inv3-note-m3-1440.png",
+                "shots/demo-r2-inv3-away-1440.png",
+                "shots/demo-r2-removaltest-before-1440.png",
+                "shots/demo-r2-removaltest-boxsizing-1440.png",
+                "shots/demo-r2-narrow-held-390.png"
+              ]
+            },
+            {
+              "invariant_id": "inv4",
+              "action": "读 .hb-glass 与 .hb-rim 的计算样式（border-radius、overflow、background、box-shadow、尺寸）；按住镜柄把镜片扫过纸面角与边：(20,860)(1425,880)(720,880)(20,20)(1400,20)(720,60)(400,600)(1050,300)，每一步同时读纸面 rect、documentElement 的 scrollWidth/scrollHeight、标题框与第 2 行样张的 rect；随后快速跳滚到页底再回到顶部，重测同一批读数。",
+              "observation": "镜片：border-radius 50%、overflow hidden、background rgb(244,244,242)＝纸色（不透明，读作一片地面而不是透明放大镜）、box-shadow inset 0 0 0 1px rgba(255,255,255,.35) + inset 0 0 22px rgba(18,18,20,.1)，镜径 241.91px。八个扫描点的纸面 rect 恒为 [0,0,1425,1116]，scrollWidth 恒 1425、scrollHeight 恒 2283，标题框恒 [72,267,1281,99.53]、第 2 行样张恒 [72,830.4,1281,121.8]；移动镜片既不推动也不回流纸面。跳滚到页底（scrollY 1383）再回顶后，纸面读数与镜片行为不变，控制台 0 错误。",
+              "viewport": "1440×900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv4-sweep-1440.png",
+                "shots/demo-r2-scrolljump-bottom-1440.png",
+                "shots/demo-r2-scrolljump-held-1440.png"
+              ]
+            },
+            {
+              "invariant_id": "inv5",
+              "action": "① 用 CDP 关闭 JS 重载，截图后用 PIL 在三条批注的静止位置与镜位区数红墨；② 正常重载后用 Tab 走焦点顺序、在「Reveal all notes」上按空格触发，读 aria-pressed、root 类名、三条批注的 visibility 与 mask，再在 reveal-all 打开的状态下把镜片停在 m2 上、释放后读图例；③ 用 CDP 模拟 prefers-reduced-motion:reduce，读过渡时长并重做一次按住；④ 读图例计数与圆点的 is-found 是否保留。",
+              "observation": "① 无 JS：html 保留 no-js，m1/m2 批注静止位置分别 1467/1415 个红墨像素（全屏 2887）、镜柄不渲染（镜位区 0 红像素）——批注无需镜片即可读；② 键盘：焦点顺序为 wordmark 链接 → 「Reveal all notes」→ 镜柄，空格触发后 aria-pressed=true、root.is-revealed、三条批注 visibility:visible 且 mask-image:none；reveal-all 打开时再按住镜片，m2 被读到并在图例打勾（1 / 3）；③ reduced-motion：.hb-glass/.hb-dock 的 transition-duration 为 0s，按住仍抬起（opacity 1）且镜下红墨照常出现（镜圈内 2036 像素）；④ 释放后图例保留已读计数、圆点保留 is-found，未读的仍为空。",
+              "viewport": "1440×900",
+              "result": "pass",
+              "artifacts": [
+                "shots/demo-r2-inv5-nojs-1440.png",
+                "shots/demo-r2-inv5-revealall-1440.png",
+                "shots/demo-r2-inv5-revealall-held-1440.png",
+                "shots/demo-r2-inv5-reducedmotion-held-1440.png"
+              ]
+            }
+          ],
+          "note": "第 2 轮独立复核（2026-10-13，1440×900 与 390×844，file:// 直开未入库 demo）：5 条不变量全部实测 pass，控制台 0 错误（含资源加载错误监听），故填 reviewer 并置 rendered_ok=true。关键实测：镜心底下就是该点纸面绕指针放大 1.6 倍的内容（DOM 预测偏差 ≤0.51px，像素剖面拟合 k=1.6 最优）；红墨只在镜圈内出现（正对 m1/m2/m3 时镜圈内 1980/1805/1384 像素，其余状态 0）；移动镜片时纸面 rect/scrollWidth 恒定；无 JS、键盘 reveal-all、reduced-motion 三条替代路径都能读到全部批注。同视口（1440×900）、同片段（抬起镜片态）的原站对照：原站按住不动时 html 得到 loupe-held/loupe-live、.secret-ink 变为 visible 且 --sr=95.8px，镜圈内新增约 1267 个红色像素（#ff3e3e），静止帧同区域 501 个——原站与 demo 都在镜下浮出纸面上不存在的红墨；本 demo 同状态为 +1875 个 #d8332a 像素。第 1 轮的 box-sizing 缺陷确已修复且在浏览器内可复现其移除效应（见 inv3 case）。"
+        },
+        "note": "第 2 轮独立复核通过（2026-10-13，复核者 loupe-review-r2，未参与实现与修订）：5 条不变量逐条实测 pass，console_errors=0，故 rendered_ok=true。第 1 轮（inv2/inv3 fail）的记录保留在 README「独立操作复核与未验证项」中并标为作废，仅作修订过程凭证。仍在 README 未验证项中如实列出的缺口（真实触摸硬件、原站触摸分支、极小视口点击穿透、原站对比度/无障碍树）不影响本片段 5 条不变量的判定。"
       }
     }
   ],

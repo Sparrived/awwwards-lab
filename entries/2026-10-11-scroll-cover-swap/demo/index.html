@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>demo · ORVE 封面换幕（scroll-consumed cover）</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../src/fonts.css">
+<link rel="stylesheet" href="../src/cover.css">
+<style>
+  /* 仅 demo 页外壳，不属于组件本身 */
+  html, body { margin: 0; }
+  body { background: #0b0b0c; color: #efece4; font-family: system-ui, "Noto Sans SC", sans-serif; }
+  .shell-note { padding: 1.1rem 6vw; font-size: .72rem; letter-spacing: .04em; color: #9c988e; border-bottom: 1px solid rgba(239,236,228,.12); }
+</style>
+</head>
+<body>
+
+<!-- ============ 前幕：浅色「品牌印章」封面 ============ -->
+<div class="orve-cover" data-orve-cover data-orve-chapter="#orve-chapitre">
+  <div class="orve-cover__stage" data-orve-stage>
+    <!-- 字标：先绘制，标记放大后会被它覆盖 -->
+    <div class="orve-cover__wordmark" aria-label="ORVE">ORVE</div>
+
+    <!-- 主体标记：径向对称品牌火花。原创 SVG 内联，无 JS 也可见；JS 只在缺失时兜底注入 -->
+    <div class="orve-cover__mark" data-orve-mark role="img" aria-label="ORVE 品牌记号"><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M50 50L46.63 35.38L50.00 4.00L53.37 35.38ZM50 50L57.95 37.28L82.53 17.47L62.72 42.05ZM50 50L64.62 46.63L96.00 50.00L64.62 53.37ZM50 50L62.72 57.95L82.53 82.53L57.95 62.72ZM50 50L53.37 64.62L50.00 96.00L46.63 64.62ZM50 50L42.05 62.72L17.47 82.53L37.28 57.95ZM50 50L35.38 53.37L4.00 50.00L35.38 46.63ZM50 50L37.28 42.05L17.47 17.47L42.05 37.28Z" fill="currentColor"/></svg></div>
+
+    <!-- 说明行 + 纵向标签窗：DOM 在标记之后，绘制在放大的标记之上 -->
+    <div class="orve-cover__below">
+      <p class="orve-cover__tagline">
+        Atelier de typographie et de mouvement
+        <span class="accent">nomade</span>
+      </p>
+      <div class="orve-cover__ticker" data-orve-ticker aria-hidden="true">
+        <ul class="orve-cover__track" data-orve-track>
+          <li>Typographie</li>
+          <li>Mouvement</li>
+          <li>Systèmes</li>
+          <li>Éditions</li>
+          <li>Signalétique</li>
+          <li>Interface</li>
+          <li>Typographie</li>
+          <li>Mouvement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 滚动提示：极小字 + 线段 + 走动的小点 -->
+  <div class="orve-cover__hint" data-orve-hint aria-hidden="true">
+    <span class="label">DÉFILER</span>
+    <span class="line"><i class="dot"></i></span>
+  </div>
+
+  <!-- 幕布：整屏墨色，随最后一段滚动落下 -->
+  <span class="orve-cover__veil" data-orve-veil aria-hidden="true"></span>
+</div>
+
+<!-- ============ 后幕：深色章节 ============ -->
+<main class="orve-chapter" id="orve-chapitre">
+  <div class="shell-note">滚动到封面底部即换幕：幕布落下，封面被消费，滚动基点回到本章顶部。右下角可复位封面。</div>
+  <header class="orve-chapter__bar">
+    <span class="orve-chapter__brand">ORVE</span>
+    <nav class="orve-chapter__nav">
+      <a href="#orve-chapitre">Atelier</a>
+      <a href="#orve-chapitre">Travaux</a>
+      <a href="#orve-chapitre">Contact</a>
+    </nav>
+  </header>
+  <div class="orve-chapter__body">
+    <h1>Une marque se reconnaît <em>avant</em> qu'on la lise.</h1>
+    <p>Nous dessinons des identités et des interfaces qui tiennent debout sans bruit : un signe, une ligne, un rythme.
+       Le reste est du silence bien placé.</p>
+    <p>Chapitre sombre = état « après » du fragment : la même page, une fois la couverture consommée.</p>
+  </div>
+</main>
+
+<!-- 旁侧面板：参数、测量与复位，不属于片段主体 -->
+<aside class="orve-panel">
+  <details>
+    <summary>片段参数 / 测量 / 复位</summary>
+    <dl>
+      <dt>封面高度</dt><dd>100svh（换幕阈值 = 一屏）</dd>
+      <dt>标记放大</dt><dd>1× → 31×，onset 0.26，指数 2.4</dd>
+      <dt>列表自走</dt><dd>常驻循环带 12.9px/s，与滚动位置无关</dd>
+      <dt>提示淡出</dt><dd>前 34% 进度</dd>
+      <dt>幕布</dt><dd>进度 0.86 起落满</dd>
+    </dl>
+    <button type="button" id="orve-reset">复位封面</button>
+  </details>
+</aside>
+
+<script src="../src/cover.js"></script>
+<script>
+  (function () {
+    var btn = document.getElementById('orve-reset');
+    btn.addEventListener('click', function () {
+      var api = window.OrveCover;
+      if (api && api.instances[0]) api.instances[0].reset();
+    });
+  })();
+</script>
+</body>
+</html>

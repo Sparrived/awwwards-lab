@@ -5,7 +5,7 @@
     "live_url": "https://ringpopcandy.com/",
     "title": "Ring Pop® Candy",
     "decision": "accepted",
-    "reason": "配色主题：暖米白底+单一墨色+一组高饱和糖果原色，色可实测，机制清晰（入库 candy-palette-theme）"
+    "reason": "v2 重做（2026-10-13，按最新提示词由独立 Agent 从零重做）：真正出众处不在配色，而在**页脚的可抛掷糖环物理玩具**——7 件糖环自色场上方画外下落、落地互撞压叠静置，可抓取拖动、释放保留抛出速度再被重力拉回；入库 `2026-10-11-throwable-sweets-footer`，第 2 轮独立复核 5/5 不变量实测通过。原 v1 条目 giant-type-scenes 与此前的 candy-palette-theme 均已被取代并从库中移除。"
   },
   {
     "date": "2026-10-11",
@@ -13,7 +13,7 @@
     "live_url": "https://ownitt.fr/",
     "title": "Ownitt",
     "decision": "accepted",
-    "reason": "动效：网格瓦片错峰揭示（cellReveal 900ms / stagger 75ms / cubic-bezier(0.65,0,0.35,1)），CSS 规则可取，机制明确（入库 staggered-cell-reveal）"
+    "reason": "v2 重做（2026-10-13，同上）：真实机制是**滚满一屏即被消费的封面换幕**——记号绕中心连续放大约 31 倍吞满视口、提示在前段退场、幕布铺满后封面移出文档流并把滚动基点回顶；原 v1 把纵向标签列表读作「滚动擦洗+末行夹紧」，第 1 轮独立复核在原站零输入下实测证伪（自走循环带 12.85–13.33px/s），已改正并重做；入库 `2026-10-11-scroll-cover-swap`，第 2 轮独立复核 5/5 通过。原 v1 条目 staggered-cell-reveal 已移除。"
   },
   {
     "date": "2026-10-11",
@@ -150,5 +150,13 @@
     "title": "Crow",
     "decision": "rejected",
     "reason": "仅 1 个 scroll 箭头动画 + canvas，动效素材过少"
+  },
+  {
+    "date": "2026-10-13",
+    "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
+    "live_url": "https://metic.studio/en",
+    "title": "metic. – Take a closer look",
+    "decision": "accepted",
+    "reason": "**按住抬起的圆镜（hold-to-lift lens）**：按住时镜下纸面绕指针放大 1.6×，只有镜圈内浮出手写红墨批注，释放归位墨迹隐去；入库 `2026-10-11-loupe-hidden-ink`，第 2 轮独立复核 5/5 通过（复核揪出克隆体 border-box/content-box 错位并已修复）。原 v1 条目 paper-ink-catalog（只交了配色/字阶 token）已被取代；其主题样式表已解耦为 templates/gallery-theme.css 供画廊使用。"
   }
 ]

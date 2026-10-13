@@ -1,0 +1,446 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-11-scroll-cover-swap",
+  "date": "2026-10-11",
+  "category": "motion",
+  "source": {
+    "awwwards_url": "https://www.awwwards.com/sites/ownitt-2",
+    "live_url": "https://ownitt.fr/",
+    "title": "Ownitt",
+    "author": "Ownitt",
+    "award_date": "",
+    "tags": [
+      "design agencies",
+      "web & interactive",
+      "animation",
+      "portfolio",
+      "scrolling",
+      "transitions",
+      "storytelling",
+      "gsap",
+      "react",
+      "next.js"
+    ],
+    "observed_at": "2026-10-11 16:00 (CST, UTC+08:00)",
+    "route": "https://ownitt.fr/ 首页根路由；首访（localStorage.ownitt_intro_seen 未设置）时首屏为浅色「品牌印章」封面，重复访问会跳过该封面直接进深色首屏；本轮所有观察均在首访封面状态下取样"
+  },
+  "summary": "浅色品牌封面在滚动中被消费：主体标记绕固定中心放大到吞满视口，纵向标签列表是持续自走的循环带、滚动提示在前段淡出，最后一段滚动落下整屏幕布，滚满一屏后封面退出文档流、深色章节接管并把滚动基点拉回顶部。本次实现这个「封面 → 换幕」的最小完整体验片段，前幕与后幕两个状态都在。",
+  "strength": "scene-choreography",
+  "expression": "这个关系有效的理由不是「动效炫」，而是它把品牌自证浓缩成一次空间事件：首屏只有品牌记号、字标、一句定位与一串地名，用户在原地不动的情况下看见记号从一个小徽记长大到吞掉整屏——尺度变化本身承担了「Ownitt 无处不在」这句品牌主张的信息层级，而不是靠额外文案去说。第二层判断是节奏控制：滚动提示在封面早期就退场、幕布在尾段落下、滚满一屏即换幕，于是「还有多少」被这两个信号量化。需要把事实与判断分开：**标签列表并不承担这个量化**——它在零输入时也以约 12.9px/s 匀速自走，与滚动位置无关，是持续的环境带，不是进度指示。（初稿曾把它读作「滚动擦洗到末行夹紧」，第 1 轮独立复核在零输入下实测证伪，见 repro_notes 与 README 复核节。）需要区分事实与解释：实测到的是尺度、位置与透明度的连续映射（见 evidence）；「尺度变化=品牌主张」「节奏让用户预期换幕」是我的设计判断，不是转化率事实。",
+  "composition": "前幕：整屏浅色纸（#F4F1EA），单一居中纵列，视觉重心压在纵列中段，四周留白均匀；自下而上依次为字标（先绘制，会被放大的标记覆盖）、品牌记号（相对定位并压在其上）、说明行（小字距大写 + 一行大号斜体强调）、固定高度标签窗。层叠由 DOM 顺序与定位层决定，实测命中顺序：字标最下 → 标记 → 说明行/标签窗 → 滚动提示 → 幕布（整屏最上）。标记是径向对称的单色记号，放大约 31 倍后其可见范围覆盖整屏上下缘，仍以自身中心为锚点，因此放大过程不会把构图重心甩出画面。后幕：整屏墨色（#0A0A0B），大号衬线标题 + 灰白正文，横向留白明显小于前幕，形成「纸 → 幕」的对比。断点：窄屏（390×844）下纵列宽度收窄、字号与记号的初始尺寸按比例缩小，堆叠顺序与「标记绕中心放大」的关系不变，实测无横向溢出。",
+  "highlights": [
+    {
+      "id": "h1",
+      "rank": 1,
+      "name": "滚满一屏即被消费的封面（换幕）：记号放大吞屏 + 幕布落下 + 滚动基点回顶",
+      "why_it_matters": "首屏的辨识度全部押在这一次空间事件上：不做就地淡出或位移，而是让品牌记号在缩放中吞掉画面、由落下的幕布收束，并把整块封面从文档流里撤走。移除这个关系（只留颜色和字号），首屏就退化成一个静态徽记页——用户第一眼读不到「这是一个把记号当主角的品牌」，这是该作品最不可替代的萃取点。",
+      "dependencies": [
+        "径向对称的单色品牌记号（可无级放大且不失去轮廓）",
+        "固定中心锚点：放大时重心不漂移",
+        "封面高度=一屏，使「换幕阈值」可被直觉量化",
+        "浅色纸与深色幕的高对比，让落幕后不会出现亮度跳变",
+        "滚动提示的早期退场，给放大过程让出注意力"
+      ],
+      "evidence_ids": [
+        "ev1",
+        "ev2",
+        "ev3",
+        "ev4"
+      ]
+    },
+    {
+      "id": "h2",
+      "rank": 2,
+      "name": "钉住的文本舞台：逐词浮现后按 beat 交叉淡出的滚动擦洗",
+      "why_it_matters": "中段的长文案不靠一次性入场，而是把句子拆成词、把段落拆成 beat，钉住一屏后用滚动量逐词点亮、再交叉淡出到下一段。它让「读一段宣言」变成有进度感的事件，而不是等待打字机结束。作为独立亮点，它证明了同一站里「滚动=时间轴」的一致做法；但它与前一个亮点共享驱动方式而非构图，因此排在 h1 之后。",
+      "dependencies": [
+        "一屏高的舞台 + 数倍于它的滚动占位（pin/lock 场景）",
+        "可逐词寻址的文本结构",
+        "每段文案长度接近，交叉淡出才不会露出空窗"
+      ],
+      "evidence_ids": [
+        "ev5"
+      ]
+    },
+    {
+      "id": "h3",
+      "rank": 3,
+      "name": "首屏图的滚动视差 + 固定标签下的纵向滚动关键词",
+      "why_it_matters": "深色首屏用两个小动作维持「页在动」的感觉：背景图以约 0.194 倍速平移形成视差，固定标签旁的纵向关键词轨按行滚动，在有限宽度里塞进一长串业务词。它支撑语气与信息密度，但不改变页面结构，属于可迁移性中等、辨识度最低的辅效，故排第三。",
+      "dependencies": [
+        "可裁切的满幅背景图（视差需要溢出余量）",
+        "固定宽度的标签槽，关键词才不至于推动版式",
+        "关键词长度相近，逐行步进不会跳动"
+      ],
+      "evidence_ids": [
+        "ev6",
+        "ev7"
+      ]
+    }
+  ],
+  "selected_fragment": {
+    "highlight_id": "h1",
+    "scope": "只做「封面 → 换幕」这一段：一屏浅色品牌封面（字标 / 径向记号 / 说明行 / 固定高度标签窗 / 滚动提示 / 整屏幕布），加上它下面的深色章节当作后幕。实现封面内的三条滚动映射（记号放大、提示淡出、幕布落下）与一条与滚动位置无关的自走循环带（纵向标签列表）与滚满一屏后的消费：封面退出文档流、滚动基点回到章节顶部。不做原站的长页面其余区块、不做钉住的文本舞台、不做首屏视差与关键词轨。",
+    "rationale": "换幕这个关系是整站辨识度的入口，而且天然含「前幕/后幕」两个状态与「滚满一屏」的明确触发，正好构成一个最小完整体验片段；它依赖的素材全部可以原创（记号是几何图形、文案是自拟），不需要搬运原站的摄影、字体或代码；实现上用一个滚动进度映射 + 一次消费收束即可，符合小而完整的预算。",
+    "invariants": [
+      {
+        "id": "inv1",
+        "description": "封面是一屏浅色纸上的单一居中纵列：品牌记号、字标、说明行、纵向标签窗、滚动提示自上而下叠放（字标→记号→说明行→纵向标签窗→滚动提示），深色墨压在浅色纸上（纸/墨/幕的高对比是构图前提）。"
+      },
+      {
+        "id": "inv2",
+        "description": "品牌记号在滚动中绕自身中心连续放大，从约 49px 长到吞满视口（近指数加速、约 31 倍），放大过程中其中心锚点不漂移。"
+      },
+      {
+        "id": "inv3",
+        "description": "纵向标签列表在固定高度窗口内是一台持续自走的循环带：不做任何滚动输入时也以约 12.9px/s 匀速推进（原站 1440×900 无输入实测 12.85px/s）；原站以整份列表两拷贝实现无缝回绕；它的位移与滚动位置无关。"
+      },
+      {
+        "id": "inv4",
+        "description": "滚动提示在封面早期（约前三分之一行程）就淡出，不贯穿整个封面。"
+      },
+      {
+        "id": "inv5",
+        "description": "滚满一屏后封面被消费：整屏幕布先落满，随后封面移出文档流，后幕（深色章节）接管并把滚动基点回到章节顶部；换幕后继续上滚也不会让封面复活。"
+      }
+    ],
+    "omitted": [
+      "原站首页除封面之外的其余区块（本地锚点、钉住的文本舞台、项目墙、服务、客户墙、博客、页脚）",
+      "原站的入场动画（门扇 / 颗粒遮罩 / 字标入场）",
+      "首屏摄影、品牌字体文件、原站字标 SVG 与任何原站文案",
+      "原站「封面只出现一次、之后永久跳过」的持久化策略（demo 改为进程内一次性 + 可复位，见 dont_copy / repro_notes）",
+      "原站标签窗的竖向渐隐遮罩（mask-image: linear-gradient(transparent 0%, #000 32%, #000 68%, transparent 100%)）；demo 只有 overflow:hidden"
+    ],
+    "asset_substitutions": [
+      {
+        "role": "品牌记号（径向对称单色徽记，需能放大到满屏）",
+        "substitute": "自写原创 SVG：8 支由中心收细到尖端的火花臂，viewBox 100×100，单色 currentColor",
+        "kept": "径向对称、单色、中心锚点、可无级放大且轮廓不糊",
+        "loss": "原站记号的字符细节与字标锁定关系不同；不声称造型等价"
+      },
+      {
+        "role": "字标（原站为自有 SVG 字标）",
+        "substitute": "原创文字字标 ORVE，用替代衬线排版",
+        "kept": "占据纵列顶部、先绘制会被放大记号覆盖的层级",
+        "loss": "不是定制字形，字面宽度与原站不同"
+      },
+      {
+        "role": "高对比商业衬线（原站 IvyPresto Display）",
+        "substitute": "Orve Display = Playfair Display（SIL OFL 1.1，已本地打包，见 src/fonts/OFL.txt）",
+        "kept": "高对比衬线性格、斜体与原体的反差、字面率偏大",
+        "loss": "字重曲线与字距不同，行末断行位置不同；不声称等价替代"
+      },
+      {
+        "role": "纵向地名列表",
+        "substitute": "自拟的六个专业词列表（Typographie / Mouvement / Systèmes / Éditions / Signalétique / Interface）",
+        "kept": "固定高度窗口内的纵向短标签列表，自走循环推进并与滚动位置无关",
+        "loss": "语义从地名变为业务词，长度分布更均匀；原站为自走循环带，本次已按实测改正（初稿曾误读为滚动擦洗）"
+      },
+      {
+        "role": "后幕（深色章节）",
+        "substitute": "自拟标题与正文的深色章节",
+        "kept": "整屏墨色、大号衬线标题 + 正文、与前幕的纸/幕对比",
+        "loss": "不使用原站首屏摄影，后幕的视觉密度低于原站"
+      }
+    ]
+  },
+  "motion_catalog": [
+    {
+      "name": "品牌记号随滚动放大吞屏",
+      "target": "封面纵列中的径向品牌记号",
+      "trigger": "页面滚动（进度 = scrollY / 封面高度）",
+      "driver": "滚动位置映射；rAF 节流读取 scrollY，映射为 transform: scale()，约 31 倍、近指数加速",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {
+          "name": "before",
+          "description": "scrollY=0：记号约 49px，居中静置在字标下方，视觉上是徽记尺度"
+        },
+        {
+          "name": "after",
+          "description": "原站在 scrollY≈600px 时记号组 1514px（scale≈31）、到 899px 时包围盒已达 6186px（matrix 反推 scale≈91.7，另叠加约 170° 自转），中心始终固定；demo 上限固定 31×、不自转"
+        }
+      ],
+      "status": "observed",
+      "evidence_ids": [
+        "ev2"
+      ]
+    },
+    {
+      "name": "纵向标签列表持续自走（循环带）",
+      "target": "封面固定高度标签窗内的纵向轨",
+      "trigger": "页面加载后常驻运行；滚动与指针都不触发它",
+      "driver": "常驻 rAF 循环，按实测速度（tickerSpeed 12.9px/s）累加 translate3d，到循环长度（不重复行数×行高）无缝回绕",
+      "duration": null,
+      "easing": "linear（匀速；原站实测匀速，非缓动）",
+      "delay": null,
+      "states": [
+        {
+          "name": "before",
+          "description": "位移 0，列表停在轨首"
+        },
+        {
+          "name": "after",
+          "description": "位移推进到一个循环长度后回到轨首，视觉上无缝衔接（无夹紧/停顿）"
+        }
+      ],
+      "status": "observed",
+      "evidence_ids": [
+        "ev2"
+      ]
+    },
+    {
+      "name": "幕布落下与封面消费（换幕）",
+      "target": "整屏幕布 + 封面容器 + 深色章节",
+      "trigger": "滚动到封面底部（scrollY ≥ 一屏）",
+      "driver": "滚动进度映射（幕布不透明度）+ 一次收束过渡（消费动作），随后由 JS 把封面移出文档流并把滚动基点设回章节顶部",
+      "duration": 240,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {
+          "name": "before",
+          "description": "scrollY 在封面行程内：幕布不透明度 0 → 1（最后约 14% 行程），封面仍在文档流中并钉在视口上"
+        },
+        {
+          "name": "after",
+          "description": "scrollY 达到一屏：封面容器 display:none、移出文档流，深色章节成为首屏，滚动基点回到章节顶部，文档高度随之缩短"
+        }
+      ],
+      "status": "observed",
+      "evidence_ids": [
+        "ev2",
+        "ev3"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev1",
+      "claim": "首访首页首屏是一屏浅色「品牌印章」：纸色实测 rgb(244,241,234)，墨色 rgb(10,10,11)，纵列自下而上为字标、径向记号、说明行（小字距大写 + 大号斜体强调）、固定高度标签窗、滚动提示；封面高度等于一屏。",
+      "status": "observed",
+      "method": "浏览器在 1440×900 下直接打开原站（清掉 localStorage.ownitt_intro_seen 以复现首访封面），等入场动画结束稳定后读取 getBoundingClientRect 与 getComputedStyle",
+      "route": "https://ownitt.fr/",
+      "target": "[class*=AsteriskHero][class*=creamSection] 及其字标/记号/说明行/标签窗/滚动提示/幕布子元素",
+      "action": "直接打开并等待入场结束（约 9s）；滚动保持在 0",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/original-site.png",
+        "shots/private/original-focus-before.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev2",
+      "claim": "封面内的滚动映射实测：记号组宽度 49px → 1514px（≈31×，非匀速、中段起加速，组中心始终固定在视口同一高度）；滚动提示不透明度 1 → 0（约前 1/3 行程）；标签列表在不发出任何滚动输入、scrollY 恒为 0 时仍以约 12.9px/s 连续自走（自走循环带，不是滚动位置映射）。",
+      "status": "observed",
+      "method": "首访状态（清 localStorage.ownitt_intro_seen，等入场约 9s 结束）×1440×900；滚动逐档读记号组包围盒与中心；再保持 scrollY=0、零输入连续采样标签轨 transform 4s（复核者 4s、修复者 4s 各一轮，结论一致）",
+      "route": "https://ownitt.fr/",
+      "target": "封面记号组、标签轨、滚动提示、幕布",
+      "action": "把页面滚动从 0 逐档推进到一屏，记录每档的几何与不透明度",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/original-focus-mid.png",
+        "shots/private/reviewer-original-mid-1440.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev3",
+      "claim": "换幕真实发生：滚动到达约一屏（≈900px）时封面包裹与其中元素从 DOM 消失，文档高度 32000 → 30200，window.scrollY 在同一帧被重置为 0，深色章节成为首屏。",
+      "status": "observed",
+      "method": "同一滚动扫描中对比相邻档位的 document.documentElement.scrollHeight、scrollY 与封面元素是否仍存在",
+      "route": "https://ownitt.fr/",
+      "target": "封面容器（卸载）与 documentElement（高度/滚动位置）",
+      "action": "把滚动推进过一屏阈值，逐档读取高度、滚动位置与元素存在性",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/original-focus-after.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev4",
+      "claim": "窄视口 390×844 下封面仍是同一套居中纵列（字标 218×120、记号 28×28、说明行 284×54、标签窗 220×108），字号按断点缩小（标签行 17px），无横向溢出（scrollWidth−innerWidth=0）。",
+      "status": "observed",
+      "method": "CDP 覆盖设备尺寸为 390×844 后重载页面，读取各元素矩形与文档宽度差",
+      "route": "https://ownitt.fr/",
+      "target": "封面纵列各元素与 documentElement",
+      "action": "在窄视口重载并读取几何",
+      "viewport": "390x844",
+      "artifacts": [
+        "shots/private/original-cover-narrow.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev5",
+      "claim": "深色章节中的宣言场景被钉住：滚动进入后舞台 computed position 由 relative 变为 fixed 并保持（滚动 4100–6500 区间），句首各词的不透明度随滚动逐词爬升（例如 4400 时为 0.95/0.90/0.81/0.68/0.47/0.19），随后相邻文本块以交叉淡出切换（beat 不透明度 1→0 与 0→1）。",
+      "status": "observed",
+      "method": "逐档滚动后读取舞台的 computed position 与各词/各文本块的不透明度",
+      "route": "https://ownitt.fr/",
+      "target": "[class*=Manifesto] 舞台、句首词、beat 块",
+      "action": "把页面滚动从 3800 推进到 6800（步长 300），逐档读取",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/original-manifesto-pinned.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev6",
+      "claim": "深色首屏：背景图容器随滚动平移（imageParallax 位移 0 → 174.96px，对应滚动 0 → 900px，约 0.194 倍）并在行程末夹紧；同区块的纵向关键词轨以 27px（一行）为步进跳进。",
+      "status": "observed",
+      "method": "逐档滚动读取背景图容器与关键词轨的 computed transform",
+      "route": "https://ownitt.fr/",
+      "target": "[class*=heroSection] 的 imageParallax 与关键词轨",
+      "action": "把页面滚动 0 → 1100（步长 100）并观察 transform 变化；另在不滚动时按 1.2s 间隔采样关键词轨确认逐行步进",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/original-hero-parallax.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev7",
+      "claim": "深色首屏里存在一组「标签不变、尾部词语切换」的文本：固定标签 + 纵向关键词轨，另有一份初始不透明度为 0、位置偏移的备选文本（正文为一句品牌释义）。",
+      "status": "source-supported",
+      "method": "读取这些元素的 DOM 结构、computed opacity 与 transform；用合成 MouseEvent 与 CDP 真实鼠标移动分别尝试触发切换均未观察到不透明度变化，故只记为源码支持",
+      "route": "https://ownitt.fr/",
+      "target": "[class*=agence] 下的固定标签、关键词轨与备选文本块",
+      "action": "读取结构；尝试悬停触发切换（未成功）",
+      "viewport": "1440x900",
+      "artifacts": [],
+      "publishable": false
+    }
+  ],
+  "extracted_mechanism": "把「一屏封面」当成一个有行程的舞台，而不是一张静态首图：封面高度即行程总长，滚动位置 p 驱动三条互不干扰的映射——主体记号绕固定中心近指数放大（尺度承担品牌主张）、滚动提示在前段退场（把注意力让给放大）、整屏幕布在尾段落满（收束）；另有一条**与滚动位置无关**的持续自走带（纵向标签列表，约 12.9px/s 匀速循环），它提供的是持续的环境动势而不是行程量化。p 到 1 时触发一次消费：封面退出文档流、后幕接管、滚动基点回到顶部，于是「翻过封面」成为一个不可回退的空间事件而不是一次可逆的滚动。复用要点：行程长度 = 一屏；四条映射各有独立区间不叠加；消费动作要么一次性要么可复位，不能让封面在半途复活造成滚动抖动。",
+  "dont_copy": "1) 「封面只出现一次、之后永久跳过」的持久化选择（原站用本地存储记住），适合真实访客的耐心假设，但会让 demo 复核、A/B 与截图脚本在下一次打开时看不到片段——本次实现改为进程内一次性并配复位按钮，这是取舍不是评判。2) 封面的行程长度被写死为正好一屏，使换幕阈值与视口高度绑定；内容更长或更短时这套量化感会失真，复用时应把行程长度参数化。3) 放大倍数到 31 倍时记号边缘会有明显的缩放采样痕迹（部分浏览器），属于放大策略的副产品，不是可复用优点。4) 未验证项：未测该段落在低端设备上的帧率与无障碍对比度，也未验证原站是否对 reduced-motion 做降级。 ④ 本条目初稿把该纵向列表读作「滚动擦洗 + 末行夹紧」，独立复核在零输入下实测到持续自走并证伪；已按实测重写不变量并改正 demo。复用该列表时注意它是自走循环带——不要描述成滚动映射，也不要拿它当可用滚动控制的进度指示。",
+  "tokens": {
+    "colors": {
+      "paper": "#F4F1EA",
+      "ink": "#0A0A0B",
+      "veil": "#0A0A0B",
+      "heroImageOverlay": "rgba(10, 10, 11, 0.34)",
+      "grainOverlay": "约 0.14 不透明度的颗粒层（深色首屏）"
+    },
+    "typography": {
+      "sourceFamilies": "封面正文/标题实测栈为 IvyPresto Display（商业衬线）+ 站点自有回落族；另加载 elza-condensed",
+      "tickerItem": "22.32px / line-height 40px / letter-spacing 0.02em，衬线",
+      "taglineMain": "15.84px / letter-spacing 2.85px(≈0.18em) / 大写",
+      "italicAccent": "34.56px 斜体衬线，紧接说明行",
+      "scrollLabel": "9px / weight 500 / letter-spacing 3.42px(≈0.38em)",
+      "stackBase": "封面容器 computed font-size 16px（用作 rem 基准）"
+    },
+    "spacing": {
+      "coverHeight": "一屏（1440×900 实测 900px；换幕阈值同为 900px）",
+      "centerColumn": "纵列宽度 ≈317–346px（标签窗 317、说明行 346）",
+      "stackGaps": "字标底 386 → 记号顶 426（≈40px）；记号底 475 → 说明行 514（≈39px）；说明行底 592 → 标签窗 620（≈28px）",
+      "tickerWindow": "窗口高 144px（≈3.6 行），轨总高 480px"
+    },
+    "motion": {
+      "markScale": "记号组宽度 49px → 1514px（≈31×）；中心锚点固定在视口同一高度；非匀速，中段起加速",
+      "hintFade": "原站滚动提示不透明度 1 → 0，行程约 0 → 160px（前约 18%；0.527@100 / 0.072@140 / 0@160）；demo 参数 hintFade=0.34（约 306px），淡出晚于原站",
+      "veil": "原站幕布不透明度 0 → 1，行程约 500 → 900px（p≈0.556 起、后半段铺满；逐档实测 500→0.0002 / 600→0.068 / 700→0.258 / 800→0.565 / 875→0.880 / 899→0.995）；demo 参数 veilOnset=0.86（最后约 14%），晚于原站",
+      "swapTrigger": "scrollY ≥ 一屏（900px）时封面卸载、文档高度 32000 → 30200、scrollY 重置为 0",
+      "pinnedStage": "深色章节宣言舞台 position:relative → fixed（滚动约 4100–6500），逐词不透明度爬升 + 文本块交叉淡出",
+      "tickerLoop": "纵向标签列表为自走循环带：原站 1440×900 零输入实测 ≈12.85px/s（4s 采样 −80.2→−131.6）、与滚动位置无关、无夹紧；demo 实现 tickerSpeed=12.9px/s，改后实测 10.32px/0.8s"
+    }
+  },
+  "api": "window.OrveCover = { Cover, markSvg, instances }。用法：给封面根元素加 data-orve-cover，并用 data-orve-chapter 指向后幕（默认 #orve-chapitre）；脚本自动在 [data-orve-cover] 上实例化。封面内部需要四个钩子：data-orve-mark（主体记号）、data-orve-ticker 与 data-orve-track（标签窗与轨）、data-orve-hint（滚动提示）、data-orve-veil（幕布）。实例方法：reset() 恢复封面并把滚动带回封面顶部；destroy() 解绑滚动/尺寸/可见性监听并撤销一次性的消费定时器；consume() 手动触发换幕（用于测试）。构造参数覆盖 DEFAULTS：markScaleMax / markOnset / markAccel / tickerSpeed / hintFade / veilOnset / settle。",
+  "entrypoints": [
+    "src/cover.js",
+    "src/cover.css",
+    "demo/index.html"
+  ],
+  "files": [
+    "demo/index.html",
+    "src/cover.js",
+    "src/cover.css",
+    "src/fonts.css",
+    "src/fonts/PlayfairDisplay-var.ttf",
+    "src/fonts/PlayfairDisplay-Italic-var.ttf",
+    "src/fonts/OFL.txt",
+    "README.md",
+    "SPEC.json"
+  ],
+  "deps": [],
+  "reuse_hints": "适用于「首屏需要一个可被翻过去的封面」的场景：品牌站首访、活动页开场、作品集开场、文档站的新版本封面。必要条件：一个可无级放大且轮廓不糊的主体元素（记号/字标/单一图形）、一段可量化的行程（用一屏高度最直觉）、以及与封面形成明暗对比的后幕，否则落幕时会看到亮度跳变。行程内的四条映射要各自占独立区间，不要让同一个进度同时驱动透明度与尺度，否则放大过程会被读成「淡出」。不适用：内容型长页（封面会拦住索引与分享锚点）、需要保留浏览器历史返回语义的页面（消费后回滚不会复原封面）、以及必须打印/静态导出的页面。素材要求：记号必须是矢量或高分辨率（31 倍放大会暴露采样痕迹），标签列表需长度相近以避免逐行步进的跳动。",
+  "repro_notes": "环境与测量：Chromium，1440×900 与 390×844 两个视口，deviceScaleFactor 1。原站观察必须在首访状态（清掉 localStorage 的 ownitt_intro_seen）并等入场动画（约 9s）结束；重复访问会跳过封面，会得到与本条目无关的取样。站点用 Lenis 平滑滚动，扫描时调用其 scrollTo(y,{immediate:true}) 并每档等一帧；后台/隐藏标签页里时间轴会冻结（document.timeline.currentTime 恒为 0），故先把标签页提到前台再取样。原站幕布不透明度在 860–900px 区间有约 0.30–0.84 的档位间波动（采样时机所致），本条目只记录区间不记录精确曲线。demo 复核路径：直接以 file:// 打开 demo/index.html（零构建）→ 从封面顶部按正常速度滚到底（约一屏）→ 观察记号放大、标签擦洗、提示淡出、幕布落下与换幕 → 换幕后上滚确认封面不复活 → 点右下角「复位封面」恢复 → 再把视口缩到 390×844 重复。未验证项：低端设备帧率、无障碍对比度、原站是否存在 reduced-motion 降级；原站换幕后深色章节的首屏摄影在本次片段中未复现。 修订记录（2026-10-11）：第 1 轮独立复核判 inv3 fail——原站在 scrollY 恒 0、无任何输入时citiesTrack 仍以约 12.85px/s 连续自走（复核者 4s 采样 −39.1→−87.3；修复者 4s 采样 −80.2→−131.6），证伪了初稿「滚动擦洗 + 末行夹紧」的读数。据此：① 重写 inv3 为「自走循环带」；② 改写 evidence.ev2 的结论与方法；③ 把 src/cover.js 的轨道从滚动映射改为常驻 rAF 自走循环（tickerSpeed 12.9px/s，轨末重复行做无缝回绕，隐藏标签页/换幕后停帧，reduced-motion 不实例化），改后 1440×900 实测 Δty=10.32px/0.8s=12.9px/s；④ 复核 #1 的 pass/fail 记录与实拍保留在 README 中并标注为已作废。第 2 轮复核待做。 待统一（复核 #1 指出）：幕布 onset 三处口径不一致——tokens.motion.veil 写 860→900px（最后约 5%）、demo 参数 veilOnset=0.86（最后约 14%）、复核者对原站实测 onset≈p 0.6；本轮未重新标定，留给第 2 轮复核。 参数健壮性（复核 #2 指出，未改代码）：veilOnset ≥ 1 时 (p-veilOnset)/(1-veilOnset) 分母变号、幕布恒为不透明；复用调参需约束取值域。 复核后清理（非行为改动，已自行复测）：demo 侧栏文案「列表擦洗/前 55% 夹紧不循环」改为「列表自走/常驻循环带 12.9px/s」，并删掉 src/cover.css 中已无引用的 --orve-ticker-span；因此复核帧里的侧栏文字是旧文案，但不变量相关行为（记号/提示/幕布/消费/自走）未变。",
+  "verification": {
+    "rendered_ok": true,
+    "console_errors": 0,
+    "screenshot": "shots/demo.png",
+    "checked_at": "2026-10-13T13:46:35+08:00",
+    "source_observed": true,
+    "mechanism_preserved": true,
+    "user_review": {
+      "passed": true,
+      "reviewer": "Hermes 独立复核子代理（第 2 轮；未参与本条目实现，也未参与第 1 轮修订；2026-10-13 CST；方式：直接 file:// 打开 demo，并自行首访原站重测）",
+      "cases": [
+        {
+          "invariant_id": "inv1",
+          "action": "以 file:// 直接打开 demo（1440×900，先 CDP 转前台让 rAF 运行）读首屏纵列几何、三色与 elementsFromPoint 命中顺序；再滚到 550/700/800 复测命中顺序以验证记号放大后的层序；窄屏 390×844 重复；随后自行首访原站（清 localStorage.ownitt_intro_seen 与 sessionStorage 后重载、等入场约 11s）在 1440×900 与 390×844 读同一批几何与色值对照",
+          "observation": "demo：封面是整屏浅色纸（rgb(241,237,226)）上的单一居中纵列，字标/记号/说明行/标签窗/滚动提示的 cx 全 = 712.5（窄屏 195）；墨 rgb(11,11,12)、幕布 rgb(11,11,12)；z 序 记号 1 < 说明行 2 < 提示 6 < 幕布 10（幕布 pointer-events:none）。命中顺序：字标→记号→说明行/标签窗→提示→幕布；记号放大到 296px/673px/1044px 时，在字标中心命中返回记号本身、在说明行与标签窗中心仍返回说明行/标签窗，说明放大后的记号压在字标之上却在说明行之下。原站同视口同构：纸 rgb(244,241,234)=#F4F1EA、墨 rgb(10,10,11)、纵列 317–346px、记号初始 49×49、标签窗 144px、滚动提示贴在列底；窄屏 390×844 记号 28×28、无横向溢出。",
+          "viewport": "1440x900（+390x844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv1-before.png",
+            "shots/demo-r2-narrow-inv1-before.png"
+          ]
+        },
+        {
+          "invariant_id": "inv2",
+          "action": "demo：用真实滚轮（CDP Input.dispatchMouseEvent mouseWheel，本环境实测可用）9×110px 逐段推到底，并在中途反向滚轮回滚；另用 window.scrollTo 逐档 0→899 读 [data-orve-mark] 的包围盒与中心；窄屏 390×844 重复。原站：同样逐档 0→899 读 [class*=asteriskGroup] 的包围盒与 computed matrix（反推 scale 与旋转角）",
+          "observation": "demo：记号 49px→1519px（=31×）连续单调、后段近指数加速；中心恒 (712.5,364.7) 不漂移（窄屏 28→861.6px，中心恒 (195,336.6)）；真实滚轮回滚可逆（scrollY 550/440/330/220 对应 294.6/137/63.1/49px，中心不动）。原站：记号组 49px→6186px 包围盒，computed matrix 反推 scale≈91.7（并叠加约 170° 自转），中心恒 (715,450)——同为绕固定中心连续放大直至吞满视口；差别只在倍率（原站终值大于 demo 的 31×）与是否叠加自转。",
+          "viewport": "1440x900（+390x844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv2-mid450.png",
+            "shots/demo-r2-inv2-mid700.png",
+            "shots/demo-r2-inv2-nearfull830.png",
+            "shots/demo-r2-inv2-realwheel-mid.png",
+            "shots/demo-r2-inv2-realwheel-rollback.png",
+            "shots/demo-r2-inv2-realwheel-late.png"
+          ]
+        },
+        {
+          "invariant_id": "inv3",
+          "action": "demo：保持 scrollY=0、不做任何输入（不滚不点不悬停），每 0.25s 采样 [data-orve-track] 的 style.transform 连续 4s；再在 scrollY 恒定 400 与 800 各采样 2s；再做 0↔899 跳滚读位移连续性；另把运行时 trackY 设为 233（逼近循环长度 240）观察回绕；窄屏重复。原站（复核者自行首访）：零输入、scrollY 恒 0 每 0.5s 采样 [class*=citiesTrack] 的 computed transform 连续 12s；再在 scrollY 恒定 400 与 800 各采样 3s；并在 0/400/800 之间跳滚，读位移是否随滚动位置偏移",
+          "observation": "demo：scrollY 恒 0 时轨位移 −11.82→−60.63px（4s，12.89px/s）持续匀速；scrollY=400 与 800 时同为 12.88/12.89px/s；0↔899 跳滚下位移只随时间推进、无按滚动量的跳变；trackY 越过 240 循环长度时由 −239.24 回到 −0.96 继续推进，无夹紧/停顿，回绕瞬间标签窗顶部仍是重复行的 Typographie（无缝）；窄屏 12.92px/s。原站独立复测：scrollY 恒 0 时 citiesTrack 每 0.5s 稳定推进 −6.666/−6.667px，即 13.33px/s（12s 共 −64.6→−223.1px）；scrollY=400/800 时同为 13.33px/s，跳滚瞬间位移连续、不随滚动位置偏移；轨在约 −240px 处回绕（轨内 12 行 = 6 城 ×2 份拷贝）后继续推进、无夹紧。→ 原站确为持续自走的循环带而非滚动擦洗，第 1 轮的证伪结论本轮独立复现；demo 的常驻 rAF 自走实现与该关系一致。",
+          "viewport": "1440x900（+390x844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv3-selfrun-a.png",
+            "shots/demo-r2-inv3-selfrun-b.png"
+          ]
+        },
+        {
+          "invariant_id": "inv4",
+          "action": "demo：真实滚轮逐段推进读 [data-orve-hint] 的 computed opacity，并用逐档 scrollTo 读 0→899 的完整曲线；上滚复测可逆性；窄屏重复。原站：同视口逐档 0→300（步长 20）读 [class*=scrollHint] 的 computed opacity",
+          "observation": "demo：提示 opacity 1@0 → 0.673@100 → 0.346@200 → 0.02@300 → 0@306，并保持 0 到封面结束（在一屏约 34% 行程处淡完，不贯穿封面）；真实滚轮下 0.641@110 → 0.281@220 → 0@330，上滚回到 0.641/1；窄屏 0@287。原站：1@0 → 0.527@100 → 0.318@120 → 0.072@140 → 0@160（约前 18% 行程）。两侧都在封面早期退场、都不贯穿全程 → 关系保留；demo 淡出略晚于原站（34% vs 18%）。",
+          "viewport": "1440x900（+390x844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv4-hintfading270.png"
+          ]
+        },
+        {
+          "invariant_id": "inv5",
+          "action": "demo：用真实滚轮连胜 9×110px 推到封面底部触发换幕，读封面 display、documentElement.scrollHeight 与 scrollY；换幕后分别用真实滚轮上滚 −500、window.scrollBy(0,-400)、手动派发 scroll 事件确认封面是否复活；再点旁侧面板的复位按钮确认恢复；窄屏 390×844 重复同样路径。原站：逐档推到 900px 读封面包裹是否仍在 DOM、scrollHeight 与 scrollY",
+          "observation": "demo：p≥1 时幕布先满（880px 时 opacity 0.841，换幕瞬间置 1），随后封面 display:none 移出文档流、文档高度 1908→1008、scrollY 同帧被设回 0、深色章节成为首屏；换幕后真实滚轮上滚、scrollBy(-400) 与合成 scroll 事件下封面始终 display:none 不复活；复位按钮恢复封面（display block、docH 1908、自走带重新运行）。窄屏同样成立（封面 844、docH 1789→945、scrollY 0）。原站：滚到约 900px 时封面包裹与其中元素从 DOM 消失、scrollHeight 32000→30200、scrollY 被重置为 0、深色 hero 成为首屏。",
+          "viewport": "1440x900（+390x844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv5-after.png",
+            "shots/demo-r2-inv5-reset.png",
+            "shots/demo-r2-narrow-inv5-after.png"
+          ]
+        }
+      ]
+    },
+    "note": "第 2 轮（未参与实现的独立复核，2026-10-13）：5 条不变量全部实测 pass（含复核者自己到原站重测纵向列表那条关系），据此 user_review.passed 与 rendered_ok 置 true。复核条件：CDP 转前台使 rAF 运行；本环境 CDP mouseWheel 实测可用，真实滚轮路径已覆盖。遗留待修正（不影响不变量判定，详见 README「独立复核」节）：tokens.motion.veil 的「860→900px（最后约 5%）」、tokens.motion.hintFade 的「0→320px」、motion_catalog 首条 after 状态的「scrollY≈一屏 1514px（≈31×）」三处对原站的读数与复核者实测不符；另 demo 侧面板仍写「列表擦洗 前 55% 进度，夹紧不循环」、src/cover.css 的 --orve-ticker-span 已无用，需实现者清理。"
+  }
+}

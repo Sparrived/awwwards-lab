@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halbton. — Under the print · hold-to-lift lens fragment</title>
+<link rel="stylesheet" href="../src/lens.css">
+<style>
+  /* demo chrome only — none of this is part of the component */
+  html, body { margin: 0; background: var(--hb-paper); }
+  body { font-family: var(--hb-font-text); color: var(--hb-ink); }
+
+  a.hb-wordmark, a.hb-wordmark:visited { color: inherit; }
+
+  .sheet-tools { display: flex; gap: 0.75rem; align-items: center; }
+  .sheet-tools button {
+    font: 11px/1 var(--hb-font-mono);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid var(--hb-line);
+    color: var(--hb-ink-2);
+    border-radius: 999px;
+    padding: 5px 11px;
+    min-height: 30px;
+    cursor: pointer;
+  }
+  .sheet-tools button[aria-pressed="true"] { border-color: var(--hb-red); color: var(--hb-red); }
+
+  .doc {
+    position: relative;
+    z-index: 70;              /* paints over the fragment's fixed hint/legend */
+    background: var(--hb-paper);
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 5rem) var(--hb-shell) 6rem;
+    border-top: 1px solid var(--hb-line);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--hb-ink-2);
+  }
+  .doc h2 {
+    font-family: var(--hb-font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--hb-ink);
+    font-size: 1.1rem;
+    margin: 2.2rem 0 0.6rem;
+  }
+  .doc h2:first-child { margin-top: 0; }
+  .doc code, .doc pre { font-family: var(--hb-font-mono); font-size: 12px; }
+  .doc pre {
+    background: var(--hb-paper-2);
+    border: 1px solid var(--hb-line);
+    padding: 12px 14px;
+    overflow-x: auto;
+    color: var(--hb-ink);
+  }
+  .doc table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  .doc th, .doc td { border-bottom: 1px solid var(--hb-line); text-align: left; padding: 7px 10px 7px 0; vertical-align: top; }
+  .doc th { color: var(--hb-ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<main data-lens-root>
+  <section class="hb-sheet" data-lens-sheet aria-label="Halbton specimen sheet">
+
+    <div class="hb-row">
+      <span>Specimen sheet 04</span>
+      <span>Halbton · Leipzig</span>
+      <span>Set 1974</span>
+    </div>
+
+    <div class="hb-row" style="align-items:center">
+      <a class="hb-wordmark" href="#doc">Halbton<i>.</i></a>
+      <span class="sheet-tools">
+        <button type="button" data-lens-all aria-pressed="false" title="Show every hidden note without the lens">Reveal all notes</button>
+      </span>
+      <span>Proofing table II</span>
+    </div>
+
+    <h1 class="hb-title">Under the print.</h1>
+
+    <p class="hb-lede">Three people, one proofing table, no stock imagery. We set type and mix ink for small presses.</p>
+
+    <div class="hb-specimens">
+      <div class="hb-specimen">
+        <small>01</small>
+        <b>Measure</b>
+        <small>The line stops where the eye is still counting.</small>
+        <strong>38 characters</strong>
+        <span class="hb-ink" data-note-id="m1" style="left:30%; top:-1.15rem; --hb-tilt:-2.5deg">38 and no more. Past that the eye doubles back.</span>
+      </div>
+      <div class="hb-specimen">
+        <small>02</small>
+        <b>Ink</b>
+        <small>Weighed by hand, never by eye.</small>
+        <strong>640 units</strong>
+        <span class="hb-ink" data-note-id="m2" style="right:16%; top:1.7rem; --hb-tilt:1.8deg">640 units. Twenty more and the hairlines fill in.</span>
+      </div>
+      <div class="hb-specimen">
+        <small>03</small>
+        <b>Signal red</b>
+        <small>One red, and it has a job.</small>
+        <strong>#d8332a</strong>
+        <span class="hb-ink" data-note-id="m3" style="left:44%; top:-1.3rem; --hb-tilt:-1.5deg">One red. It marks. It never decorates.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- the lens: a circular window onto a magnified copy of the sheet -->
+  <div class="hb-glass" data-lens-glass aria-hidden="true">
+    <div class="hb-track" data-lens-track></div>
+    <span class="hb-rim"></span>
+  </div>
+
+  <button class="hb-dock" type="button" data-lens-dock aria-label="Lift the lens">
+    <span aria-hidden="true"></span>
+    <em>Hold the lens</em>
+  </button>
+
+  <p class="hb-hint" data-lens-hint>The lens shows what lies beneath. Press and hold anywhere, or drag the dock.</p>
+
+  <div class="hb-legend">
+    <span>Hidden notes</span>
+    <span data-lens-count>0 / 3</span>
+    <span class="hb-dots" aria-hidden="true">
+      <i data-dot="m1"></i><i data-dot="m2"></i><i data-dot="m3"></i>
+    </span>
+  </div>
+</main>
+
+<section class="doc" id="doc">
+  <h2>What this fragment is</h2>
+  <p>A minimal complete experience taken from <em>metic. – Take a closer look</em>: a printed specimen sheet with a
+  lens docked top-right. Press and hold on the sheet — or drag the dock — and the lens lifts: the sheet beneath it is
+  scaled <strong>1.6×</strong> about the pointer, and only inside the lens circle does the handwritten ink layer
+  surface. Release and the lens parks back at its dock, the ink hides again. Notes read through the lens are ticked in
+  the legend.</p>
+
+  <h2>How to use it</h2>
+  <pre>&lt;link rel="stylesheet" href="src/lens.css"&gt;
+&lt;main data-lens-root&gt;
+  &lt;section class="hb-sheet" data-lens-sheet&gt;
+    &lt;span class="hb-ink" data-note-id="m1"&gt;hidden note&lt;/span&gt;
+  &lt;/section&gt;
+  &lt;div class="hb-glass" data-lens-glass&gt;&lt;div class="hb-track" data-lens-track&gt;&lt;/div&gt;&lt;span class="hb-rim"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;button class="hb-dock" data-lens-dock&gt;…&lt;/button&gt;
+&lt;/main&gt;
+&lt;script src="src/lens.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  const lens = HalbtonLens.create(document.querySelector('[data-lens-root]'), { holdDelay: 130 });
+  lens.revealAll(true);   // non-lens path, keyboard reachable
+  lens.destroy();
+&lt;/script&gt;</pre>
+
+  <h2>Measured on the source (1440×900, 2026-10-11)</h2>
+  <table>
+    <tr><th>Reading</th><th>Source</th><th>This fragment</th></tr>
+    <tr><td>Magnification, anchored at the pointer</td><td>1.6× (<code>translate3d(px·(1−1.6), py·(1−1.6)) scale(1.6)</code>)</td><td>1.6×</td></tr>
+    <tr><td>Lens diameter while held</td><td>≈242 px (r ≈ 121 px)</td><td><code>clamp(88px, 8.4vw, 128px)</code></td></tr>
+    <tr><td>Ink mask radius / lens radius</td><td>≈ 0.79 (95.8 / 121)</td><td>0.8</td></tr>
+    <tr><td>Lens park / fade</td><td>≈ 400 ms, <code>cubic-bezier(.23,1,.32,1)</code></td><td>420 ms, same curve</td></tr>
+    <tr><td>Dot-grid substrate pitch</td><td>16 px</td><td>16 px</td></tr>
+  </table>
+
+  <h2>What is deliberately not reproduced</h2>
+  <p>The site's scroll narrative (a 480 vh pinned stage that turns scrolling into a blueprint), the X-ray toggle that
+  annotates how each element is built, the menu overlay, the five-letter hunt and the sound control are outside this
+  fragment. No original copy, image, font file or stylesheet is used — the faces are OFL substitutes and the copy is
+  new.</p>
+</section>
+
+<noscript>
+  <style>
+    main[data-lens-root] .hb-ink { visibility: visible; mask-image: none; -webkit-mask-image: none; }
+    main[data-lens-root] .hb-dock { display: none; }
+  </style>
+</noscript>
+
+<script src="../src/lens.js"></script>
+</body>
+</html>

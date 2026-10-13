@@ -1,0 +1,484 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-11-loupe-hidden-ink",
+  "date": "2026-10-11",
+  "category": "theme",
+  "source": {
+    "awwwards_url": "https://www.awwwards.com/sites/metic-take-a-closer-look",
+    "live_url": "https://metic.studio/en",
+    "title": "metic. – Take a closer look",
+    "author": "Manuel Mayrhofer",
+    "award_date": "Nominee – 2026-10-10",
+    "tags": [
+      "theme",
+      "studio",
+      "typography",
+      "interaction",
+      "paper-ink",
+      "loupe"
+    ],
+    "observed_at": "2026-10-11T15:53:00+08:00",
+    "route": "https://metic.studio/en (English route; also / and /de exist) — observed live at 1440x900 and 390x844 on 2026-10-11 15:53–16:02 +08:00"
+  },
+  "summary": "A studio site whose whole argument is \"look closer\": a docked circular lens that, while held, magnifies the sheet 1.6x about the pointer and unmasks a handwritten red ink layer that is otherwise invisible; this entry re-implements that lens-and-hidden-ink fragment on a new printed specimen sheet (Halbton.), and leaves the site's scroll narrative and X-ray toggle as analysed-but-unbuilt highlights.",
+  "strength": "material-light",
+  "expression": "The product claim is precision down to the detail (the name reads as 'meticulous'), so the page needs a way to make 'the detail' literally present rather than merely asserted. The lens does that: the reward for the extra gesture is content that cannot be obtained any other way — handwritten notes the visitor would never read by scrolling. Design judgement: this turns a claim about craft into a task the visitor performs, and it keeps the sheet itself calm and legible for everyone who never lifts the lens. Observation, not judgement: while held, the sheet copy is transformed by translate3d(-(zoom-1)*pointer, 0) scale(1.6) and the ink layer's mask radius measures 95.8px against a 121px lens.",
+  "composition": "Layers, bottom to top: a 16px dot-grid substrate on the sheet (the printing guides), then the printed content (micro measure row, wordmark, one display headline, a lede and three specimen rows), then the invisible red ink layer pinned over the specimens, then the lens as a fixed circular window, with the docked handle and the hint/legend micro-type as chrome. Visual weight is a single column of measure-led rows with the display headline as the one large mass; the ink layer is deliberately the smallest and most peripheral type on the page, so reading it feels like discovering evidence rather than reading copy. Spacing is a single clamp() shell (1.25rem–5rem) with 2.5rem/14rem/1fr/10rem specimen columns. Below 640px the specimen row collapses to three columns and the value drops to its own line; the lens radius falls from ~121px to ~89px and the dock stays top-right. The lens is the only element that moves; the sheet never reflows while it is held.",
+  "highlights": [
+    {
+      "id": "h1",
+      "rank": 1,
+      "name": "Hold to lift the lens: magnify the sheet and unmask the ink beneath it",
+      "why_it_matters": "It is the brand argument performed instead of stated — 'take a closer look' is only meaningful if looking closer actually yields something. The lens is the only way to reach the notes, so curiosity is rewarded with content, and the sheet stays a clean, readable editorial page for anyone who never lifts it.",
+      "dependencies": [
+        "paper/ink/one-red palette and a measure micro-type for the chrome",
+        "a second content layer (handwritten notes) that is genuinely hidden, not decorative",
+        "duplication of the page and a single shared transform origin so the copy can be scaled about the pointer",
+        "a radial mask on the ink layer driven by the lens centre and radius",
+        "a visible dock plus hold-and-release, with a non-lens path so the notes are never unreachable"
+      ],
+      "evidence_ids": [
+        "ev1",
+        "ev2",
+        "ev3",
+        "ev7"
+      ]
+    },
+    {
+      "id": "h2",
+      "rank": 2,
+      "name": "Scroll becomes a blueprint: a pinned stage, a dot grid and a 000–100% build counter",
+      "why_it_matters": "It makes the studio's process the main content rather than a services list: the argument is paced from scaffold to finished button, and the dot grid is literally the 'guides' the captions name, so the form demonstrates the craft claim it is making.",
+      "dependencies": [
+        "a long scroll segment (480vh) so the pinned stage has room",
+        "a sticky stage with a dot-grid substrate whose opacity is bound to scroll",
+        "eight caption blocks that cross-fade with a small translate and blur",
+        "a numeric counter and an escape control for people who do not want the tour"
+      ],
+      "evidence_ids": [
+        "ev4"
+      ]
+    },
+    {
+      "id": "h3",
+      "rank": 3,
+      "name": "X-ray: re-map the palette and annotate how every element was built",
+      "why_it_matters": "It turns measurement rules that would otherwise be invisible craft-talk ('30 characters per line', 'at least 44 pixels tall') into something the visitor can inspect on the live page, which is the same promise as the lens expressed as documentation.",
+      "dependencies": [
+        "a role-based colour system (paper/ink/line resolved from an x-ray palette) rather than hard-coded hexes",
+        "per-element rationale annotations (label plus note) that are hidden by default",
+        "desaturation of imagery so the annotations stay legible"
+      ],
+      "evidence_ids": [
+        "ev5"
+      ]
+    }
+  ],
+  "selected_fragment": {
+    "highlight_id": "h1",
+    "scope": "One screen-high printed specimen sheet plus a circular lens docked top-right. Press and hold on the sheet, or drag the dock, to lift the lens: the sheet under it is scaled 1.6x about the pointer, and only inside the lens circle does the handwritten ink layer surface; releasing parks the lens back at the dock and hides the ink again. Notes examined through the lens are ticked in a small legend. The fragment includes the paper substrate, the measure micro-type and the three specimen rows that the notes annotate; the copy, name and type are new.",
+    "rationale": "Removal test: strip the lens and the site is still a well-set editorial studio page — the palette, the grid and the type all survive. What disappears is the identity: the hidden notes, the 'look closer' promise and the reason the sheet is worth a second pass. So the lens is the primary extraction, not a decorative overlay. It was also chosen over the scroll narrative because the lens is the relation a visitor performs with their own hand, and because its mechanism (pointer-anchored magnification plus a masked second layer) transfers to any surface that has something underneath.",
+    "invariants": [
+      {
+        "id": "inv1",
+        "description": "Hold lifts, release drops: at rest the lens is parked on its dock with no magnification and no ink visible; while held it follows the pointer; on release it returns to the dock and the ink hides again."
+      },
+      {
+        "id": "inv2",
+        "description": "Magnification is anchored at the pointer: what sits under the lens centre is the sheet scaled 1.6x about that exact point, so the detail under the lens does not slide as the lens moves."
+      },
+      {
+        "id": "inv3",
+        "description": "The ink only surfaces inside the lens: outside the lens circle the sheet shows no notes, because the ink layer is masked to a circle tracking the lens centre and the lens itself is a circular window onto a copy of the sheet."
+      },
+      {
+        "id": "inv4",
+        "description": "The lens reads as a ground and the sheet stays put: a circular window with a 1px light rim and a soft inner shade, and moving the lens never moves or reflows the sheet underneath."
+      },
+      {
+        "id": "inv5",
+        "description": "The notes are reachable without the lens: with JS off, with reduced motion, or through the keyboard-accessible reveal-all control, every note becomes readable, and notes examined with the lens are ticked in the legend."
+      }
+    ],
+    "omitted": [
+      "The site's 480vh pinned scroll narrative (the dot-grid blueprint with eight captions and the build counter) — analysed as h2, not built here",
+      "The X-ray toggle that re-maps the palette and overlays design-rationale annotations — analysed as h3, not built here",
+      "The menu overlay, the five-letter hunt, the discovery counter and the sound control",
+      "The dark theme toggle beyond a prefers-color-scheme block, and all of the site's own copy, imagery, fonts and stylesheets"
+    ],
+    "asset_substitutions": [
+      {
+        "role": "The page under the lens (the magnified subject)",
+        "substitute": "An original specimen sheet ('Halbton.', a fictional Leipzig print studio) built from my own markup: dot-grid substrate, measure micro-type, one display headline, a lede and three specimen rows. Preserves the design role of the original's surface: a single reading column, low-contrast paper, one large type mass, small peripheral annotations.",
+        "basis": "original work, written for this entry"
+      },
+      {
+        "role": "The lens itself",
+        "substitute": "A CSS circular window (border-radius 50%, overflow hidden) holding a clone of the sheet, with a box-shadow rim: inset 0 0 0 1px rgba(255,255,255,.35) and inset 0 0 22px rgba(18,18,20,.1).",
+        "basis": "independent implementation of the observed mechanism; the original draws its rim partly on a difference-blend canvas, which is not reproduced"
+      },
+      {
+        "role": "The handwritten ink layer",
+        "substitute": "Three original English notes in a handwritten OFL face (Kalam), red, slightly rotated, pinned over the specimens.",
+        "basis": "original copy; the original's notes are its own brand voice and were not transcribed"
+      },
+      {
+        "role": "Display face (Bricolage Grotesque)",
+        "substitute": "Archivo variable, bundled (SIL OFL 1.1)",
+        "basis": "OFL bundle, licence text in src/fonts/FONTS.md; weight/width/tracking compared against the measured 103.68px/500/-0.035em rather than assumed equal"
+      },
+      {
+        "role": "Text face (Space Grotesk)",
+        "substitute": "Inter variable, bundled (SIL OFL 1.1)",
+        "basis": "OFL bundle; Inter's larger x-height and more neutral skeleton is a documented loss"
+      },
+      {
+        "role": "Measure labels (IBM Plex Mono)",
+        "substitute": "system monospace stack",
+        "basis": "no bundle needed for 10–11px uppercase micro-type; loss is in the terminals, not the fit"
+      }
+    ]
+  },
+  "motion_catalog": [
+    {
+      "name": "Lens lift, follow and drop",
+      "target": ".hb-glass (fixed circular window) and the sheet clone inside it",
+      "trigger": "pointerdown on the dock handle (immediate) or press-and-hold anywhere on the sheet (after 130ms of stillness); pointerup / pointercancel releases",
+      "driver": "Pointer events; the glass is positioned with translate3d and the clone with translate3d + scale, both written directly on the elements. No rAF loop, so nothing runs when the tab is hidden.",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {
+          "name": "before",
+          "description": "Lens parked on the dock, glass opacity 0, no clone; every note reports visibility hidden and --hb-r cleared."
+        },
+        {
+          "name": "mid",
+          "description": "Held: glass opacity 1 with its centre on the pointer; the clone carries translate3d(-(zoom-1)*pointer) scale(1.6) about the sheet origin; the note under the lens has --hb-r = 0.8 x lens radius and is visible, the others are masked away."
+        },
+        {
+          "name": "after",
+          "description": "Released: is-lifting removed, glass parks back on the dock centre and fades to 0, note mask variables are cleared, found notes keep their legend tick."
+        }
+      ],
+      "status": "observed",
+      "evidence_ids": [
+        "ev1",
+        "ev2",
+        "ev3"
+      ]
+    },
+    {
+      "name": "Build blueprint scroll mapping",
+      "target": "section.build > .build-stage (sticky, 480vh)",
+      "trigger": "scroll through the section",
+      "driver": "Scroll position mapped to a --dots progress value on the sticky stage (0 to 1), to the eight caption cross-fades and to a numeric build counter. No fixed easing: the mapping is linear in scroll distance.",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {
+          "name": "before",
+          "description": "--dots 0, counter 000%, caption 01 'A line.' at opacity 1, the other seven at 0."
+        },
+        {
+          "name": "mid",
+          "description": "--dots 1, counter ~063%, caption 05 at opacity 1 while its neighbours sit at 0 with translate-y-3 and blur(2px)."
+        },
+        {
+          "name": "after",
+          "description": "--dots 1, counter 100%, caption 08 'Your turn.' at opacity 1."
+        }
+      ],
+      "status": "observed",
+      "evidence_ids": [
+        "ev4"
+      ]
+    },
+    {
+      "name": "X-ray palette re-map",
+      "target": "html (role colour variables) plus per-element annotation notes",
+      "trigger": "clicking the nav X-ray button",
+      "driver": "Class toggle on the root element; CSS custom properties re-resolve (paper #f4f4f2 to #0b0c10, ink #121214 to #eeeeea, line to #1212146b) and annotation labels become visible. Toggling again restores the light palette.",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {
+          "name": "before",
+          "description": "aria-pressed false; paper #f4f4f2 / ink #121214; annotation notes display none."
+        },
+        {
+          "name": "after",
+          "description": "aria-pressed true; paper #0b0c10 / ink #eeeeea; an overlay canvas at z-index 79 goes from opacity 0 to 1 and the rationale notes for on-screen elements become visible (5 in view at 1440x900)."
+        }
+      ],
+      "status": "observed",
+      "evidence_ids": [
+        "ev5"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev1",
+      "claim": "Dragging the docked lens lifts it and it follows the pointer; the sheet copy under it is scaled 1.6x about the pointer, verified by transform arithmetic (translate = radius - 1.6*(pointer - sheetOrigin)) rather than by eye.",
+      "status": "observed",
+      "method": "CDP Input.dispatchMouseEvent mousePressed on the dock centre then mouseMoved through four steps while reading .loupe-hit / .loupe-glass rects and .loupe-page inline transform.",
+      "route": "https://metic.studio/en",
+      "target": ".loupe-hit / .loupe-glass / .loupe-page",
+      "action": "press-and-hold the dock handle, drag across the page, read geometry at each step",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/orig-loupe-drag-1440.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev2",
+      "claim": "The hidden ink layer is revealed only inside the lens circle: each .secret-ink carries a radial-gradient mask whose radius and centre are written from the lens, measuring --sr 95.8px against a 121px lens radius, and the rest of the page shows visibility hidden with --sr 0.",
+      "status": "observed",
+      "method": "Held the lens over the display headline and read getComputedStyle(...).getPropertyValue('--sr'/'--sx'/'--sy') and visibility on every .secret-ink while held and after release.",
+      "route": "https://metic.studio/en",
+      "target": ".secret-ink (mask-image radial-gradient driven by --sr/--sx/--sy)",
+      "action": "hold the lens over the headline, sample the ink masks, release and sample again",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/orig-loupe-heading-1440.png",
+        "shots/private/orig-loupe-held-1440.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev3",
+      "claim": "Release drops the lens: .loupe-view opacity falls from 1 to 0, html loses the loupe-held class and the ink masks are cleared, so the sheet returns to a plain printed page.",
+      "status": "observed",
+      "method": "mouseReleased at the held position, then read .loupe-view opacity, html class list and .secret-ink visibility; also captured the at-rest hero for comparison.",
+      "route": "https://metic.studio/en",
+      "target": ".loupe-view / html.loupe-held / .secret-ink",
+      "action": "release the pointer after a hold and observe the return to rest",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/orig-hero-1440.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev4",
+      "claim": "The build section is a 480vh pinned stage: scrolling maps linearly to a --dots progress on the substrate (0 to 1) and to a 000-100% counter, while eight captions cross-fade in order (opacity 1 for the active step, 0 with translate-y-3 and blur(2px) for the others).",
+      "status": "observed",
+      "method": "Page.bringToFront to unfreeze the timeline (document.timeline.currentTime was 0 and requestAnimationFrame did not fire while the tab was hidden), then window.scrollTo across the section reading --dots, the counter text and every caption's opacity.",
+      "route": "https://metic.studio/en",
+      "target": "section.build > .build-stage (sticky, height 480vh)",
+      "action": "scroll the section in 540px steps from 000% to 100% and read the progress variable, counter and caption opacities",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/orig-build-start-1440.png",
+        "shots/private/orig-build-mid-1440.png",
+        "shots/private/orig-build-end-1440.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev5",
+      "claim": "The X-ray button re-maps the palette through role variables and reveals per-element rationale annotations: aria-pressed flips to true, --paper resolves to #0b0c10, --ink to #eeeeea, an overlay canvas at z-index 79 goes to opacity 1 and the data-note annotations become visible for elements in view.",
+      "status": "observed",
+      "method": "clicked the nav button titled 'X-ray: show how the page is built', then read the html class list, aria-pressed, the canvas opacity, the resolved --paper/--ink and the count of data-note elements in view; toggled back and confirmed the class was removed.",
+      "route": "https://metic.studio/en",
+      "target": "html.xray + nav button[aria-pressed] + canvas.z-[79] + [data-note]",
+      "action": "click the X-ray toggle, sample the palette and annotations, click again to restore",
+      "viewport": "1440x900",
+      "artifacts": [
+        "shots/private/orig-xray-1440.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev6",
+      "claim": "At 390x844 the hero reflows to a 44px single-line headline with no horizontal overflow (scrollWidth equals the viewport), and the docked lens is smaller but present; a synthetic touch press-and-hold set the held state but did not move the lens, so the touch half of the documented affordance is unresolved rather than confirmed.",
+      "status": "observed",
+      "method": "Emulation.setDeviceMetricsOverride to 390x844 with touch emulation, measured the h1 and documentElement.scrollWidth, then Input.dispatchTouchEvent touchStart/touchMove/touchEnd while reading .loupe-hit geometry and the loupe classes.",
+      "route": "https://metic.studio/en",
+      "target": "h1, documentElement, .loupe-hit",
+      "action": "resize to a narrow viewport, measure the headline and overflow, then touch-press and drag",
+      "viewport": "390x844",
+      "artifacts": [
+        "shots/private/orig-hero-390.png",
+        "shots/private/orig-loupe-touch-390.png"
+      ],
+      "publishable": false
+    },
+    {
+      "id": "ev7",
+      "claim": "The site documents the lens as the intended gesture and as a hunt: the hint reads 'The lens shows what lies beneath. Hold a finger on the page to look for yourself.', the hidden panel says 13 things are hidden with instructions like 'Press and hold anywhere on the page.' and 'Hold the lens over a heading and read what is underneath.', and there are 15 .secret-ink elements including five letter fragments.",
+      "status": "source-supported",
+      "method": "Read the rendered text of .lens-hint and the hidden #entdeckungen panel, and enumerated .secret-ink and [data-note] elements in the live DOM. This is the site's own description of the interaction, not a substitute for the observed runs above.",
+      "route": "https://metic.studio/en",
+      "target": ".lens-hint, #entdeckungen, .secret-ink, [data-note]",
+      "action": "read the in-page copy and enumerate the hidden-ink nodes (no gesture performed for this claim)",
+      "viewport": "1440x900",
+      "artifacts": [],
+      "publishable": false
+    }
+  ],
+  "extracted_mechanism": "A surface with two layers — a calm, legible printed page and a second, genuinely hidden ink layer. A lens is parked at a dock and is lifted by a hold gesture; while it is held it is a fixed circular window (border-radius 50%, overflow hidden) containing a copy of the surface, transformed about its own top-left origin by translate(r - k*(pointer - surfaceOrigin)) scale(k) with k = 1.6, which is exactly the transform that magnifies the surface about the pointer. Because the window is circular and the copy carries the second layer forced visible, the hidden ink appears only inside the circle; the underlying sheet is additionally masked with radial-gradient(circle r*0.8 at lensCentre) so the same reveal holds on the real layer. Releasing parks the window back on the dock and clears the mask variables. There is no autonomous animation: everything is pointer-driven, so nothing needs pausing when the tab is hidden.",
+  "dont_copy": "The lens is a strong move but a costly one to use twice: a page that hides content behind a gesture needs the non-lens path to be genuinely present (this fragment uses reveal-all, no-JS and reduced-motion fallbacks), otherwise the notes are unreachable for keyboard, touch or reduced-motion users. Two further boundaries from the source: the held lens did not move in my synthetic touch runs, so the touch variant of the affordance is unverified here and should not be copied as a guarantee; and the original draws part of the lens rim on a difference-blend canvas, which is an implementation choice, not a design requirement — a box-shadow rim reads the same. Nothing here suggests the original failed at contrast or accessibility; those were not measured.",
+  "tokens": {
+    "colors": {
+      "paper": "#f4f4f2",
+      "paper_2": "#e9e9e6",
+      "ink": "#121214",
+      "ink_2": "#4a4a50",
+      "line": "rgba(18,18,20,0.12)",
+      "accent_red": "#d8332a",
+      "accent_deep": "#a8241d",
+      "dark_paper": "#0f0f11",
+      "xray_bg": "#0b0c10",
+      "xray_fg": "#eeeeea",
+      "xray_line": "#1212146b",
+      "glass_rim": "inset 0 0 0 1px rgba(255,255,255,0.35)",
+      "glass_inner_shade": "inset 0 0 22px rgba(18,18,20,0.1)"
+    },
+    "typography": {
+      "display_source": "Bricolage Grotesque",
+      "display_substitute": "Archivo (bundled, SIL OFL 1.1)",
+      "h1_measured": {
+        "font-size": "103.68px",
+        "font-weight": 500,
+        "line-height": 0.96,
+        "letter-spacing": "-0.035em"
+      },
+      "text_source": "Space Grotesk",
+      "text_substitute": "Inter (bundled, SIL OFL 1.1)",
+      "hand_source": "Caveat",
+      "hand_substitute": "Kalam (bundled, SIL OFL 1.1)",
+      "mono_source": "IBM Plex Mono",
+      "mono_substitute": "system ui-monospace stack (not bundled)",
+      "fragment_h1": "clamp(2.5rem, 7.2vw, 7rem), weight 500, line-height 0.96, letter-spacing -0.035em",
+      "note_face": "Kalam 700, rotated by a per-note --hb-tilt"
+    },
+    "spacing": {
+      "shell": "clamp(1.25rem, 5vw, 5rem)",
+      "nav_h": "4.5rem",
+      "dot_grid_pitch": "16px",
+      "lens_radius_desktop": "121px measured at 1440x900",
+      "lens_radius_narrow": "89px measured at 390x844",
+      "lens_diameter_measured": "242px 可见玻璃（按住态亮度剖面：内容到 r≈120、圈环 122~134、140 外回纸色；r≈121 与 242px 相容）；原站镜片 canvas 元素本身为 324×324（r=162），两次测量口径不同",
+      "fragment_lens_radius": "clamp(88px, 8.4vw, 128px)",
+      "specimen_columns": "2.5rem minmax(6rem,14rem) 1fr minmax(6rem,10rem)"
+    },
+    "motion": {
+      "ease_lens": "cubic-bezier(0.23, 1, 0.32, 1)",
+      "lens_fade_ms": 400,
+      "fragment_lens_park_ms": 420,
+      "zoom": 1.6,
+      "ink_radius_ratio": 0.79,
+      "fragment_ink_radius_ratio": 0.8,
+      "caption_crossfade_ms": 700,
+      "build_scroll_length": "480vh"
+    }
+  },
+  "api": "window.HalbtonLens.create(rootEl, options) initialises a lens inside [data-lens-root] and returns an instance; it is also auto-initialised on every [data-lens-root] at DOMContentLoaded. Required markup inside the root: [data-lens-sheet] (the surface to magnify, and the containing block for the notes), [data-lens-glass] containing [data-lens-track], [data-lens-dock], optional [data-lens-count], [data-lens-all] and [data-note-id] elements with matching [data-dot]. Options: { zoom, reveal, holdDelay }. Instance API: revealAll(on) toggles the non-lens path and returns the new state; drop() parks the lens; destroy() removes every listener and the clone. Tune --hb-lens-r, --hb-zoom, --hb-reveal, --hb-drop and --hb-ease on the root.",
+  "entrypoints": [
+    "src/lens.css",
+    "src/lens.js"
+  ],
+  "files": [
+    "demo/index.html",
+    "src/lens.css",
+    "src/lens.js",
+    "src/fonts/FONTS.md",
+    "src/fonts/archivo-0.woff2",
+    "src/fonts/inter-0.woff2",
+    "src/fonts/kalam-0.woff2",
+    "src/fonts/kalam-1.woff2"
+  ],
+  "deps": [],
+  "reuse_hints": "Use it where a surface has a second layer worth earning: spec sheets, annotated drawings, code samples with commentary, product photography with hotspots, maps with notes. Requirements: the base surface must be readable on its own, the hidden layer must be genuinely additive (not the only copy of important text), and the page must be willing to give up 130ms of press before the lens lifts. The clone approach assumes the magnified surface is self-contained — it will not carry fixed or portalled content (overlays, tooltips, canvases drawn in screen space) into the lens, so keep such elements outside [data-lens-sheet]. Not suitable when the page is already scroll-jacked or when the second layer is longer than the lens can show: a lens reveals fragments, so the notes must work as fragments.",
+  "repro_notes": "Open demo/index.html directly from disk (file:// works; the bundled woff2 faces load without errors). At rest the lens sits on the dock at the top-right with glass opacity 0. Drag the dock (pointerdown then move) or press and hold anywhere on the sheet for 130ms; the lens follows the pointer, the sheet under it is magnified 1.6x and the note inside the circle appears. Move over a specimen note to tick it in the legend; release to park. On narrow viewports the fragment is still one screen at 390x844 with no horizontal overflow; the lens radius measures 89px there. Measurements above were taken live with CDP in Chromium at 1440x900 and 390x844 on 2026-10-11; the source tab had to be brought to the front with Page.bringToFront because requestAnimationFrame and document.timeline were frozen while the tab was hidden (the build section stayed at 000% until it was). Not verified: real touch hardware, the source's touch variant of the hold gesture (synthetic touch set the held state but did not move the lens), click-through of the lens on top of interactive elements at very small viewports, and any accessibility tree or contrast measurement of the original. Code budget: ~650 hand-written core lines (src/lens.css 416（复核后清理时加入因果注释块，原记 409）— the four @font-face blocks, the full token block and the no-JS / reduced-motion / dark-scheme fallbacks; src/lens.js 241 including comments). That is slightly over the 400–600 guide; the extra lines are degradation paths and inline documentation rather than hidden complexity. 选择器存疑（复核 #2 指出）：镜片的元素/类名记录（.loupe-hit / .loupe-glass / .loupe-page / .loupe-view）取自当时观察的近似描述；2026-10-13 复核在线上构建中对这些选择器 0 命中，实际镜片是 324×324 CSS px 的 <canvas class=\"pointer-events-none fixed left-0 top-0 z-[105] max-w-none will-change-transform\">，状态类 has-loupe / lens-held / loupe-held / loupe-live 确实存在（loupe-held 命中）。行为结论不受影响：--sr/--sx/--sy 与遮罩实测与记录一致。元素名应视为未定论项。",
+  "verification": {
+    "rendered_ok": true,
+    "console_errors": 0,
+    "screenshot": "shots/demo.png",
+    "checked_at": "2026-10-13T13:55:00+08:00",
+    "source_observed": true,
+    "mechanism_preserved": true,
+    "user_review": {
+      "passed": true,
+      "reviewer": "loupe-review-r2 · 独立子代理（Hermes 浏览器会话 Chromium + CDP；未参与本条目实现，也未参与第 1 轮复核与本次修订，未读旧实现）",
+      "cases": [
+        {
+          "invariant_id": "inv1",
+          "action": "file:// 直开 demo（1440×900，未经画廊）。静止读镜片/纸面 rect 与每条批注 visibility → 在镜位按下并拖过 (1100,300)(900,420)(760,470)(430,300) → 释放后 100ms/800ms 各读一次 → 另做三次对照：纸面空白处按住 400ms、纸面空白处 50ms 内单击、纸面空白处按下后 50ms 内拖动。",
+          "observation": "静止：镜心恰为镜位 (1309,116)、opacity 0、DOM 里没有克隆、三条批注 visibility:hidden。按住后 root.is-lifting＋html.hb-held，镜心与指针逐点重合，opacity→1；释放后 100ms 内退类、镜片回镜位、opacity 1→0.32→0，批注重新 hidden 且 --hb-r/--hb-x/--hb-y 被清空。空白处按住 400ms 抬起（镜心=指针）；50ms 内的单击与拖动都不抬起（不被当成按住，滚动安全）。控制台 0 错误。窄屏 390×844 重复按住—释放，同样成立（镜半径 88px，镜心=指针 (178,464)）。",
+          "viewport": "1440×900（并复测 390×844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv1-rest-1440.png",
+            "shots/demo-r2-inv1-held-1440.png",
+            "shots/demo-r2-inv1-released-1440.png",
+            "shots/demo-r2-narrow-rest-390.png",
+            "shots/demo-r2-narrow-held-390.png"
+          ]
+        },
+        {
+          "invariant_id": "inv2",
+          "action": "把镜片停在纸面标题处并缓慢平移：分别在 (712,300)、(760,340)、(900,500)、(940,500) 四个指针位置，读镜心屏幕坐标、纸面与 .hb-clone 中同名元素（标题、引言、样张小字/粗体/数值、顶栏小字）的中心，按 cloneC = 镜心 + 1.6×(纸面C − 镜心) 算预测偏差；再把镜片正对 m1/m2/m3 三条批注各自的真实中心，读克隆内该批注中心到镜心的距离；最后做像素级复核：同一视口先截静止帧，再截镜下帧，对穿镜心的 12 条扫描线用静止帧纸面剖面按候选 k（1.0–1.9，步长 0.05）重采样，与镜下剖面求平均绝对差，取最小者。",
+          "observation": "DOM：4 个指针位置 × 6 个元素，预测与实测最大偏差 0.51px（多数 ≤0.1px），即镜心底下正是该点纸面放大 1.6 倍后的内容；镜片正对 m1/m2/m3 中心时，克隆内对应批注中心距镜心 1.8px / 0.8px / 1.4px（指针取整带来的亚像素差）。纸面侧遮罩中心同步落在该批注自身中心（m2 的 --hb-x/--hb-y = 149.7px/25.1px ≈ 盒宽高的一半）。像素：12 条扫描线的剖面拟合在 k=1.6 时平均绝对差最小（k=1.6 → 10.7~16.5；k=1.5/1.65 → 13.6~19.4；k=1.1 → 53~60），放大倍数与锚点由像素独立确认。快速跳滚到页底再回顶后重测，同一批注仍在镜心 (998,878) 0.8px 内。",
+          "viewport": "1440×900",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-lens-rest-1440.png",
+            "shots/demo-r2-lens-held-712-1440.png",
+            "shots/demo-r2-lens-held-760-1440.png",
+            "shots/demo-r2-scrolljump-held-1440.png"
+          ]
+        },
+        {
+          "invariant_id": "inv3",
+          "action": "把镜片正对三条批注各自的真实中心（m1 (606,711)、m2 (998,878)、m3 (785,732)，m3 先滚到可见高度）逐条截图；再用 PIL 统计镜圈（半径 120.95px）内近 #d8332a（容差 ±40，另报 ±12）的像素数。随后把镜片移到远离所有批注处 (250,150) 与拖动途中 (430,300) 重复统计，并在同一坐标的静止帧上统计作为对照。再做移除检验：仅在浏览器里注入 .hb-clone{box-sizing:content-box !important}（不改任何源码文件），在同一位置复测镜像与红墨；随后移除该注入并复测复原。窄屏 390×844 用镜半径 88px 复测一次。",
+          "observation": "镜圈内近 #d8332a 像素：正对 m1 = 1980、m2 = 1805、m3 = 1384（±12 收缩阈值 1487/1362/1122）；同一坐标静止帧 = 0；远离所有批注 = 0；拖动途中 = 0；镜圈外环带（+8px）仅 2~6 像素，是圆形裁剪边缘的抗锯齿。窄屏 390×844：正对 m2 镜圈内 1776，静止帧同区域 0。移除检验：克隆改成 content-box 后克隆盒由 2280×1785.6 变成 2510.4×2131.2，克隆内 m2 中心距镜心由 0.8px 变成 396.5px，镜圈内红墨由 1805 变成 0；去掉注入样式后三项全部复原 —— box-sizing:border-box 正是这条不变量成立的关键，红墨只在镜圈内出现。",
+          "viewport": "1440×900（并复测 390×844）",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv3-note-m1-1440.png",
+            "shots/demo-r2-inv3-note-m2-1440.png",
+            "shots/demo-r2-inv3-note-m3-1440.png",
+            "shots/demo-r2-inv3-away-1440.png",
+            "shots/demo-r2-removaltest-before-1440.png",
+            "shots/demo-r2-removaltest-boxsizing-1440.png",
+            "shots/demo-r2-narrow-held-390.png"
+          ]
+        },
+        {
+          "invariant_id": "inv4",
+          "action": "读 .hb-glass 与 .hb-rim 的计算样式（border-radius、overflow、background、box-shadow、尺寸）；按住镜柄把镜片扫过纸面角与边：(20,860)(1425,880)(720,880)(20,20)(1400,20)(720,60)(400,600)(1050,300)，每一步同时读纸面 rect、documentElement 的 scrollWidth/scrollHeight、标题框与第 2 行样张的 rect；随后快速跳滚到页底再回到顶部，重测同一批读数。",
+          "observation": "镜片：border-radius 50%、overflow hidden、background rgb(244,244,242)＝纸色（不透明，读作一片地面而不是透明放大镜）、box-shadow inset 0 0 0 1px rgba(255,255,255,.35) + inset 0 0 22px rgba(18,18,20,.1)，镜径 241.91px。八个扫描点的纸面 rect 恒为 [0,0,1425,1116]，scrollWidth 恒 1425、scrollHeight 恒 2283，标题框恒 [72,267,1281,99.53]、第 2 行样张恒 [72,830.4,1281,121.8]；移动镜片既不推动也不回流纸面。跳滚到页底（scrollY 1383）再回顶后，纸面读数与镜片行为不变，控制台 0 错误。",
+          "viewport": "1440×900",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv4-sweep-1440.png",
+            "shots/demo-r2-scrolljump-bottom-1440.png",
+            "shots/demo-r2-scrolljump-held-1440.png"
+          ]
+        },
+        {
+          "invariant_id": "inv5",
+          "action": "① 用 CDP 关闭 JS 重载，截图后用 PIL 在三条批注的静止位置与镜位区数红墨；② 正常重载后用 Tab 走焦点顺序、在「Reveal all notes」上按空格触发，读 aria-pressed、root 类名、三条批注的 visibility 与 mask，再在 reveal-all 打开的状态下把镜片停在 m2 上、释放后读图例；③ 用 CDP 模拟 prefers-reduced-motion:reduce，读过渡时长并重做一次按住；④ 读图例计数与圆点的 is-found 是否保留。",
+          "observation": "① 无 JS：html 保留 no-js，m1/m2 批注静止位置分别 1467/1415 个红墨像素（全屏 2887）、镜柄不渲染（镜位区 0 红像素）——批注无需镜片即可读；② 键盘：焦点顺序为 wordmark 链接 → 「Reveal all notes」→ 镜柄，空格触发后 aria-pressed=true、root.is-revealed、三条批注 visibility:visible 且 mask-image:none；reveal-all 打开时再按住镜片，m2 被读到并在图例打勾（1 / 3）；③ reduced-motion：.hb-glass/.hb-dock 的 transition-duration 为 0s，按住仍抬起（opacity 1）且镜下红墨照常出现（镜圈内 2036 像素）；④ 释放后图例保留已读计数、圆点保留 is-found，未读的仍为空。",
+          "viewport": "1440×900",
+          "result": "pass",
+          "artifacts": [
+            "shots/demo-r2-inv5-nojs-1440.png",
+            "shots/demo-r2-inv5-revealall-1440.png",
+            "shots/demo-r2-inv5-revealall-held-1440.png",
+            "shots/demo-r2-inv5-reducedmotion-held-1440.png"
+          ]
+        }
+      ],
+      "note": "第 2 轮独立复核（2026-10-13，1440×900 与 390×844，file:// 直开未入库 demo）：5 条不变量全部实测 pass，控制台 0 错误（含资源加载错误监听），故填 reviewer 并置 rendered_ok=true。关键实测：镜心底下就是该点纸面绕指针放大 1.6 倍的内容（DOM 预测偏差 ≤0.51px，像素剖面拟合 k=1.6 最优）；红墨只在镜圈内出现（正对 m1/m2/m3 时镜圈内 1980/1805/1384 像素，其余状态 0）；移动镜片时纸面 rect/scrollWidth 恒定；无 JS、键盘 reveal-all、reduced-motion 三条替代路径都能读到全部批注。同视口（1440×900）、同片段（抬起镜片态）的原站对照：原站按住不动时 html 得到 loupe-held/loupe-live、.secret-ink 变为 visible 且 --sr=95.8px，镜圈内新增约 1267 个红色像素（#ff3e3e），静止帧同区域 501 个——原站与 demo 都在镜下浮出纸面上不存在的红墨；本 demo 同状态为 +1875 个 #d8332a 像素。第 1 轮的 box-sizing 缺陷确已修复且在浏览器内可复现其移除效应（见 inv3 case）。"
+    },
+    "note": "第 2 轮独立复核通过（2026-10-13，复核者 loupe-review-r2，未参与实现与修订）：5 条不变量逐条实测 pass，console_errors=0，故 rendered_ok=true。第 1 轮（inv2/inv3 fail）的记录保留在 README「独立操作复核与未验证项」中并标为作废，仅作修订过程凭证。仍在 README 未验证项中如实列出的缺口（真实触摸硬件、原站触摸分支、极小视口点击穿透、原站对比度/无障碍树）不影响本片段 5 条不变量的判定。"
+  }
+}

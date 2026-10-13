@@ -1,0 +1,416 @@
+/* Halbton · "Under the print" — a hold-to-lift lens that magnifies a sheet and
+ * unmasks the handwritten ink hiding beneath it.
+ *
+ * Independent implementation from observed behaviour. No original CSS, keyframe
+ * text, image or font file is copied; see README for the substitution table.
+ *
+ * Everything adjustable lives in the :root block below.
+ */
+:root {
+  /* colors — measured from the source palette (light theme) */
+  --hb-paper: #f4f4f2;
+  --hb-paper-2: #e9e9e6;
+  --hb-ink: #121214;
+  --hb-ink-2: #4a4a50;
+  --hb-line: rgba(18, 18, 20, 0.12);
+  --hb-red: #d8332a;
+  --hb-red-deep: #a8241d;
+
+  /* typography — original faces are proprietary; OFL substitutes are bundled.
+   * Display = Archivo (orig. Bricolage Grotesque), Text = Inter (orig. Space
+   * Grotesk), Hand = Kalam (orig. Caveat), measure labels = system mono. */
+  --hb-font-display: "Halbton Display", "Archivo", system-ui, sans-serif;
+  --hb-font-text: "Halbton Text", "Inter", system-ui, sans-serif;
+  --hb-font-hand: "Halbton Hand", "Kalam", "Segoe Print", cursive;
+  --hb-font-mono: ui-monospace, "DejaVu Sans Mono", "SFMono-Regular", Menlo, monospace;
+
+  /* spacing */
+  --hb-shell: clamp(1.25rem, 5vw, 5rem);
+  --hb-grid: 16px;              /* dot-grid substrate pitch, measured 16px */
+  --hb-lens-r: clamp(88px, 8.4vw, 128px);  /* measured ≈121px at 1440×900 */
+  --hb-reveal: 0.8;             /* ink radius / lens radius, measured ≈0.79 */
+
+  /* motion */
+  --hb-ease: cubic-bezier(0.23, 1, 0.32, 1); /* measured --ease-lens */
+  --hb-drop: 420ms;             /* lens park / fade, measured ≈400ms */
+  --hb-zoom: 1.6;               /* measured magnification */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hb-paper: #0f0f11;
+    --hb-paper-2: #18181b;
+    --hb-ink: #f1f1ee;
+    --hb-ink-2: #b6b6b1;
+    --hb-line: rgba(241, 241, 238, 0.14);
+    --hb-red: #ff5a4d;
+  }
+}
+
+@font-face {
+  font-family: "Halbton Display";
+  src: url("fonts/archivo-0.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Halbton Text";
+  src: url("fonts/inter-0.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Halbton Hand";
+  src: url("fonts/kalam-0.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Halbton Hand";
+  src: url("fonts/kalam-1.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---- component shell ---------------------------------------------------- */
+
+[data-lens-root] {
+  position: relative;
+  min-height: 100svh;
+  background: var(--hb-paper);
+  color: var(--hb-ink);
+  font-family: var(--hb-font-text);
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hb-sheet {
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--hb-shell) + 3.5rem) var(--hb-shell) calc(var(--hb-shell) + 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+}
+
+/* dot-grid substrate: the printed sheet's guides */
+.hb-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--hb-ink) 14%, transparent) 1px, transparent 1.2px);
+  background-size: var(--hb-grid) var(--hb-grid);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hb-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--hb-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hb-ink-2);
+}
+
+.hb-wordmark {
+  font-family: var(--hb-font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-size: 1.375rem;
+  color: var(--hb-ink);
+  text-decoration: none;
+}
+.hb-wordmark i { font-style: normal; color: var(--hb-red); }
+
+.hb-title {
+  font-family: var(--hb-font-display);
+  font-weight: 500;
+  /* display scale measured at ~103.7px / lh 0.96 / ls -0.035em on the source */
+  font-size: clamp(2.5rem, 7.2vw, 7rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.hb-lede {
+  max-width: 34ch;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.5;
+  color: var(--hb-ink-2);
+  margin: 0;
+}
+
+/* ---- specimens ---------------------------------------------------------- */
+
+.hb-specimens {
+  display: grid;
+  gap: 0;
+  margin-top: auto;
+  border-top: 1px solid var(--hb-line);
+}
+.hb-specimen {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(6rem, 14rem) 1fr minmax(6rem, 10rem);
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--hb-line);
+  position: relative;
+}
+.hb-specimen b {
+  font-family: var(--hb-font-display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.7vw, 1.6rem);
+  letter-spacing: -0.02em;
+}
+.hb-specimen small {
+  font-family: var(--hb-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hb-ink-2);
+}
+.hb-specimen strong {
+  font-family: var(--hb-font-display);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 2.6rem);
+  letter-spacing: -0.03em;
+  text-align: right;
+  color: var(--hb-ink);
+}
+
+/* ---- the ink layer ------------------------------------------------------ */
+/* Invisible by default. While the lens is held it becomes visible but is
+ * clipped by a radial mask centred on the lens, so it only ever appears
+ * inside the lens circle — the observed mechanism (--sr/--sx/--sy). */
+.hb-ink {
+  visibility: hidden;
+  position: absolute;
+  font-family: var(--hb-font-hand);
+  font-weight: 700;
+  color: var(--hb-red);
+  font-size: clamp(1rem, 1.35vw, 1.35rem);
+  line-height: 1.05;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  max-width: 30ch;
+  white-space: normal;
+  transform: rotate(var(--hb-tilt, -2deg));
+  mask-image: radial-gradient(circle var(--hb-r, 0px) at var(--hb-x, -9999px) var(--hb-y, -9999px), #000 96%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle var(--hb-r, 0px) at var(--hb-x, -9999px) var(--hb-y, -9999px), #000 96%, transparent 100%);
+}
+.hb-ink::before {
+  content: "";
+  position: absolute;
+  left: -0.9rem;
+  top: 0.55em;
+  width: 0.7rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.75;
+}
+[data-lens-root].is-lifting .hb-ink { visibility: visible; }
+/* a note examined with the lens is ticked and stays ticked */
+.hb-ink.is-found::before { opacity: 1; }
+
+/* ---- the lens ----------------------------------------------------------- */
+
+.hb-glass {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  width: calc(2 * var(--hb-lens-r));
+  height: calc(2 * var(--hb-lens-r));
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--hb-paper);
+  opacity: 0;
+  transition: opacity var(--hb-drop) var(--hb-ease);
+  contain: strict;
+  will-change: transform;
+}
+[data-lens-root].is-lifting .hb-glass { opacity: 1; }
+
+.hb-track { position: absolute; inset: 0; }
+
+/* the copy of the sheet, scaled about the pointer; ink forced opaque
+   box-sizing 必须是 border-box：_ensureClone() 把纸面的 border-box 宽高
+   (getBoundingClientRect) 写进克隆体的行内 width/min-height，而克隆体是
+   .hb-sheet 的深拷贝、自带同样的 padding。若沿用 content-box，行内宽度会
+   被当成内容宽，克隆体会比纸面宽出一个 padding（1440×900 下 +144px 宽、
+   +216px 高），镜下看到的就不是该点的纸面内容——独立复核实测红墨因此
+   永远落在镜圈外(#d8332a 在镜内 0 像素)，修正后 2205 像素。 */
+.hb-clone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.hb-clone .hb-ink {
+  visibility: visible;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+.hb-clone :where(*) { animation: none !important; transition: none !important; }
+
+.hb-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+    inset 0 0 22px rgba(18, 18, 20, 0.1);
+}
+.hb-rim::after {
+  content: "";
+  position: absolute;
+  inset: -0.55rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--hb-line), 0 10px 30px -12px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- dock, hint, legend ------------------------------------------------- */
+
+.hb-dock {
+  position: fixed;
+  top: calc(var(--hb-shell) + 0.5rem);
+  right: calc(var(--hb-shell) + 0.5rem);
+  z-index: 61;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--hb-line);
+  background: color-mix(in srgb, var(--hb-paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--hb-red);
+  cursor: grab;
+  display: grid;
+  place-items: center;
+  transition: transform var(--hb-drop) var(--hb-ease), opacity var(--hb-drop) var(--hb-ease);
+  touch-action: none;
+}
+.hb-dock:active { cursor: grabbing; }
+.hb-dock span {
+  display: block;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  box-shadow: inset 0 0 6px rgba(216, 51, 42, 0.35);
+}
+.hb-dock em {
+  position: absolute;
+  bottom: -1.6rem;
+  right: 0;
+  font-family: var(--hb-font-mono);
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hb-ink-2);
+  white-space: nowrap;
+}
+[data-lens-root].is-lifting .hb-dock { opacity: 0; pointer-events: none; }
+
+.hb-hint {
+  position: fixed;
+  left: var(--hb-shell);
+  bottom: 1.1rem;
+  z-index: 61;
+  max-width: 26ch;
+  font-family: var(--hb-font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--hb-ink-2);
+  pointer-events: none;
+  transition: opacity var(--hb-drop) var(--hb-ease);
+}
+[data-lens-root].is-lifting .hb-hint { opacity: 0; }
+
+.hb-legend {
+  position: fixed;
+  right: var(--hb-shell);
+  bottom: 1.1rem;
+  z-index: 61;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--hb-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hb-ink-2);
+}
+.hb-legend button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--hb-ink);
+  background: none;
+  border: 1px solid var(--hb-line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+  min-height: 28px;
+}
+.hb-legend button:hover { border-color: var(--hb-red); color: var(--hb-red); }
+.hb-dots { display: inline-flex; gap: 4px; }
+.hb-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--hb-ink-2);
+  box-shadow: none;
+}
+.hb-dots i.is-found {
+  background: var(--hb-red);
+  border-color: var(--hb-red);
+  animation: hb-stamp 0.42s var(--hb-ease) both;
+}
+@keyframes hb-stamp {
+  from { transform: scale(0.4); }
+  to { transform: scale(1); }
+}
+
+/* ---- non-lens path: reveal every note (keyboard reachable) --------------- */
+[data-lens-root].is-revealed .hb-ink {
+  visibility: visible;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+html.hb-held, html.hb-held * { cursor: grabbing; user-select: none; }
+
+/* ---- degradation -------------------------------------------------------- */
+
+/* no JS: the notes are simply readable, nothing is hidden behind a gesture */
+.no-js .hb-ink {
+  visibility: visible;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+.no-js .hb-dock { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-glass, .hb-dock, .hb-hint, .hb-ink { transition: none !important; }
+  .hb-dots i.is-found { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .hb-specimen { grid-template-columns: 1.75rem 1fr auto; row-gap: 0.35rem; }
+  .hb-specimen strong { grid-column: 2 / 4; text-align: left; }
+  .hb-hint { max-width: 18ch; }
+}

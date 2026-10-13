@@ -1,0 +1,381 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-11-throwable-sweets-footer",
+  "date": "2026-10-11",
+  "category": "theme",
+  "source": {
+    "awwwards_url": "https://www.awwwards.com/sites/ring-pop-r-candy",
+    "live_url": "https://ringpopcandy.com/",
+    "title": "Ring Pop® Candy",
+    "author": "Manufactur",
+    "award_date": "",
+    "tags": ["E-Commerce", "Web & Interactive", "Colorful", "Responsive Design", "Scrolling", "Photography", "Storytelling", "Shopify", "Microinteractions", "Footer Design", "Figma"],
+    "observed_at": "2026-10-11 15:57–16:20 (CST, UTC+08:00)",
+    "route": "https://ringpopcandy.com/ 首页（桌面 1440x900、窄屏 390x844）；Awwwards 详情页经 HTTP 抓取"
+  },
+  "summary": "一个把「可穿戴糖果」当玩具来收尾的页脚：全幅饱和色场里，一组糖环从色场上方落下、落地互撞叠放并静置，用户可随时抓起抛掷再让它落回；本片段用原创糖环 SVG 与自写重力/碰撞/拖拽积分，在没有 3D 与外部动画库的前提下实现这条完整链路。",
+  "strength": "motion-recipe",
+  "expression": "为什么有效（设计判断）：Ring Pop 的产品承诺是「可以戴在手上的糖」，网站把这句话的最强落点放在页脚——不是再摆一排商品图，而是让糖环像真的掉进盒子里一样坠落、堆叠、可被随手抛掷。重力与惯性让静止的位图获得了「这是实体糖」的暗示，也在电商页脚这块最容易敷衍的位置制造了最后一个记忆点，与整站的派对语气一致。判断依据与观察事实分开：颜色鲜艳、字号大是观察事实；「玩具感支撑了品牌承诺」是解释。需要说明的是，该条目的 Awwwards 状态是 Nominee（收录于 2026-09-29），并非获奖或 Site of the Day，本条目按 nominee 记录，不写作获奖。",
+  "composition": "页脚是一整块饱和色场（实测 #2b6ffc，白字），色场内部左侧/中部是品牌字标与三列菜单，底部是法务行；糖环对象层绝对定位铺满色场、被色场 overflow:hidden 裁切，7 件对象尺寸 216–351px（占色场宽 15%–24%），互相压叠后落在色场地板线上，视觉重心集中在色场下三分之一，菜单文字在其上方被部分遮挡而仍可点击空白处。断点变化：页脚本身不分栏重排，窄屏 390 宽时对象等比缩小、仍为 7 件。",
+  "highlights": [
+    {
+      "id": "h1",
+      "rank": 1,
+      "name": "可抛掷的糖环页脚（物理玩具式收尾）",
+      "why_it_matters": "7 个糖环对象从色场上方画外受重力落下、与地板和彼此碰撞后静置，并长期保持可抓取、可拖动、可带惯性抛掷，落回后再次静置。它把品牌「可以戴在手上的糖」翻译成可操作的物理反馈，是整站唯一让产品本身变成玩具的地方；移除这套物理（只留静态糖环图）后，页脚立刻退化为普通电商页脚。",
+      "dependencies": ["页脚必须是一整块饱和色场且 overflow:hidden（对象被裁切在色场内）", "对象要有环状轮廓 + 顶端主体的独立剪影与透明背景，才能互相遮挡", "对象尺寸需占色场宽 15%–24%，太大就互相顶飞、太小就失去体积暗示", "对象层要盖在文案之上但空白处不吃指针", "逐帧积分（重力/空气阻尼/恢复系数/地面摩擦）与拖拽速度采样缺一不可"],
+      "evidence_ids": ["ev1", "ev2", "ev6"]
+    },
+    {
+      "id": "h2",
+      "rank": 2,
+      "name": "全幅收藏面板的堆叠换幕",
+      "why_it_matters": "首页连续的 5 块全幅收藏面板（Party Pack / Wedding / Originals / Colorfest / Seasonal）中前 4 块被 pin 住，下一块自下而上覆盖前一块，接缝处带出向上阴影，z-index 递增决定覆盖顺序。这是首页的叙事骨架：每一块都是一个高饱和「世界」，滚动等于换幕，配合 250px 的巨型标题把「一种口味一个场合」讲完。移除堆叠（面板只做普通滚动）后，视觉身份还在，但首页失去换幕节奏。",
+      "dependencies": ["至少 2 块、通常 4–5 块连续同构面板", "pinSpacing:false 才能不留空隙地让后块盖住前块", "接缝阴影（rgba(0,0,0,.25) 0 -30px 40px）是「谁盖住谁」的读数", "超大字号 + 负字距的展示字体承担面板主体", "主题图形带 ±25% 的纵向视差"],
+      "evidence_ids": ["ev3", "ev4"]
+    },
+    {
+      "id": "h3",
+      "rank": 3,
+      "name": "场合词横向循环带",
+      "why_it_matters": "首屏之下的横向循环带以「A RING FOR EVERY THING.」起头，后面无限滚动场合词（OPENING NIGHT / SCHOOL SPIRIT / WEDDINGS / CHAMPIONSHIPS…），把产品从「糖」扩写成「任何值得庆祝的场合」，是首页从品牌主张过渡到商品列表的桥梁。它更像节奏铺垫而非主关系，因此排在第三。",
+      "dependencies": ["Flickity 的 wrapAround 与轨道克隆提供无缝循环", "恒定速度的 rAF 步进（scrollSpeed 1px/帧）", "指针按下即暂停，避免与用户拖拽抢控制权"],
+      "evidence_ids": ["ev5"]
+    }
+  ],
+  "selected_fragment": {
+    "highlight_id": "h1",
+    "scope": "一个完整的「色场页脚 + 可抛掷糖环」片段：整块饱和色场页脚（品牌字标、三列菜单、法务行）＋ 7 个原创糖环对象层，包含①进入视口后自色场上方画外下落、②落地回弹与互相碰撞形成的压叠静置堆叠、③抓取—拖动—带惯性抛掷—被重力拉回—再次静置的完整反馈闭环，以及④reduce-motion / 无 JS / 窄屏 / 隐藏标签页的降级与暂停。不含首页其余区块。",
+    "rationale": "与 h2（堆叠换幕）相比，h1 在移除检验下更不可替代：h2 移除堆叠后仍留下高饱和面板与巨型标题（视觉身份尚存），而 h1 移除物理后页脚只剩静态图片，品牌「可穿戴的玩具」这一核心承诺失去唯一落点；同时 Awwwards 列出的 Elements 把 Draggable Candy Footer 放在第一位。选它还有一个实现层面的理由：本片段的核心是对象形态与物理反馈，可以用原创 SVG 精确保留轮廓/体积/透明/遮挡等设计角色，而 h2 的核心是 250px 展示字体，本机无可用同性格字体，硬替会变成「拿 system-ui 当等价替代」。",
+    "invariants": [
+      {"id": "inv1", "description": "对象只存在于页脚色场内并被色场裁切（对象层铺满色场且 overflow:hidden），不会越出色场边界"},
+      {"id": "inv2", "description": "7 件糖环各有「环形带 + 顶端主体」的独立剪影、透明背景与不同色族，尺寸与朝向不一，不是通用占位图形"},
+      {"id": "inv3", "description": "进入色场视口后对象自色场上方画外下落，落在色场地板上并互相碰撞、压叠、遮挡后静置"},
+      {"id": "inv4", "description": "每件对象可被抓取举起、拖动跟随指针，释放后保留抛出速度（惯性）、被重力拉回并再次静置"},
+      {"id": "inv5", "description": "静置不是终点：对象可被反复再次抓取；对象位于页脚文案之上（命中测试先命中对象），而空白处点击仍可落到菜单"}
+    ],
+    "omitted": ["首页其余区块（hero 轮播、巨幅文案、testimonials、newsletter、品牌时间线）", "原站的 GSAP / ScrollTrigger / Draggable / InertiaPlugin / Flickity 依赖，本片段改为零依赖自写积分", "原站糖环的位图照片与自定义字体（Ringold / Greed Standard）", "原站对象之间按旋转包围盒计算的高级边界与堆叠回弹收敛细节（本片段用圆形近似 + 睡眠机制）"],
+    "asset_substitutions": [
+      {"role": "糖环主体（原站 7 张透明位图糖环照片）", "substitute": "原创 SVG 糖环：椭圆环带 + 顶端水滴宝石 + 高光/切面，7 组色族", "kept": "环形轮廓、上下方向、圆润体积、透明背景、视觉重心偏下、单件占色场宽 15%–24%、可互相遮挡", "loss": "原站是真实摄影（塑料质感、真实高光），本片段是矢量插画，材质细节更平；宝石切面样式为自制，与原站造型不同"},
+      {"role": "展示字体（Ringold 展示体 / Greed Standard 正文体）", "substitute": "Trebuchet MS / DejaVu Sans 等系统字体，按字重与换行关系调整字号与字距", "kept": "仅保留字重层级与行宽/换行关系", "loss": "字形（圆角、字面率）与负字距的展示感无法等价复现，故片段的核心不放在排版上；不把系统字体当作等价替代"},
+      {"role": "页脚色场色与文案", "substitute": "新品牌 GLOSSLOOP 与自拟文案；色场用紫罗兰 #3b1fa8（替换原站 #2b6ffc）", "kept": "整块饱和色场的对比与「白字压色场」的层级关系", "loss": "无（本就要求换主题、换文案）"}
+    ]
+  },
+  "motion_catalog": [
+    {
+      "name": "糖环入场下落与静置",
+      "target": "页脚色场内的 7 个糖环对象",
+      "trigger": "页脚进入视口（IntersectionObserver，threshold 0.15，延迟 300ms 启动）",
+      "driver": "rAF 逐帧积分（自写：重力 + 空气阻尼 + 地板恢复系数/摩擦 + 逐对圆近似碰撞），非 CSS 关键帧、非 WAAPI",
+      "duration": null,
+      "easing": null,
+      "delay": 300,
+      "states": [
+        {"name": "before", "description": "对象位于色场上方画外（y 为负，被色场裁切不可见），速度为 0"},
+        {"name": "after", "description": "对象落在地板线上、按恢复系数回弹衰减后停止，被彼此压叠的物件托住，标记为静置"}
+      ],
+      "status": "observed",
+      "evidence_ids": ["ev1", "ev8"]
+    },
+    {
+      "name": "抓取—拖动—惯性抛掷—回落静置",
+      "target": "单个糖环对象",
+      "trigger": "在对象上 pointerdown → pointermove → pointerup（触屏/鼠标/笔同一条指针事件链）",
+      "driver": "指针事件 + 最近若干帧位移采样换算速度；原站用 GSAP Draggable + InertiaPlugin，本片段自写",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {"name": "before", "description": "对象静置在地板线上，速度为 0"},
+        {"name": "mid", "description": "对象跟随指针被举起（原站实测从 y=546 抬到 y=152），带抓取高亮"},
+        {"name": "after", "description": "松开后保留抛掷速度继续位移（原站实测 y=94），随后被重力拉回地板并再次静置（实测回到 y=546）"}
+      ],
+      "status": "observed",
+      "evidence_ids": ["ev2", "ev9"]
+    },
+    {
+      "name": "收藏面板堆叠换幕",
+      "target": "#MainContent 内连续成段的 section.as-stacking-section（外层 .shopify-section）",
+      "trigger": "连续滚动",
+      "driver": "GSAP ScrollTrigger：pin:true + pinSpacing:false，z-index 递增，滚动区间内 toggleClass 接缝阴影；主题图形另有一层 scrub 视差",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {"name": "before", "description": "前一块面板被 pin 在视口内（因高于视口，锚点为 bottom bottom，实测 top=-19），后一块自下方进入"},
+        {"name": "after", "description": "后一块覆盖前一块，外层获得 as-stacking-section--shadow，box-shadow 实测 rgba(0,0,0,0.25) 0px -30px 40px 0px"}
+      ],
+      "status": "observed",
+      "evidence_ids": ["ev3", "ev4"]
+    },
+    {
+      "name": "场合词横向循环",
+      "target": ".mfr-core__scrolling-bar 内的 Flickity 轨道",
+      "trigger": "页面加载后自动循环；指针按下暂停",
+      "driver": "Flickity（wrapAround + 轨道克隆）+ rAF 常量步进 scrollSpeed=1px/帧",
+      "duration": null,
+      "easing": null,
+      "delay": null,
+      "states": [
+        {"name": "before", "description": "轨道以恒定速度向左平移，越界项由克隆项接续"},
+        {"name": "after", "description": "指针按下时轨道暂停（.paused），鼠标移出或释放后继续"}
+      ],
+      "status": "source-supported",
+      "evidence_ids": ["ev5"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev1",
+      "claim": "原站页脚 7 个糖环对象在页脚进入视口后从色场上方画外下落，逐帧 y 从 -385/-563 增大到 546 附近后停止并保持静置。",
+      "status": "observed",
+      "method": "真实浏览器打开原站，滚到页脚，间隔 ~0.28s 连续读取 7 个 [data-candy-item] 的 getComputedStyle().transform 平移分量；另用 CDP Input.dispatchMouseEvent 做真实交互。",
+      "route": "https://ringpopcandy.com/ 首页，滚动到 scrollY≈11250（页脚）",
+      "target": "footer .footer__candies__inner 内的 7 个 [data-candy-item]",
+      "action": "从页首按正常速度滚到页脚并停住，连续采样下落过程与最终位置",
+      "viewport": "1440x900",
+      "artifacts": ["shots/private/original-focus-before.png", "shots/private/original-focus-after-rest.png"],
+      "publishable": false
+    },
+    {
+      "id": "ev2",
+      "claim": "原站单件糖环可被抓取拖动，释放后保留抛掷速度继续位移，再被重力拉回并重新静置：candy#1 从 (507,546) 被拖到 (232,152)，松开瞬间 (184,94)，最终回到 (73,546)。",
+      "status": "observed",
+      "method": "CDP Input.dispatchMouseEvent 依次派发 mousePressed / 12×mouseMoved / mouseReleased，逐步读取 transform 平移分量与命中结果。",
+      "route": "https://ringpopcandy.com/ 首页页脚",
+      "target": "第 1 个 [data-candy-item]（页脚糖环）",
+      "action": "在对象中心按下 → 向左上拖动 → 松开 → 等待静置",
+      "viewport": "1440x900",
+      "artifacts": ["shots/private/original-focus-mid.png", "shots/private/original-focus-after-drag.png"],
+      "publishable": false
+    },
+    {
+      "id": "ev3",
+      "claim": "原站首页连续 5 块收藏面板中前 4 块被 pin（滚动到 scrollY=1900–5400 期间 top 稳定在 -19 / -36 / -104 / 65），第 5 块不 pin；覆盖进行时外层获得 as-stacking-section--shadow，计算样式为 rgba(0,0,0,0.25) 0px -30px 40px 0px，且各面板 z-index 依次为 1..5。",
+      "status": "observed",
+      "method": "在 1440x900 下分段滚动并读取每个 section.as-stacking-section 的 getBoundingClientRect().top、外层 classList、boxShadow 与 style.zIndex；并用 gsap.core.globals().ScrollTrigger.getAll() 读出 4 个 pin 触发器。",
+      "route": "https://ringpopcandy.com/ 首页，scrollY 1500→5700",
+      "target": "#MainContent 内连续的 5 个 section.as-stacking-section（外层 .shopify-section / .pin-spacer）",
+      "action": "分段采用即时滚动（window.scrollTo({behavior:'instant'})）并在每个位置读取几何与样式",
+      "viewport": "1440x900",
+      "artifacts": ["shots/private/original-stacking-mid.png"],
+      "publishable": false
+    },
+    {
+      "id": "ev4",
+      "claim": "站方公开脚本显示堆叠机制由 GSAP ScrollTrigger 建立：先给连续段内各 section 设 zIndex=index+1，再对除最后一块外的每块创建 {pin:true, pinSpacing:false, start: 高于视口?'bottom bottom':'top top+=headerHeight', end: stackDistance}；对除第一块外的每块用 toggleClass 加 as-stacking-section--shadow；另对 [data-stacking-section-icon-parallax] 做 yPercent 25→-25 的 scrub 视差。",
+      "status": "source-supported",
+      "method": "HTTP 取回 https://ringpopcandy.com/cdn/shop/t/12/assets/mfr-stacking-sections.min.js 并阅读；同时读出页面内 ScrollTrigger 实例的 pin/start/end 数值交叉核对。",
+      "route": "/cdn/shop/t/12/assets/mfr-stacking-sections.min.js",
+      "target": "-",
+      "action": "HTTP GET 公开脚本（未执行其中任何指令，仅作为机制证据阅读）",
+      "viewport": "-",
+      "artifacts": [],
+      "publishable": false
+    },
+    {
+      "id": "ev5",
+      "claim": "场合词循环带由 Flickity 的 wrapAround + 轨道克隆构成，并用 rAF 以常量 scrollSpeed（默认 1）推进 x，指针按下时暂停（.paused）、移出后恢复；页面上该轨道的 transform 平移量为矩阵非零值，说明轨道已被偏移。",
+      "status": "source-supported",
+      "method": "HTTP 取回 mfr-component__MFRCarouselMarquee.min.js 阅读；在页面内读取 .mfr-core__scrolling-bar/.flickity-slider 的结构与 transform 并截图。未持续采样其位移，故只记为源码支持。",
+      "route": "https://ringpopcandy.com/ 首页 scrollY≈1200",
+      "target": ".mfr-core__scrolling-bar 与其内 .flickity-slider",
+      "action": "滚到循环带位置并读取 DOM/计算样式，截图留证",
+      "viewport": "1440x900",
+      "artifacts": ["shots/private/original-marquee.png"],
+      "publishable": false
+    },
+    {
+      "id": "ev6",
+      "claim": "原站页脚糖环的物理参数取自公开脚本 mfr-component__MFRFooterCandiesV3.min.js：重力 G=0.55、空气阻尼 AIR=0.985、恢复系数 E=0.38、地面摩擦 FLOOR_F=0.6、滑移摩擦 SLIDE_FRICTION=0.85、单帧最大步长 MAX_STEP=18，并用 Draggable + InertiaPlugin 实现拖拽与惯性；对象在页脚进入视口后由 IntersectionObserver 延迟 300ms 启动。",
+      "status": "source-supported",
+      "method": "HTTP 取回该 Alpine 组件脚本并阅读其常量与初始化流程；与 ev1/ev2 的实际观察互相印证。",
+      "route": "/cdn/shop/t/12/assets/mfr-component__MFRFooterCandiesV3.min.js",
+      "target": "-",
+      "action": "HTTP GET 公开脚本（仅阅读，未执行）",
+      "viewport": "-",
+      "artifacts": [],
+      "publishable": false
+    },
+    {
+      "id": "ev7",
+      "claim": "窄屏 390x844 下同一批面板高度降到 784–811px（小于视口高），pin 起点由桌面端的 'bottom bottom' 切换为 'top top+=headerHeight'；巨型标题从 250px 降到 64px、H1 从 250px 降到 100px；页脚糖环仍为 7 件、容器高 1045px。",
+      "status": "observed",
+      "method": "CDP Emulation.setDeviceMetricsOverride 切到 390x844（mobile）后重新加载，读取 gsap ScrollTrigger 的 pin 数量、逐块高度与计算字号，并截图。",
+      "route": "https://ringpopcandy.com/ 首页（窄屏）",
+      "target": "section.as-stacking-section 群组、h1/h2.section-title、.footer__candies__inner",
+      "action": "切换视口后重新加载并读取几何与样式",
+      "viewport": "390x844",
+      "artifacts": ["shots/private/original-narrow.png"],
+      "publishable": false
+    },
+    {
+      "id": "ev8",
+      "claim": "本片段 demo 在 1440x900 下：进入色场后 7 件糖环自上方画外下落（连续采样 y≈84→482→968→1094 后收敛），最终 7/7 全部静置，且部分对象停在地板上、部分被别的对象托住（压叠）。",
+      "status": "observed",
+      "method": "file:// 打开 demo，滚到色场，按 ~0.22s 间隔连续读取 7 个 [data-sweet] 的 transform 与 is-settled 类；读取旁侧面板的运行时读数。",
+      "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+      "target": ".sweets-field 内的 7 个 [data-sweet]",
+      "action": "滚到页脚色场并等待约 4 秒",
+      "viewport": "1440x900",
+      "artifacts": ["shots/demo-before.png", "shots/demo.png"],
+      "publishable": true
+    },
+    {
+      "id": "ev9",
+      "claim": "本片段 demo 中抓取「芒果橙」被举起（transform 由 (314,636) 变为 (224,402)、is-dragging 为真），松开后惯性位移、随后被重力拉回地板并重新静置（回到 (254,625)，is-settled 恢复）。",
+      "status": "observed",
+      "method": "CDP Input.dispatchMouseEvent 派发 mousePressed → 9×mouseMoved → mouseReleased，逐步读取 transform 与 classList。",
+      "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+      "target": "[data-sweet][data-flavour=\"mango\"]",
+      "action": "在对象中心按下 → 向左上拖动 90/234px → 截图 → 松开 → 等待静置",
+      "viewport": "1440x900",
+      "artifacts": ["shots/demo-mid.png", "shots/demo-after.png"],
+      "publishable": true
+    },
+    {
+      "id": "ev10",
+      "claim": "本片段 demo 在窄屏 390x844 下 7 件对象仍全部静置于色场内（色场 390x783），页面无横向溢出（body.scrollWidth 等于 innerWidth），对象宽度 74–114px（占色场宽 19%–29% 的等比缩放）。",
+      "status": "observed",
+      "method": "CDP 切到 390x844 后滚到底部，读取色场尺寸、逐件几何、body.scrollWidth 与 innerWidth 并截图。",
+      "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+      "target": ".sweets-field 与 7 个 [data-sweet]",
+      "action": "切换窄屏视口后滚动到色场底部",
+      "viewport": "390x844",
+      "artifacts": ["shots/demo-narrow.png"],
+      "publishable": true
+    },
+    {
+      "id": "ev11",
+      "claim": "本片段 demo 在 prefers-reduced-motion: reduce 下不启动 rAF（state.running 为 false），7 件对象直接以静置位呈现，读数标注 reduce-motion。",
+      "status": "observed",
+      "method": "CDP Emulation.setEmulatedMedia 设置 prefers-reduced-motion=reduce 后重新加载，读取 matchMedia 结果、7 件对象位置、is-settled 与实例 state.running，并截图。",
+      "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+      "target": "实例 state 与 7 个 [data-sweet]",
+      "action": "模拟系统减弱动态后重新加载并滚到色场",
+      "viewport": "1440x900",
+      "artifacts": ["shots/demo-reduced.png"],
+      "publishable": true
+    },
+    {
+      "id": "ev12",
+      "claim": "本片段 demo 在关闭脚本执行时仍静态可读：页脚文案、三列菜单与 7 件糖环 SVG 全部可见，糖环以未旋转的静置态贴住色场底边。",
+      "status": "observed",
+      "method": "CDP Emulation.setScriptExecutionDisabled(true) 后重新加载，统计 [data-sweet] 与 .sweet__art 数量并读取几何与截图。",
+      "route": "file:///mnt/d/Code/awwwards-lab-rebuild/c-ringpop/entries/2026-10-11-throwable-sweets-footer/demo/index.html",
+      "target": "7 个 [data-sweet] 与 .sweet__art",
+      "action": "禁用脚本后重新加载并滚到色场",
+      "viewport": "1440x900",
+      "artifacts": ["shots/demo-nojs.png"],
+      "publishable": true
+    }
+  ],
+  "extracted_mechanism": "一个「色场 + 可抛掷对象」的物理收尾片段：色场是一块被裁切的绝对定位舞台，对象层铺满舞台并只让对象本身吃指针；每个对象是有独立剪影与透明背景的实体，进入视口后从舞台上方画外按固定步长做重力积分下落，触地按恢复系数回弹、按地面摩擦减速，对象两两用圆近似做接触（软位置修正 + 法向冲量 + 切向自转），接近静止的接触转为阻尼并计入静置计时，稳定后进入睡眠不再参与积分；指针按下即举起对象并按最近采样换算抛出速度，松开后继续积分直到再次睡眠；睡眠对象只在有明显运动的邻居接触时被唤醒。整条链路的可复用点是：舞台裁切 + 实体对象 + 睡眠式接触求解 + 指针速度采样，而不是某个 CSS 关键帧。",
+  "dont_copy": "适用边界与取舍：①来源站把 7 张真实糖环摄影当对象，本条目用原创 SVG 替代，材质细节必然更平，不宜宣称「复刻质感」；②来源站对象之间按旋转包围盒计算落地留边，本片段用圆形近似 + 睡眠机制，压叠时的间隙分布与原站不完全一致，属于可接受近似；③来源站对象层会整体盖住页脚菜单并吃掉指针（在其上无法点菜单），本片段让对象层空白处指针穿透，是对可用性的主动改良，不是照抄缺点；④重力/阻尼/恢复系数等常量沿用其公开脚本中可读到的一组数值以便对照，但积分与拖拽全部自写；⑤未做性能与无障碍的对照测试，因此不评价原站在这些维度是否失败，只记录本片段自身在 1440x900 / 390x844 下的表现。",
+  "tokens": {
+    "colors": {
+      "band_bg": "#2b6ffc",
+      "band_ink": "#ffffff",
+      "band_ink_dim": "rgba(255,255,255,0.4)",
+      "page_bg_context": "#fff7e9",
+      "object_colors": null,
+      "note": "band_* 为原站页脚色场实测值（CSS 变量 --footer-background / --footer-text-alpha）。原站糖环是 7 张透明位图照片，没有可提取的单一色值，故 object_colors 记 null，本片段改用 src/sweet-shapes.js 中的 7 组原创色族。"
+    },
+    "typography": {
+      "original_family": "\"Greed Standard\", Helvetica, Arial, sans-serif（正文）；Ringold, Helvetica, Arial, sans-serif（展示，250px/负字距）",
+      "footer_menu_size_mobile": "24px",
+      "footer_menu_size_desktop": "22px",
+      "footer_heading_size_mobile": "40px",
+      "footer_heading_size_desktop": "30px",
+      "footer_heading_tracking": "-0.8px",
+      "substitute_note": "自定义字体文件不可得也不可搬运；本片段用系统字体替代并只保留字重层级与换行关系，不声称字形等价，因此片段核心不依赖排版性格。"
+    },
+    "spacing": {
+      "footer_height_desktop": "821px（原站 1440 宽实测）",
+      "object_zone": "对象层绝对定位铺满色场（inset:0）并被色场裁切，高度 = 色场高",
+      "object_size_range": "216–351px 宽（原站），约占色场宽 15%–24%",
+      "demo_band_min_height": "88vh（本片段）"
+    },
+    "motion": {
+      "gravity": 0.55,
+      "air_drag": 0.985,
+      "restitution": 0.38,
+      "floor_friction": 0.6,
+      "slide_friction": 0.85,
+      "max_step": 18,
+      "max_angular": 6,
+      "drop_delay_ms": 300,
+      "settle_rule": "速度 < 0.6px/帧且已有支承（地板或接触）持续 24 帧 → 睡眠（本片段参数）",
+      "seam_shadow": "rgba(0,0,0,0.25) 0px -30px 40px 0px（原站堆叠面板接缝阴影，属 h2 证据）"
+    }
+  },
+  "api": "window.ThrowableSweets = { mount(rootEl, options) → instance, autoMount(scope) → instance[], defaults, instances }。mount 会挂载 rootEl（如 <footer class=\"sweets-band\" data-sweets-band>）内的 [data-sweets-field] 与 [data-sweet]；instance 暴露 reset()（重新投放）、settleNow()（立即静置）、setOptions({gravity,bounce,...})、readout()（件数/静置数/色场尺寸）、destroy()、items 与 state（运行时只读参考）。页面带 data-sweets-band 时无需手动调用：脚本自动挂载并在 DOMContentLoaded 后生效。调参控件与读数按约定用 [data-sweets-opt]、[data-sweets-read]、[data-sweets-reset]、[data-sweets-settle] 自动接线。",
+  "entrypoints": ["src/throwable-sweets.js", "src/throwable-sweets.css", "src/sweet-shapes.js"],
+  "files": ["demo/index.html", "src/throwable-sweets.js", "src/throwable-sweets.css", "src/sweet-shapes.js"],
+  "deps": [],
+  "reuse_hints": "适用任务：需要给落地页/电商页脚或任何「收尾区块」加一个可玩的物理层，且已有明确的实体主体（糖、球、扭蛋、贴纸、筹码等）。必要输入：一个被裁切的色场容器（position:relative + overflow:hidden）＋ 一组带透明背景与独立剪影的对象；对象相对容器宽度最好落在 15%–25%，否则会互相顶飞或失去体积感。迁移时把 src/throwable-sweets.css 的 --sweets-* 变量换成本站色与字体，把 demo 里 7 个内联 SVG 换成自己的素材（保持环形/实体轮廓与透明背景），然后用 ThrowableSweets.mount() 挂载并把重力/弹性调到与素材体量匹配。不适用场景：对象本身是细长文字或线条（圆形近似会失真）、页脚下方没有足够画外空间（下落起点会被裁掉看不见）、或页面已有一套滚动劫持（同一 rAF 里并存需自行调度）。",
+  "repro_notes": "操作路径（原站）：HTTP 抓取 Awwwards 详情页与站方公开脚本 → 真实浏览器打开 https://ringpopcandy.com/ 在 1440x900 下从页首滚到页脚 → 用 CDP Input.dispatchMouseEvent 做真实拖拽 → 切 390x844 复看 → 全程用 getComputedStyle/transform/getBoundingClientRect/ScrollTrigger 实例读数，不依赖看图。重置方式：原站每次重新加载即重放；本片段 demo 内「再投放一次」调用 instance.reset()。环境与测量差异：①本机浏览器窗口实际高度有限，超过约 900px 的模拟视口收不到真实输入事件，因此拖拽测试统一在 1440x900 且滚到页面底部进行；②原站的 pin 需要等 GSAP 的 ScrollTrigger.refresh() 之后再读，滚动初期读数会偏；③原站页脚对象层会吃掉指针，拖拽测试必须点在对象中心；④Awwwards 详情页对无头浏览器返回 403，列表与详情一律用 HTTP/web_extract 抓取，浏览器只用于原站与 demo。已验证：标签页隐藏时暂停、恢复时继续（visibilitychange）；键盘方向键可微调对象（ArrowLeft 使 x 从 422→410）。体量说明：src 手写核心共 794 行（throwable-sweets.js 524 / throwable-sweets.css 179 / sweet-shapes.js 91），超出 PROMPT 的 400–600 行提示；多出的部分全部是自写逐帧物理求解（重力、圆近似接触、睡眠与唤醒）、指针速度采样和四类降级路径，没有用大段生成素材或压缩代码掩盖复杂度。未验证项：原站循环带的速度连续性（只做了源码支持与静态读数）、原站糖环之间旋转包围盒级的堆叠细节、任何性能/无障碍对照，以及本片段 IntersectionObserver 的「离开视口即暂停」分支——本 demo 的页脚恒占视口 15% 以上，无法自然触发，故该分支只有代码层面的实现而没有实际操作证据。",
+  "verification": {
+    "rendered_ok": true,
+    "console_errors": 0,
+    "screenshot": "shots/demo.png",
+    "checked_at": "2026-10-11T16:35 (CST, UTC+08:00) · 独立复核",
+    "source_observed": true,
+    "mechanism_preserved": true,
+    "user_review": {
+      "passed": true,
+      "reviewer": "未参与实现的独立复核子代理（Hermes · deepseek-v4.1-flash）",
+      "cases": [
+        {
+          "invariant_id": "inv1",
+          "action": "读对象层/色场计算样式；触发「再投放」并在下落中段取帧；再把一件对象拖到色场左上极限；逐件读 getBoundingClientRect 与色场边界比对（1440x900）",
+          "observation": "色场 .sweets-band 与对象层 .sweets-field 计算样式均为 overflow:hidden；静置后 7 件对象 AABB 底边全部=色场底边(1496) 且左右不越界（visuallyOutside=[]）；下落中对象 y 为负、色场顶边上方 15px 处 elementsFromPoint 返回 section.lede（上方部分被裁切、不可见也点不到）；拖到极限后仍留在色场内 (x=116,y=165)，右/下边界由 boundsFor 夹紧。",
+          "viewport": "1440x900",
+          "result": "pass",
+          "artifacts": ["shots/demo-review-inv1-clip-boundary.png", "shots/demo-review-inv1-midfall-clip.png"]
+        },
+        {
+          "invariant_id": "inv2",
+          "action": "把 7 个 .sweet__art 逐个序列化光栅化到 240x210 canvas，采样环内孔/宝石中心像素、统计不透明占比与主色；并读 7 件的 --w 与旋转（1440x900）",
+          "observation": "7 件全部 环内孔 alpha=0（是真环而非实心块/甜甜圈）、宝石中心 alpha=255、不透明占比≈0.406；宝石实测色明显分属 红/橙/绿/粉/青/紫/黄 七个色族；布局宽占色场宽 15%–24%、旋转 −36°…34° 互不相同；每件轮廓均为「椭圆环带+顶端水滴宝石」。",
+          "viewport": "1440x900",
+          "result": "pass",
+          "artifacts": ["shots/demo-review-desktop-settled.png"]
+        },
+        {
+          "invariant_id": "inv3",
+          "action": "注入逐帧记录器后触发「再投放」，采样 7 件 y 直到静置；静置后逐件在其自身中心做 elementsFromPoint，并对照原站页脚（1440x900）",
+          "observation": "进场后 7 件 y 从 −721/−649/… 一路单调增大（−604→−441→…→468），落到 531/638/578/661/545/686/628 后收敛为 7/7 is-settled；静置帧 6/7 对象在自身中心是最上层、blush 中心被别的对象盖住，说明落地后互相压叠/遮挡；落地帧底部贴住色场底线。原站同视口页脚色场同为白字蓝底、糖环自上方下落并互相压叠、底边被裁切（我方实拍私存）。",
+          "viewport": "1440x900",
+          "result": "pass",
+          "artifacts": ["shots/demo-review-inv3-occlusion.png"]
+        },
+        {
+          "invariant_id": "inv4",
+          "action": "CDP 真实指针事件在「浆果红」中心 mousePressed→多次 mouseMoved（向左上）→mouseReleased，随后按 ~0.12s 采样位移（1440x900）",
+          "observation": "按下即 is-dragging 且去掉 is-settled，拖动时对象跟随到 (195,294)；松开瞬间保留抛出速度 vx=7.73、vy=−11.82，之后仍继续位移到 y≈97（惯性），再被重力拉回 130→182→…→453、回弹，最后回落并恢复 is-settled（y≈514）。",
+          "viewport": "1440x900",
+          "result": "pass",
+          "artifacts": ["shots/demo-review-inv4-drag-mid.png", "shots/demo-review-inv4-after-release.png"]
+        },
+        {
+          "invariant_id": "inv5",
+          "action": "读色场/文案 z-index 与 pointer-events；在菜单链接与对象中心分别做 elementsFromPoint，并对菜单链接派发真实点击；静置后把「浆果红」连续再次抓取两次（1440x900）",
+          "observation": "对象层 z-index:2 > 文案层 z-index:1，命中测试先命中对象（对象中心 stack[0]=button.sweet）；对象层空白处 pointer-events:none，菜单链接处 elementsFromPoint=…a 且真实点击触发该链接（window.__clicked=true）；静置的「浆果红」被连续再次抓取两次并重新 is-settled，证明静置不是终点。",
+          "viewport": "1440x900",
+          "result": "pass",
+          "artifacts": ["shots/demo-review-inv5-hittest.png"]
+        },
+        {
+          "invariant_id": "inv3",
+          "action": "390x844 窄屏重新加载并滚到色场，采样 7 件位置、色场尺寸与 body.scrollWidth（第二视口复核）",
+          "observation": "窄屏下 7 件仍全部静置于色场（色场 390x783），无横向溢出（body.scrollWidth=innerWidth=390），对象宽 72–121px 等比缩小；窄屏下抓取—抛出—回落同样可用（一件从 (33,680) 拖到 (73,600)，松开后回落到 679 并 is-settled）。",
+          "viewport": "390x844",
+          "result": "pass",
+          "artifacts": ["shots/demo-review-narrow.png"]
+        }
+      ]
+    },
+    "note": "运行检查（实现者）＋独立用户操作复核（未参与实现的子代理，2026-10-11 16:35，1440x900 与 390x844）。五个核心不变量逐条以独立操作 case 实测 pass，每条配本人实拍 demo 帧。复核另做：移除检验（setOptions({gravity:0}) 后再投放 → 7 件停在色场上方画外、0 可见，页脚退化为纯色场纯文案，说明物理层就是该片段的身份）；降级路径（prefers-reduced-motion:reduce → running=false、7 件直接静置；禁用脚本 → 文案与 7 件 SVG 仍静态可读；document.hidden=true 派发 visibilitychange → running 由 true 变 false 暂停）。console 错误独立复测：5 次前台重载均 0 条。独立对照：亲自打开 https://ringpopcandy.com/ ，处理后 cookie 条，在 1440x900 与 390x844 采页脚色场（实测原站页脚底色 rgb(43,111,252)=#2b6ffc，本 demo 用自定的 #3b1fa8），原站页脚同样白字、糖环自上方下落并互相压叠、底边被裁切。"
+  }
+}
